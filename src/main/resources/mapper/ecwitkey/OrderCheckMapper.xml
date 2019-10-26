@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liulangzheli.ecwitkeyplus.ecwitkey.mapper.OrderCheckMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        check_id, order_id, creat_time, file_nsame, format, size, intro, check_time, state, suggest, remark
+    </sql>
+
+    <select id="getOrderCheckById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderCheckQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from order_check where check_id = #{id}
+    </select>
+
+    <select id="getOrderCheckPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderCheckQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from order_check
+    </select>
+
+</mapper>

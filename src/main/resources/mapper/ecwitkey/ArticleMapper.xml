@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liulangzheli.ecwitkeyplus.ecwitkey.mapper.ArticleMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        article_id, title, create_time, content, user_id, remark
+    </sql>
+
+    <select id="getArticleById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ArticleQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from article where article_id = #{id}
+    </select>
+
+    <select id="getArticlePageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ArticleQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from article
+    </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liulangzheli.ecwitkeyplus.ecwitkey.mapper.ProjectRequirementMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        requirement_id, category_id, order_id, qty, count_type, area, amount, remark
+    </sql>
+
+    <select id="getProjectRequirementById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from project_requirement where requirement_id = #{id}
+    </select>
+
+    <select id="getProjectRequirementPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from project_requirement
+    </select>
+
+</mapper>

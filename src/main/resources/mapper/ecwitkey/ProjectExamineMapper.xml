@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liulangzheli.ecwitkeyplus.ecwitkey.mapper.ProjectExamineMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        examine_id, order_id, state, role_id, examine_time, remark
+    </sql>
+
+    <select id="getProjectExamineById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectExamineQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from project_examine where examine_id = #{id}
+    </select>
+
+    <select id="getProjectExaminePageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectExamineQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from project_examine
+    </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liulangzheli.ecwitkeyplus.ecwitkey.mapper.ProjectSourceMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        source_id, original_name, source_name, format, size, order_id, remark
+    </sql>
+
+    <select id="getProjectSourceById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectSourceQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from project_source where source_id = #{id}
+    </select>
+
+    <select id="getProjectSourcePageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectSourceQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from project_source
+    </select>
+
+</mapper>
