@@ -91,7 +91,7 @@
 - Add `maven-javadoc-plugin` java api docs
 
 ### 📔  Documentation
-- [CentOS Quick Installation Environment / Build / Deploy / Launch Spring-boot-plus Project](https://github.com/liulangzheli/ec-witkey-plus#centos-quick-installation-environment--build--deploy--launch-ec-witkey-plus-project)
+- [CentOS Quick Installation Environment / Build / Deploy / Launch Ec-Witkey-Plus Project](https://github.com/liulangzheli/ec-witkey-plus#centos-quick-installation-environment--build--deploy--launch-ec-witkey-plus-project)
 - [ec-witkey-plus java docs](http://liulangzheli.io/ec-witkey-plus-apidocs/)
 
 ### 🔨 Dependency Upgrades

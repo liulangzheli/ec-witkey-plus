@@ -9,7 +9,7 @@
 
 <p align="center">  
   <a href="https://github.com/liulangzheli/ec-witkey-plus/">
-    <img alt="ec-witkey-plus version" src="https://img.shields.io/badge/spring--boot--plus-1.3.1.RELEASE-blue">
+    <img alt="ec-witkey-plus version" src="https://img.shields.io/badge/ec--witkey--plus-1.3.1.RELEASE-blue">
   </a>
   <a href="https://github.com/spring-projects/spring-boot">
     <img alt="spring boot version" src="https://img.shields.io/badge/spring%20boot-2.1.9.RELEASE-brightgreen">
@@ -254,7 +254,7 @@ public class SpringBootPlusApplication {
  [https://ecwitkey.plus](https://ecwitkey.plus)
 
 
-## CentOS Quick Installation Environment / Build / Deploy / Launch Spring-boot-plus Project
+## CentOS Quick Installation Environment / Build / Deploy / Launch Ec-Witkey-Plus Project
 
 ### 1. Download the installation script
 > Install `jdk`, `git`, `maven`, `redis`, `mysql`
@@ -312,7 +312,7 @@ tail -f -n 1000 /root/ec-witkey-plus-server/logs/ec-witkey-plus.log
 ## ec-witkey-plus Videos  :movie_camera: 
 - [5-Minutes-Finish-CRUD](https://www.bilibili.com/video/av67401204)
 - [CentOS Quick Installation JDK/Git/Maven/Redis/MySQL](https://www.bilibili.com/video/av67218836/)
-- [CentOS Quick Build / Deploy / Launch Spring-boot-plus Project](https://www.bilibili.com/video/av67218970/)
+- [CentOS Quick Build / Deploy / Launch Ec-Witkey-Plus Project](https://www.bilibili.com/video/av67218970/)
 
 
 ## License

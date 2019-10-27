@@ -20,7 +20,7 @@
 </p>
 
 ### ec-witkey-plus是一套集成spring boot常用开发组件的后台快速开发框架
-> Spring-Boot-Plus是易于使用，快速，高效，功能丰富，开源的spring boot 脚手架.
+> Ec-Witkey-Plus是易于使用，快速，高效，功能丰富，开源的spring boot 脚手架.
 
 > 前后端分离,专注于后端服务
 
