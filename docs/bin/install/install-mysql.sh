@@ -32,10 +32,10 @@ yum clean all
 yum makecache
 
 # 下载mysql rpm
-wget https://repo.mysql.com//mysql80-community-release-el7-3.noarch.rpm
+wget https://repo.mysql.com//mysql57-community-release-fc27-10.noarch.rpm
 
 # 安装rpm
-rpm -Uvh mysql80-community-release-el7-3.noarch.rpm
+rpm -Uvh mysql57-community-release-fc27-10.noarch.rpm
 
 # yum 安装mysql服务
 yum install -y mysql-community-server
