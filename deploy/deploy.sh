@@ -51,7 +51,8 @@ fi
 pwd
 
 # 2. maven打包
-mvn clean
+#mvn clean
+mvn clean package -Dmaven.test.skip=true
 mvn package -Ptest
 
 pwd
