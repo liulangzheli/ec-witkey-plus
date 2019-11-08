@@ -54,6 +54,28 @@ public class SysUserController extends BaseController {
     }
 
     /**
+     * 个人注册
+     */
+    @PostMapping("/register/personal")
+    @RequiresPermissions("sys:register:personal")
+    @ApiOperation(value = "个人注册", notes = "注册个人用户", response = ApiResult.class)
+    public ApiResult<Boolean> addSysUserForPersonal(@Valid @RequestBody SysUser sysUser) throws Exception {
+        boolean flag = sysUserService.saveSysUser(sysUser);
+        return ApiResult.result(flag);
+    }
+
+    /**
+     * 公司注册
+     */
+    @PostMapping("/register/company")
+    @RequiresPermissions("sys:register:company")
+    @ApiOperation(value = "公司注册", notes = "注册公司用户", response = ApiResult.class)
+    public ApiResult<Boolean> addSysUserForCompany(@Valid @RequestBody SysUser sysUser) throws Exception {
+        boolean flag = sysUserService.saveSysUser(sysUser);
+        return ApiResult.result(flag);
+    }
+
+    /**
      * 修改系统用户
      */
     @PostMapping("/update")
@@ -63,6 +85,29 @@ public class SysUserController extends BaseController {
         boolean flag = sysUserService.updateSysUser(sysUser);
         return ApiResult.result(flag);
     }
+
+    /**
+     * 修改系统用户
+     */
+    @PostMapping("/update/personal")
+    //@RequiresPermissions("sys:user:update:personal")
+    @ApiOperation(value = "个人会员信息更新", notes = "个人会员信息更新", response = ApiResult.class)
+    public ApiResult<Boolean> updateSysUserForPersonal(@Valid @RequestBody SysUser sysUser) throws Exception {
+        boolean flag = sysUserService.updateSysUser(sysUser);
+        return ApiResult.result(flag);
+    }
+
+    /**
+     * 修改系统用户
+     */
+    @PostMapping("/update/company")
+    //@RequiresPermissions("sys:user:update:company")
+    @ApiOperation(value = "企业会员信息更新", notes = "企业会员信息更新", response = ApiResult.class)
+    public ApiResult<Boolean> updateSysUserForCompany(@Valid @RequestBody SysUser sysUser) throws Exception {
+        boolean flag = sysUserService.updateSysUser(sysUser);
+        return ApiResult.result(flag);
+    }
+
 
     /**
      * 删除系统用户
