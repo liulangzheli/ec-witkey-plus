@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-package com.liulangzheli.ecwitkeyplus.xss;
+package com.liulangzheli.ecwitkeyplus.common.xss;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import lombok.extern.slf4j.Slf4j;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.IOException;
 
 /**
- * Jackson响应参数字符串转义处理
+ * Jackson请求参数字符串转义处理
  *
  * @author liulangzheli
  * @date 2019-10-10
  * @since 1.3.1.RELEASE
  **/
-@Slf4j
-public class XssJacksonSerializer extends JsonSerializer<String> {
+public class XssJacksonDeserializer extends JsonDeserializer<String> {
 
     @Override
-    public void serialize(String s, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        jsonGenerator.writeString(StringEscapeUtils.escapeHtml4(s));
+    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        return StringEscapeUtils.escapeHtml4(jsonParser.getText());
     }
 
 }

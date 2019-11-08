@@ -33,6 +33,14 @@ import java.util.List;
 @ConfigurationProperties(prefix = "ec-witkey-plus.shiro")
 public class ShiroProperties {
 
+    /**
+     * 是否启用
+     */
+    private boolean enable;
+
+    /**
+     * 路径权限配置
+     */
     private String filterChainDefinitions;
 
     /**

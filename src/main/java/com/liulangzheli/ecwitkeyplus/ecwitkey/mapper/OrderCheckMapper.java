@@ -12,31 +12,31 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 订单验收信息 Mapper 接口
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Repository
 public interface OrderCheckMapper extends BaseMapper<OrderCheck> {
+    
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             */
+        OrderCheckQueryVo getOrderCheckById(Serializable id);
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    OrderCheckQueryVo getOrderCheckById(Serializable id);
-
-    /**
-     * 获取分页对象
-     *
-     * @param page
-     * @param orderCheckQueryParam
-     * @return
-     */
-    IPage<OrderCheckQueryVo> getOrderCheckPageList(@Param("page") Page page, @Param("param") OrderCheckQueryParam orderCheckQueryParam);
-
-}
+            /**
+             * 获取分页对象
+             *
+             * @param page
+             * @param orderCheckQueryParam
+             * @return
+             */
+            IPage<OrderCheckQueryVo> getOrderCheckPageList(@Param("page") Page page, @Param("param") OrderCheckQueryParam orderCheckQueryParam);
+    
+        }

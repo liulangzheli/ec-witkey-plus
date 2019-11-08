@@ -12,31 +12,31 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 类别管理 Mapper 接口
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Repository
 public interface CategoryMapper extends BaseMapper<Category> {
+    
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             */
+        CategoryQueryVo getCategoryById(Serializable id);
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    CategoryQueryVo getCategoryById(Serializable id);
-
-    /**
-     * 获取分页对象
-     *
-     * @param page
-     * @param categoryQueryParam
-     * @return
-     */
-    IPage<CategoryQueryVo> getCategoryPageList(@Param("page") Page page, @Param("param") CategoryQueryParam categoryQueryParam);
-
-}
+            /**
+             * 获取分页对象
+             *
+             * @param page
+             * @param categoryQueryParam
+             * @return
+             */
+            IPage<CategoryQueryVo> getCategoryPageList(@Param("page") Page page, @Param("param") CategoryQueryParam categoryQueryParam);
+    
+        }

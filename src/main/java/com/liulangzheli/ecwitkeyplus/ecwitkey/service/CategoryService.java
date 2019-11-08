@@ -9,29 +9,58 @@ import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 类别管理 服务类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 public interface CategoryService extends BaseService<Category> {
+            
+                /**
+                 * 保存
+                 *
+                 * @param category
+                 * @return
+                 * @throws Exception
+                 */
+                boolean saveCategory(Category category) throws Exception;
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    CategoryQueryVo getCategoryById(Serializable id) throws Exception;
+                /**
+                 * 修改
+                 *
+                 * @param category
+                 * @return
+                 * @throws Exception
+                 */
+                boolean updateCategory(Category category) throws Exception;
 
-    /**
-     * 获取分页对象
-     *
-     * @param categoryQueryParam
-     * @return
-     */
-    Paging<CategoryQueryVo> getCategoryPageList(CategoryQueryParam categoryQueryParam) throws Exception;
+                /**
+                 * 删除
+                 *
+                 * @param id
+                 * @return
+                 * @throws Exception
+                 */
+                boolean deleteCategory(Long id) throws Exception;
+        
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             * @throws Exception
+             */
+        CategoryQueryVo getCategoryById(Serializable id) throws Exception;
 
-}
+            /**
+             * 获取分页对象
+             *
+             * @param categoryQueryParam
+             * @return
+             * @throws Exception
+             */
+            Paging<CategoryQueryVo> getCategoryPageList(CategoryQueryParam categoryQueryParam) throws Exception;
+    
+        }

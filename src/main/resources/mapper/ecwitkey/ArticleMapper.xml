@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        article_id, title, create_time, content, user_id, remark
+        id, title, create_time, content, user_id, remark
     </sql>
 
     <select id="getArticleById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ArticleQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from article where article_id = #{id}
+        from article where id = #{id}
     </select>
 
     <select id="getArticlePageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ArticleQueryVo">

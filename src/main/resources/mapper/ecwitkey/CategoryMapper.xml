@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        category_id, category_type, cate_name, cate_parent_id, sort, intro, create_time, remark
+        id, category_type, cate_name, cate_parent_id, sort, intro, create_time, remark
     </sql>
 
     <select id="getCategoryById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.CategoryQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from category where category_id = #{id}
+        from category where id = #{id}
     </select>
 
     <select id="getCategoryPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.CategoryQueryVo">

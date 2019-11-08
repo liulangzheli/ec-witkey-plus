@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        collect_id, user_id, supplier_id, create_time, tag, remark
+        id, user_id, supplier_id, create_time, tag, remark
     </sql>
 
     <select id="getCollectById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.CollectQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from collect where collect_id = #{id}
+        from collect where id = #{id}
     </select>
 
     <select id="getCollectPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.CollectQueryVo">

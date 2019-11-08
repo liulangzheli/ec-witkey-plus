@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        bidding_id, order_id, user_id, create_time, state, message, remark
+        id, order_id, user_id, create_time, state, message, remark
     </sql>
 
     <select id="getOrderBiddingById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from order_bidding where bidding_id = #{id}
+        from order_bidding where id = #{id}
     </select>
 
     <select id="getOrderBiddingPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingQueryVo">

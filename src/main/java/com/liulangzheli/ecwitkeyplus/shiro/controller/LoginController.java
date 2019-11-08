@@ -19,6 +19,8 @@ package com.liulangzheli.ecwitkeyplus.shiro.controller;
 import com.liulangzheli.ecwitkeyplus.shiro.param.LoginParam;
 import com.liulangzheli.ecwitkeyplus.common.api.ApiResult;
 import com.liulangzheli.ecwitkeyplus.shiro.service.LoginService;
+import com.liulangzheli.ecwitkeyplus.shiro.util.JwtTokenUtil;
+import com.liulangzheli.ecwitkeyplus.system.vo.LoginSysUserTokenVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -47,13 +49,16 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/login")
-    @ApiOperation(value = "登陆", notes = "系统用户登陆", response = ApiResult.class)
-    public ApiResult login(@Valid @RequestBody LoginParam loginParam, HttpServletResponse response) {
-        return loginService.login(loginParam, response);
+    @ApiOperation(value = "登陆", notes = "系统用户登陆", response = LoginSysUserTokenVo.class)
+    public ApiResult login(@Valid @RequestBody LoginParam loginParam, HttpServletResponse response) throws Exception {
+        LoginSysUserTokenVo loginSysUserTokenVo = loginService.login(loginParam);
+        // 设置token响应头
+        response.setHeader(JwtTokenUtil.getTokenName(), loginSysUserTokenVo.getToken());
+        return ApiResult.ok(loginSysUserTokenVo, "登陆成功");
     }
 
     @PostMapping("/logout")
-    public ApiResult logout(HttpServletRequest request) {
+    public ApiResult logout(HttpServletRequest request) throws Exception {
         loginService.logout(request);
         return ApiResult.ok("退出成功");
     }

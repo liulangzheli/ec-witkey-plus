@@ -12,31 +12,31 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 订单评价 Mapper 接口
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Repository
 public interface OrderCommentMapper extends BaseMapper<OrderComment> {
+    
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             */
+        OrderCommentQueryVo getOrderCommentById(Serializable id);
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    OrderCommentQueryVo getOrderCommentById(Serializable id);
-
-    /**
-     * 获取分页对象
-     *
-     * @param page
-     * @param orderCommentQueryParam
-     * @return
-     */
-    IPage<OrderCommentQueryVo> getOrderCommentPageList(@Param("page") Page page, @Param("param") OrderCommentQueryParam orderCommentQueryParam);
-
-}
+            /**
+             * 获取分页对象
+             *
+             * @param page
+             * @param orderCommentQueryParam
+             * @return
+             */
+            IPage<OrderCommentQueryVo> getOrderCommentPageList(@Param("page") Page page, @Param("param") OrderCommentQueryParam orderCommentQueryParam);
+    
+        }

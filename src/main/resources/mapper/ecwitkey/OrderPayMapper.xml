@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        pay_id, order_id, pay_time, amount, discount, actual_amount, flow_num, user_id, pay_method, state, remark
+        id, order_id, pay_time, amount, discount, actual_amount, flow_num, user_id, pay_method, state, remark
     </sql>
 
     <select id="getOrderPayById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderPayQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from order_pay where pay_id = #{id}
+        from order_pay where id = #{id}
     </select>
 
     <select id="getOrderPayPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderPayQueryVo">

@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 系统设置 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class SysSettingServiceImpl extends BaseServiceImpl<SysSettingMapper, SysSetting> implements SysSettingService {
+        public class SysSettingServiceImpl extends BaseServiceImpl<SysSettingMapper, SysSetting> implements SysSettingService {
 
-    @Autowired
-    private SysSettingMapper sysSettingMapper;
+        @Autowired
+        private SysSettingMapper sysSettingMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveSysSetting(SysSetting sysSetting) throws Exception {
+                return super.save(sysSetting);
+                }
 
-    @Override
-    public SysSettingQueryVo getSysSettingById(Serializable id) throws Exception {
-        return sysSettingMapper.getSysSettingById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateSysSetting(SysSetting sysSetting) throws Exception {
+                return super.updateById(sysSetting);
+                }
 
-    @Override
-    public Paging<SysSettingQueryVo> getSysSettingPageList(SysSettingQueryParam sysSettingQueryParam) throws Exception {
-        Page page = setPageParam(sysSettingQueryParam, OrderItem.desc("create_time"));
-        IPage<SysSettingQueryVo> iPage = sysSettingMapper.getSysSettingPageList(page, sysSettingQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteSysSetting(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public SysSettingQueryVo getSysSettingById(Serializable id) throws Exception {
+            return sysSettingMapper.getSysSettingById(id);
+            }
 
-}
+            @Override
+            public Paging<SysSettingQueryVo> getSysSettingPageList(SysSettingQueryParam sysSettingQueryParam) throws Exception {
+            Page page = setPageParam(sysSettingQueryParam, OrderItem.desc("create_time"));
+            IPage<SysSettingQueryVo> iPage = sysSettingMapper.getSysSettingPageList(page, sysSettingQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

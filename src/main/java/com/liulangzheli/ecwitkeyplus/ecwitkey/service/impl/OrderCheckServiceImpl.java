@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 订单验收信息 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class OrderCheckServiceImpl extends BaseServiceImpl<OrderCheckMapper, OrderCheck> implements OrderCheckService {
+        public class OrderCheckServiceImpl extends BaseServiceImpl<OrderCheckMapper, OrderCheck> implements OrderCheckService {
 
-    @Autowired
-    private OrderCheckMapper orderCheckMapper;
+        @Autowired
+        private OrderCheckMapper orderCheckMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveOrderCheck(OrderCheck orderCheck) throws Exception {
+                return super.save(orderCheck);
+                }
 
-    @Override
-    public OrderCheckQueryVo getOrderCheckById(Serializable id) throws Exception {
-        return orderCheckMapper.getOrderCheckById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateOrderCheck(OrderCheck orderCheck) throws Exception {
+                return super.updateById(orderCheck);
+                }
 
-    @Override
-    public Paging<OrderCheckQueryVo> getOrderCheckPageList(OrderCheckQueryParam orderCheckQueryParam) throws Exception {
-        Page page = setPageParam(orderCheckQueryParam, OrderItem.desc("create_time"));
-        IPage<OrderCheckQueryVo> iPage = orderCheckMapper.getOrderCheckPageList(page, orderCheckQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteOrderCheck(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public OrderCheckQueryVo getOrderCheckById(Serializable id) throws Exception {
+            return orderCheckMapper.getOrderCheckById(id);
+            }
 
-}
+            @Override
+            public Paging<OrderCheckQueryVo> getOrderCheckPageList(OrderCheckQueryParam orderCheckQueryParam) throws Exception {
+            Page page = setPageParam(orderCheckQueryParam, OrderItem.desc("create_time"));
+            IPage<OrderCheckQueryVo> iPage = orderCheckMapper.getOrderCheckPageList(page, orderCheckQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

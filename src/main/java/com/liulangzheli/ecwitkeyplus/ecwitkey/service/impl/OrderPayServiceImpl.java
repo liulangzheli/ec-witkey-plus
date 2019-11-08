@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 订单付款信息 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class OrderPayServiceImpl extends BaseServiceImpl<OrderPayMapper, OrderPay> implements OrderPayService {
+        public class OrderPayServiceImpl extends BaseServiceImpl<OrderPayMapper, OrderPay> implements OrderPayService {
 
-    @Autowired
-    private OrderPayMapper orderPayMapper;
+        @Autowired
+        private OrderPayMapper orderPayMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveOrderPay(OrderPay orderPay) throws Exception {
+                return super.save(orderPay);
+                }
 
-    @Override
-    public OrderPayQueryVo getOrderPayById(Serializable id) throws Exception {
-        return orderPayMapper.getOrderPayById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateOrderPay(OrderPay orderPay) throws Exception {
+                return super.updateById(orderPay);
+                }
 
-    @Override
-    public Paging<OrderPayQueryVo> getOrderPayPageList(OrderPayQueryParam orderPayQueryParam) throws Exception {
-        Page page = setPageParam(orderPayQueryParam, OrderItem.desc("create_time"));
-        IPage<OrderPayQueryVo> iPage = orderPayMapper.getOrderPayPageList(page, orderPayQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteOrderPay(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public OrderPayQueryVo getOrderPayById(Serializable id) throws Exception {
+            return orderPayMapper.getOrderPayById(id);
+            }
 
-}
+            @Override
+            public Paging<OrderPayQueryVo> getOrderPayPageList(OrderPayQueryParam orderPayQueryParam) throws Exception {
+            Page page = setPageParam(orderPayQueryParam, OrderItem.desc("create_time"));
+            IPage<OrderPayQueryVo> iPage = orderPayMapper.getOrderPayPageList(page, orderPayQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

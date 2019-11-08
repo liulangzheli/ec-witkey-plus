@@ -40,12 +40,12 @@ public abstract class OrderQueryParam extends QueryParam{
     @ApiModelProperty(value = "排序")
     private List<OrderItem> orders;
 
-    public void defaultOrder(OrderItem orderItem){
+    public void defaultOrder(OrderItem orderItem) {
         this.defaultOrders(Arrays.asList(orderItem));
     }
 
-    public void defaultOrders(List<OrderItem> orderItems){
-        if (CollectionUtils.isEmpty(orderItems)){
+    public void defaultOrders(List<OrderItem> orderItems) {
+        if (CollectionUtils.isEmpty(orderItems)) {
             return;
         }
         this.orders = orderItems;

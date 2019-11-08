@@ -12,9 +12,9 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * $!{table.comment} Mapper 接口
- * </p>
+ * </pre>
  *
  * @author ${author}
  * @since ${date}
@@ -24,25 +24,25 @@ interface ${table.mapperName} : ${superMapperClass}<${entity}>
 #else
 @Repository
 public interface ${table.mapperName} extends ${superMapperClass}<${entity}> {
-#if(${cfg.generatorStrategy})
+    #if(${cfg.generatorStrategy})
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    ${entity}QueryVo get${entity}ById(Serializable id);
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             */
+        ${entity}QueryVo get${entity}ById(Serializable id);
 
-    /**
-     * 获取分页对象
-     *
-     * @param page
-     * @param ${cfg.entityObjectName}QueryParam
-     * @return
-     */
-    IPage<${entity}QueryVo> get${entity}PageList(@Param("page") Page page, @Param("param") ${entity}QueryParam ${cfg.entityObjectName}QueryParam);
-#end
+            /**
+             * 获取分页对象
+             *
+             * @param page
+             * @param ${cfg.entityObjectName}QueryParam
+             * @return
+             */
+            IPage<${entity}QueryVo> get${entity}PageList(@Param("page") Page page, @Param("param") ${entity}QueryParam ${cfg.entityObjectName}QueryParam);
+    #end
 
-}
+        }
 #end

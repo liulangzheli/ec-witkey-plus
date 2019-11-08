@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 项目审核 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class ProjectExamineServiceImpl extends BaseServiceImpl<ProjectExamineMapper, ProjectExamine> implements ProjectExamineService {
+        public class ProjectExamineServiceImpl extends BaseServiceImpl<ProjectExamineMapper, ProjectExamine> implements ProjectExamineService {
 
-    @Autowired
-    private ProjectExamineMapper projectExamineMapper;
+        @Autowired
+        private ProjectExamineMapper projectExamineMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveProjectExamine(ProjectExamine projectExamine) throws Exception {
+                return super.save(projectExamine);
+                }
 
-    @Override
-    public ProjectExamineQueryVo getProjectExamineById(Serializable id) throws Exception {
-        return projectExamineMapper.getProjectExamineById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateProjectExamine(ProjectExamine projectExamine) throws Exception {
+                return super.updateById(projectExamine);
+                }
 
-    @Override
-    public Paging<ProjectExamineQueryVo> getProjectExaminePageList(ProjectExamineQueryParam projectExamineQueryParam) throws Exception {
-        Page page = setPageParam(projectExamineQueryParam, OrderItem.desc("create_time"));
-        IPage<ProjectExamineQueryVo> iPage = projectExamineMapper.getProjectExaminePageList(page, projectExamineQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteProjectExamine(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public ProjectExamineQueryVo getProjectExamineById(Serializable id) throws Exception {
+            return projectExamineMapper.getProjectExamineById(id);
+            }
 
-}
+            @Override
+            public Paging<ProjectExamineQueryVo> getProjectExaminePageList(ProjectExamineQueryParam projectExamineQueryParam) throws Exception {
+            Page page = setPageParam(projectExamineQueryParam, OrderItem.desc("create_time"));
+            IPage<ProjectExamineQueryVo> iPage = projectExamineMapper.getProjectExaminePageList(page, projectExamineQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

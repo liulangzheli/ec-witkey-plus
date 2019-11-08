@@ -14,41 +14,41 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * <p>
+ * <pre>
  * 订单竞标信息
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Data
 @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "OrderBidding对象", description = "订单竞标信息")
+        @EqualsAndHashCode(callSuper = true)
+    @ApiModel(value = "OrderBidding对象", description = "订单竞标信息")
 public class OrderBidding extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "主键")
-    @TableId(value = "bidding_id", type = IdType.ID_WORKER)
-    private Long biddingId;
-
-    @ApiModelProperty(value = "订单ID")
-    private Long orderId;
-
-    @ApiModelProperty(value = "会员ID")
-    private Long userId;
-
-    @ApiModelProperty(value = "投标时间")
-    private Date createTime;
-
-    @ApiModelProperty(value = "中标状态，0：等待选标 1：超时 2：选中 3、未中标")
-    private Integer state;
-
-    @ApiModelProperty(value = "留言")
-    private String message;
-
-    @ApiModelProperty(value = "备注")
-    private String remark;
-
-}
+                            @ApiModelProperty(value = "主键")
+                                            @TableId(value = "id", type = IdType.ID_WORKER)
+                                        private Long id;
+    
+                        @ApiModelProperty(value = "订单ID")
+                                                                private Long orderId;
+                        
+                        @ApiModelProperty(value = "会员ID")
+                                                                private Long userId;
+                        
+                        @ApiModelProperty(value = "投标时间")
+                                                                private Date createTime;
+                        
+                        @ApiModelProperty(value = "中标状态，0：等待选标 1：超时 2：选中 3、未中标")
+                                                                private Integer state;
+                        
+                        @ApiModelProperty(value = "留言")
+                                                                private String message;
+                        
+                        @ApiModelProperty(value = "备注")
+                                                                private String remark;
+                        
+        }

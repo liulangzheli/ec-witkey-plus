@@ -16,7 +16,6 @@
 
 package com.liulangzheli.ecwitkeyplus;
 
-import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import com.liulangzheli.ecwitkeyplus.util.PrintApplicationInfo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -38,7 +37,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableScheduling
 @EnableTransactionManagement
 @EnableConfigurationProperties
-@EnableAdminServer
 @MapperScan({"com.liulangzheli.ecwitkeyplus.**.mapper"})
 @ServletComponentScan
 @SpringBootApplication

@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 订单项目进度信息 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class OrderProgressServiceImpl extends BaseServiceImpl<OrderProgressMapper, OrderProgress> implements OrderProgressService {
+        public class OrderProgressServiceImpl extends BaseServiceImpl<OrderProgressMapper, OrderProgress> implements OrderProgressService {
 
-    @Autowired
-    private OrderProgressMapper orderProgressMapper;
+        @Autowired
+        private OrderProgressMapper orderProgressMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveOrderProgress(OrderProgress orderProgress) throws Exception {
+                return super.save(orderProgress);
+                }
 
-    @Override
-    public OrderProgressQueryVo getOrderProgressById(Serializable id) throws Exception {
-        return orderProgressMapper.getOrderProgressById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateOrderProgress(OrderProgress orderProgress) throws Exception {
+                return super.updateById(orderProgress);
+                }
 
-    @Override
-    public Paging<OrderProgressQueryVo> getOrderProgressPageList(OrderProgressQueryParam orderProgressQueryParam) throws Exception {
-        Page page = setPageParam(orderProgressQueryParam, OrderItem.desc("create_time"));
-        IPage<OrderProgressQueryVo> iPage = orderProgressMapper.getOrderProgressPageList(page, orderProgressQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteOrderProgress(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public OrderProgressQueryVo getOrderProgressById(Serializable id) throws Exception {
+            return orderProgressMapper.getOrderProgressById(id);
+            }
 
-}
+            @Override
+            public Paging<OrderProgressQueryVo> getOrderProgressPageList(OrderProgressQueryParam orderProgressQueryParam) throws Exception {
+            Page page = setPageParam(orderProgressQueryParam, OrderItem.desc("create_time"));
+            IPage<OrderProgressQueryVo> iPage = orderProgressMapper.getOrderProgressPageList(page, orderProgressQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

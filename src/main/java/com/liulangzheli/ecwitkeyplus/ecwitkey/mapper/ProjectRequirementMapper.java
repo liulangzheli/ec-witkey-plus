@@ -12,31 +12,31 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 项目类型要求 Mapper 接口
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Repository
 public interface ProjectRequirementMapper extends BaseMapper<ProjectRequirement> {
+    
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             */
+        ProjectRequirementQueryVo getProjectRequirementById(Serializable id);
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    ProjectRequirementQueryVo getProjectRequirementById(Serializable id);
-
-    /**
-     * 获取分页对象
-     *
-     * @param page
-     * @param projectRequirementQueryParam
-     * @return
-     */
-    IPage<ProjectRequirementQueryVo> getProjectRequirementPageList(@Param("page") Page page, @Param("param") ProjectRequirementQueryParam projectRequirementQueryParam);
-
-}
+            /**
+             * 获取分页对象
+             *
+             * @param page
+             * @param projectRequirementQueryParam
+             * @return
+             */
+            IPage<ProjectRequirementQueryVo> getProjectRequirementPageList(@Param("page") Page page, @Param("param") ProjectRequirementQueryParam projectRequirementQueryParam);
+    
+        }

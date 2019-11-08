@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 项目资料 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class ProjectSourceServiceImpl extends BaseServiceImpl<ProjectSourceMapper, ProjectSource> implements ProjectSourceService {
+        public class ProjectSourceServiceImpl extends BaseServiceImpl<ProjectSourceMapper, ProjectSource> implements ProjectSourceService {
 
-    @Autowired
-    private ProjectSourceMapper projectSourceMapper;
+        @Autowired
+        private ProjectSourceMapper projectSourceMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveProjectSource(ProjectSource projectSource) throws Exception {
+                return super.save(projectSource);
+                }
 
-    @Override
-    public ProjectSourceQueryVo getProjectSourceById(Serializable id) throws Exception {
-        return projectSourceMapper.getProjectSourceById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateProjectSource(ProjectSource projectSource) throws Exception {
+                return super.updateById(projectSource);
+                }
 
-    @Override
-    public Paging<ProjectSourceQueryVo> getProjectSourcePageList(ProjectSourceQueryParam projectSourceQueryParam) throws Exception {
-        Page page = setPageParam(projectSourceQueryParam, OrderItem.desc("create_time"));
-        IPage<ProjectSourceQueryVo> iPage = projectSourceMapper.getProjectSourcePageList(page, projectSourceQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteProjectSource(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public ProjectSourceQueryVo getProjectSourceById(Serializable id) throws Exception {
+            return projectSourceMapper.getProjectSourceById(id);
+            }
 
-}
+            @Override
+            public Paging<ProjectSourceQueryVo> getProjectSourcePageList(ProjectSourceQueryParam projectSourceQueryParam) throws Exception {
+            Page page = setPageParam(projectSourceQueryParam, OrderItem.desc("create_time"));
+            IPage<ProjectSourceQueryVo> iPage = projectSourceMapper.getProjectSourcePageList(page, projectSourceQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

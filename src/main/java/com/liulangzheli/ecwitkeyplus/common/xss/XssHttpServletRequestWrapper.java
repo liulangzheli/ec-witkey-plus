@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.liulangzheli.ecwitkeyplus.xss;
+package com.liulangzheli.ecwitkeyplus.common.xss;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.text.StringEscapeUtils;

@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        order_id, user_id, create_time, pay_time, examine_time, pick_time, check_time, category_id, major, province, city, end_time, period, soft_supplier, soft_name, intro, state, remark
+        id, user_id, create_time, pay_time, examine_time, pick_time, check_time, category_id, major, province, city, end_time, period, soft_supplier, soft_name, intro, state, remark
     </sql>
 
     <select id="getProjectOrderById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from project_order where order_id = #{id}
+        from project_order where id = #{id}
     </select>
 
     <select id="getProjectOrderPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">

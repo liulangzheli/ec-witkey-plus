@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        requirement_id, category_id, order_id, qty, count_type, area, amount, remark
+        id, category_id, order_id, qty, count_type, area, amount, remark
     </sql>
 
     <select id="getProjectRequirementById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from project_requirement where requirement_id = #{id}
+        from project_requirement where id = #{id}
     </select>
 
     <select id="getProjectRequirementPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo">

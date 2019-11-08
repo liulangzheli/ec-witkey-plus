@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 类别管理 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Category> implements CategoryService {
+        public class CategoryServiceImpl extends BaseServiceImpl<CategoryMapper, Category> implements CategoryService {
 
-    @Autowired
-    private CategoryMapper categoryMapper;
+        @Autowired
+        private CategoryMapper categoryMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveCategory(Category category) throws Exception {
+                return super.save(category);
+                }
 
-    @Override
-    public CategoryQueryVo getCategoryById(Serializable id) throws Exception {
-        return categoryMapper.getCategoryById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateCategory(Category category) throws Exception {
+                return super.updateById(category);
+                }
 
-    @Override
-    public Paging<CategoryQueryVo> getCategoryPageList(CategoryQueryParam categoryQueryParam) throws Exception {
-        Page page = setPageParam(categoryQueryParam, OrderItem.desc("create_time"));
-        IPage<CategoryQueryVo> iPage = categoryMapper.getCategoryPageList(page, categoryQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteCategory(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public CategoryQueryVo getCategoryById(Serializable id) throws Exception {
+            return categoryMapper.getCategoryById(id);
+            }
 
-}
+            @Override
+            public Paging<CategoryQueryVo> getCategoryPageList(CategoryQueryParam categoryQueryParam) throws Exception {
+            Page page = setPageParam(categoryQueryParam, OrderItem.desc("create_time"));
+            IPage<CategoryQueryVo> iPage = categoryMapper.getCategoryPageList(page, categoryQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

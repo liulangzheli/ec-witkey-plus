@@ -9,29 +9,58 @@ import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 系统设置 服务类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 public interface SysSettingService extends BaseService<SysSetting> {
+            
+                /**
+                 * 保存
+                 *
+                 * @param sysSetting
+                 * @return
+                 * @throws Exception
+                 */
+                boolean saveSysSetting(SysSetting sysSetting) throws Exception;
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    SysSettingQueryVo getSysSettingById(Serializable id) throws Exception;
+                /**
+                 * 修改
+                 *
+                 * @param sysSetting
+                 * @return
+                 * @throws Exception
+                 */
+                boolean updateSysSetting(SysSetting sysSetting) throws Exception;
 
-    /**
-     * 获取分页对象
-     *
-     * @param sysSettingQueryParam
-     * @return
-     */
-    Paging<SysSettingQueryVo> getSysSettingPageList(SysSettingQueryParam sysSettingQueryParam) throws Exception;
+                /**
+                 * 删除
+                 *
+                 * @param id
+                 * @return
+                 * @throws Exception
+                 */
+                boolean deleteSysSetting(Long id) throws Exception;
+        
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             * @throws Exception
+             */
+        SysSettingQueryVo getSysSettingById(Serializable id) throws Exception;
 
-}
+            /**
+             * 获取分页对象
+             *
+             * @param sysSettingQueryParam
+             * @return
+             * @throws Exception
+             */
+            Paging<SysSettingQueryVo> getSysSettingPageList(SysSettingQueryParam sysSettingQueryParam) throws Exception;
+    
+        }

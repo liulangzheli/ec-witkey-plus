@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 订单竞标信息 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class OrderBiddingServiceImpl extends BaseServiceImpl<OrderBiddingMapper, OrderBidding> implements OrderBiddingService {
+        public class OrderBiddingServiceImpl extends BaseServiceImpl<OrderBiddingMapper, OrderBidding> implements OrderBiddingService {
 
-    @Autowired
-    private OrderBiddingMapper orderBiddingMapper;
+        @Autowired
+        private OrderBiddingMapper orderBiddingMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveOrderBidding(OrderBidding orderBidding) throws Exception {
+                return super.save(orderBidding);
+                }
 
-    @Override
-    public OrderBiddingQueryVo getOrderBiddingById(Serializable id) throws Exception {
-        return orderBiddingMapper.getOrderBiddingById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateOrderBidding(OrderBidding orderBidding) throws Exception {
+                return super.updateById(orderBidding);
+                }
 
-    @Override
-    public Paging<OrderBiddingQueryVo> getOrderBiddingPageList(OrderBiddingQueryParam orderBiddingQueryParam) throws Exception {
-        Page page = setPageParam(orderBiddingQueryParam, OrderItem.desc("create_time"));
-        IPage<OrderBiddingQueryVo> iPage = orderBiddingMapper.getOrderBiddingPageList(page, orderBiddingQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteOrderBidding(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public OrderBiddingQueryVo getOrderBiddingById(Serializable id) throws Exception {
+            return orderBiddingMapper.getOrderBiddingById(id);
+            }
 
-}
+            @Override
+            public Paging<OrderBiddingQueryVo> getOrderBiddingPageList(OrderBiddingQueryParam orderBiddingQueryParam) throws Exception {
+            Page page = setPageParam(orderBiddingQueryParam, OrderItem.desc("create_time"));
+            IPage<OrderBiddingQueryVo> iPage = orderBiddingMapper.getOrderBiddingPageList(page, orderBiddingQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

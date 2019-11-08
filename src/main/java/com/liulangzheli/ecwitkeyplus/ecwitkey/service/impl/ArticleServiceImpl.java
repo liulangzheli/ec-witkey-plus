@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 文章 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article> implements ArticleService {
+        public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article> implements ArticleService {
 
-    @Autowired
-    private ArticleMapper articleMapper;
+        @Autowired
+        private ArticleMapper articleMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveArticle(Article article) throws Exception {
+                return super.save(article);
+                }
 
-    @Override
-    public ArticleQueryVo getArticleById(Serializable id) throws Exception {
-        return articleMapper.getArticleById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateArticle(Article article) throws Exception {
+                return super.updateById(article);
+                }
 
-    @Override
-    public Paging<ArticleQueryVo> getArticlePageList(ArticleQueryParam articleQueryParam) throws Exception {
-        Page page = setPageParam(articleQueryParam, OrderItem.desc("create_time"));
-        IPage<ArticleQueryVo> iPage = articleMapper.getArticlePageList(page, articleQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteArticle(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public ArticleQueryVo getArticleById(Serializable id) throws Exception {
+            return articleMapper.getArticleById(id);
+            }
 
-}
+            @Override
+            public Paging<ArticleQueryVo> getArticlePageList(ArticleQueryParam articleQueryParam) throws Exception {
+            Page page = setPageParam(articleQueryParam, OrderItem.desc("create_time"));
+            IPage<ArticleQueryVo> iPage = articleMapper.getArticlePageList(page, articleQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

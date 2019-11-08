@@ -12,31 +12,31 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 项目审核 Mapper 接口
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Repository
 public interface ProjectExamineMapper extends BaseMapper<ProjectExamine> {
+    
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             */
+        ProjectExamineQueryVo getProjectExamineById(Serializable id);
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    ProjectExamineQueryVo getProjectExamineById(Serializable id);
-
-    /**
-     * 获取分页对象
-     *
-     * @param page
-     * @param projectExamineQueryParam
-     * @return
-     */
-    IPage<ProjectExamineQueryVo> getProjectExaminePageList(@Param("page") Page page, @Param("param") ProjectExamineQueryParam projectExamineQueryParam);
-
-}
+            /**
+             * 获取分页对象
+             *
+             * @param page
+             * @param projectExamineQueryParam
+             * @return
+             */
+            IPage<ProjectExamineQueryVo> getProjectExaminePageList(@Param("page") Page page, @Param("param") ProjectExamineQueryParam projectExamineQueryParam);
+    
+        }

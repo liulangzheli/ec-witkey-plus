@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        examine_id, order_id, state, role_id, examine_time, remark
+        id, order_id, state, role_id, examine_time, remark
     </sql>
 
     <select id="getProjectExamineById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectExamineQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from project_examine where examine_id = #{id}
+        from project_examine where id = #{id}
     </select>
 
     <select id="getProjectExaminePageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectExamineQueryVo">

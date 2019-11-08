@@ -9,29 +9,58 @@ import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 订单竞标信息 服务类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 public interface OrderBiddingService extends BaseService<OrderBidding> {
+            
+                /**
+                 * 保存
+                 *
+                 * @param orderBidding
+                 * @return
+                 * @throws Exception
+                 */
+                boolean saveOrderBidding(OrderBidding orderBidding) throws Exception;
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    OrderBiddingQueryVo getOrderBiddingById(Serializable id) throws Exception;
+                /**
+                 * 修改
+                 *
+                 * @param orderBidding
+                 * @return
+                 * @throws Exception
+                 */
+                boolean updateOrderBidding(OrderBidding orderBidding) throws Exception;
 
-    /**
-     * 获取分页对象
-     *
-     * @param orderBiddingQueryParam
-     * @return
-     */
-    Paging<OrderBiddingQueryVo> getOrderBiddingPageList(OrderBiddingQueryParam orderBiddingQueryParam) throws Exception;
+                /**
+                 * 删除
+                 *
+                 * @param id
+                 * @return
+                 * @throws Exception
+                 */
+                boolean deleteOrderBidding(Long id) throws Exception;
+        
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             * @throws Exception
+             */
+        OrderBiddingQueryVo getOrderBiddingById(Serializable id) throws Exception;
 
-}
+            /**
+             * 获取分页对象
+             *
+             * @param orderBiddingQueryParam
+             * @return
+             * @throws Exception
+             */
+            Paging<OrderBiddingQueryVo> getOrderBiddingPageList(OrderBiddingQueryParam orderBiddingQueryParam) throws Exception;
+    
+        }

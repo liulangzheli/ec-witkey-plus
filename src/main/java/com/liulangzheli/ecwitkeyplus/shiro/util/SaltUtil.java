@@ -16,6 +16,7 @@
 
 package com.liulangzheli.ecwitkeyplus.shiro.util;
 
+import com.liulangzheli.ecwitkeyplus.shiro.jwt.JwtProperties;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -55,5 +56,22 @@ public class SaltUtil {
         return new SecureRandomNumberGenerator().nextBytes(16).toHex();
     }
 
+    /**
+     * 加工盐值
+     *
+     * @param salt
+     * @param jwtProperties
+     * @return
+     */
+    public static String getSalt(String salt, JwtProperties jwtProperties) {
+        String newSalt;
+        if (jwtProperties.isSaltCheck()) {
+            // 包装盐值
+            newSalt = SaltUtil.getSalt(jwtProperties.getSecret(), salt);
+        } else {
+            newSalt = jwtProperties.getSecret();
+        }
+        return newSalt;
+    }
 }
 

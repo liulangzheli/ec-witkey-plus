@@ -12,9 +12,9 @@ import ${cfg.queryParamCommonPath};
 #end
 
 /**
- * <p>
+ * <pre>
  * $!{table.comment} 查询参数对象
- * </p>
+ * </pre>
  *
  * @author ${author}
  * @date ${date}
@@ -23,10 +23,10 @@ import ${cfg.queryParamCommonPath};
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "${entity}QueryParam对象", description = "$!{table.comment}查询参数")
-#if(${cfg.pageListOrder})
-public class ${entity}QueryParam extends OrderQueryParam {
-#else
-public class ${entity}QueryParam extends QueryParam {
-#end
+    #if(${cfg.pageListOrder})
+    public class ${entity}QueryParam extends OrderQueryParam {
+    #else
+    public class ${entity}QueryParam extends QueryParam {
+    #end
     private static final long serialVersionUID = 1L;
 }

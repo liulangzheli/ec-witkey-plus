@@ -9,29 +9,58 @@ import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 项目订单 服务类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 public interface ProjectOrderService extends BaseService<ProjectOrder> {
+            
+                /**
+                 * 保存
+                 *
+                 * @param projectOrder
+                 * @return
+                 * @throws Exception
+                 */
+                boolean saveProjectOrder(ProjectOrder projectOrder) throws Exception;
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    ProjectOrderQueryVo getProjectOrderById(Serializable id) throws Exception;
+                /**
+                 * 修改
+                 *
+                 * @param projectOrder
+                 * @return
+                 * @throws Exception
+                 */
+                boolean updateProjectOrder(ProjectOrder projectOrder) throws Exception;
 
-    /**
-     * 获取分页对象
-     *
-     * @param projectOrderQueryParam
-     * @return
-     */
-    Paging<ProjectOrderQueryVo> getProjectOrderPageList(ProjectOrderQueryParam projectOrderQueryParam) throws Exception;
+                /**
+                 * 删除
+                 *
+                 * @param id
+                 * @return
+                 * @throws Exception
+                 */
+                boolean deleteProjectOrder(Long id) throws Exception;
+        
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             * @throws Exception
+             */
+        ProjectOrderQueryVo getProjectOrderById(Serializable id) throws Exception;
 
-}
+            /**
+             * 获取分页对象
+             *
+             * @param projectOrderQueryParam
+             * @return
+             * @throws Exception
+             */
+            Paging<ProjectOrderQueryVo> getProjectOrderPageList(ProjectOrderQueryParam projectOrderQueryParam) throws Exception;
+    
+        }

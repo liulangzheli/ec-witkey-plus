@@ -17,6 +17,7 @@
 package com.liulangzheli.ecwitkeyplus.test;
 
 import com.liulangzheli.ecwitkeyplus.util.PasswordUtil;
+import org.junit.Assert;
 
 /**
  * 密码工具测试类
@@ -26,8 +27,10 @@ import com.liulangzheli.ecwitkeyplus.util.PasswordUtil;
 public class PasswordUtilTest {
     public static void main(String[] args) {
         String password = "123456";
-        String encryptPassword = PasswordUtil.encrypt(password);
+        String salt = "666";
+        String encryptPassword = PasswordUtil.encrypt(password, salt);
         System.out.println(encryptPassword);
         System.out.println(encryptPassword.length());
+        Assert.assertEquals(encryptPassword, "3108d080e3d39b4b8ad567405fa878c7dc9a31768b37a8a2c7ec72f511bb66cb");
     }
 }

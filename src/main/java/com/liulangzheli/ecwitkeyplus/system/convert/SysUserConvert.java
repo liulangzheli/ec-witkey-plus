@@ -33,6 +33,7 @@ public interface SysUserConvert {
 
     /**
      * 系统用户实体对象转换成登陆用户VO对象
+     *
      * @param sysUser
      * @return
      */

@@ -9,29 +9,58 @@ import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 订单项目进度信息 服务类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 public interface OrderProgressService extends BaseService<OrderProgress> {
+            
+                /**
+                 * 保存
+                 *
+                 * @param orderProgress
+                 * @return
+                 * @throws Exception
+                 */
+                boolean saveOrderProgress(OrderProgress orderProgress) throws Exception;
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    OrderProgressQueryVo getOrderProgressById(Serializable id) throws Exception;
+                /**
+                 * 修改
+                 *
+                 * @param orderProgress
+                 * @return
+                 * @throws Exception
+                 */
+                boolean updateOrderProgress(OrderProgress orderProgress) throws Exception;
 
-    /**
-     * 获取分页对象
-     *
-     * @param orderProgressQueryParam
-     * @return
-     */
-    Paging<OrderProgressQueryVo> getOrderProgressPageList(OrderProgressQueryParam orderProgressQueryParam) throws Exception;
+                /**
+                 * 删除
+                 *
+                 * @param id
+                 * @return
+                 * @throws Exception
+                 */
+                boolean deleteOrderProgress(Long id) throws Exception;
+        
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             * @throws Exception
+             */
+        OrderProgressQueryVo getOrderProgressById(Serializable id) throws Exception;
 
-}
+            /**
+             * 获取分页对象
+             *
+             * @param orderProgressQueryParam
+             * @return
+             * @throws Exception
+             */
+            Paging<OrderProgressQueryVo> getOrderProgressPageList(OrderProgressQueryParam orderProgressQueryParam) throws Exception;
+    
+        }

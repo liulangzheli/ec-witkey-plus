@@ -39,12 +39,4 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      */
     IPage<SysUserQueryVo> getSysUserPageList(@Param("page") Page page, @Param("param") SysUserQueryParam sysUserQueryParam);
 
-    /**
-     * 根据用户名获取用户信息
-     *
-     * @param username
-     * @return
-     */
-    SysUser getSysUserByUsername(String username);
-
 }

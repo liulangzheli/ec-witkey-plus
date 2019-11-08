@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 订单评价 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class OrderCommentServiceImpl extends BaseServiceImpl<OrderCommentMapper, OrderComment> implements OrderCommentService {
+        public class OrderCommentServiceImpl extends BaseServiceImpl<OrderCommentMapper, OrderComment> implements OrderCommentService {
 
-    @Autowired
-    private OrderCommentMapper orderCommentMapper;
+        @Autowired
+        private OrderCommentMapper orderCommentMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveOrderComment(OrderComment orderComment) throws Exception {
+                return super.save(orderComment);
+                }
 
-    @Override
-    public OrderCommentQueryVo getOrderCommentById(Serializable id) throws Exception {
-        return orderCommentMapper.getOrderCommentById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateOrderComment(OrderComment orderComment) throws Exception {
+                return super.updateById(orderComment);
+                }
 
-    @Override
-    public Paging<OrderCommentQueryVo> getOrderCommentPageList(OrderCommentQueryParam orderCommentQueryParam) throws Exception {
-        Page page = setPageParam(orderCommentQueryParam, OrderItem.desc("create_time"));
-        IPage<OrderCommentQueryVo> iPage = orderCommentMapper.getOrderCommentPageList(page, orderCommentQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteOrderComment(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public OrderCommentQueryVo getOrderCommentById(Serializable id) throws Exception {
+            return orderCommentMapper.getOrderCommentById(id);
+            }
 
-}
+            @Override
+            public Paging<OrderCommentQueryVo> getOrderCommentPageList(OrderCommentQueryParam orderCommentQueryParam) throws Exception {
+            Page page = setPageParam(orderCommentQueryParam, OrderItem.desc("create_time"));
+            IPage<OrderCommentQueryVo> iPage = orderCommentMapper.getOrderCommentPageList(page, orderCommentQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

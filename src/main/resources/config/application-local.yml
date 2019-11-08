@@ -1,15 +1,12 @@
 ec-witkey-plus:
   # 是否启用ansi控制台输出有颜色的字体，local环境建议开启，服务器环境设置为false
   enable-ansi: true
-  # 请求日志在控制台是否格式化输出，local环境建议开启，服务器环境设置为false
-  request-log-format: true
-  # 响应日志在控制台是否格式化输出，local环境建议开启，服务器环境设置为false
-  response-log-format: true
 
   # 拦截器配置
   interceptor-config:
     resource-config:
       include-path: ${ec-witkey-plus.resource-access-patterns}
+
   # 文件上传下载配置
   upload-path: /opt/upload/
   # 资源访问路径
@@ -42,7 +39,8 @@ spring:
 logging:
   config: classpath:config/logback.xml
   #  方便Spring Boot Admin页面上实时查看日志
-  file: logs/ec-witkey-plus.log
+  file:
+    path: logs/ec-witkey-plus.log
 
 # 打印SQL语句和结果集，本地开发环境可开启，线上注释掉
 mybatis-plus:

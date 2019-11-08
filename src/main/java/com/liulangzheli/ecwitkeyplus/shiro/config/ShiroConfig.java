@@ -126,7 +126,7 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public DefaultWebSecurityManager securityManager(LoginRedisService loginRedisService) {
+    public SecurityManager securityManager(LoginRedisService loginRedisService) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(jwtRealm(loginRedisService));
         securityManager.setSubjectDAO(subjectDAO());
@@ -218,8 +218,14 @@ public class ShiroConfig {
                 }
             }
         }
-        // 最后一个设置为JWTFilter
-        filterChainDefinitionMap.put("/**", JWT_FILTER_NAME);
+
+        // 如果启用shiro，则设置最后一个设置为JWTFilter，否则全部路径放行
+        if (shiroProperties.isEnable()) {
+            filterChainDefinitionMap.put("/**", JWT_FILTER_NAME);
+        } else {
+            filterChainDefinitionMap.put("/**", "anon");
+        }
+
         log.debug("filterChainMap:{}", JSON.toJSONString(filterChainDefinitionMap));
 
         // 添加默认的filter
@@ -247,9 +253,9 @@ public class ShiroConfig {
             } else {
                 String[] strings = value.split(",");
                 List<String> list = new ArrayList<>();
-                list.addAll(Arrays.asList(strings));
                 // 添加默认filter过滤
                 list.add(REQUEST_PATH_FILTER_NAME);
+                list.addAll(Arrays.asList(strings));
                 definition = String.join(",", list);
             }
             map.put(key, definition);
@@ -292,18 +298,6 @@ public class ShiroConfig {
     @Bean
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
-    }
-
-    /**
-     * depends-on lifecycleBeanPostProcessor
-     *
-     * @return
-     */
-    @Bean
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
-        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
-        defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
-        return defaultAdvisorAutoProxyCreator;
     }
 
     @Bean

@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 收藏的服务商 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class CollectServiceImpl extends BaseServiceImpl<CollectMapper, Collect> implements CollectService {
+        public class CollectServiceImpl extends BaseServiceImpl<CollectMapper, Collect> implements CollectService {
 
-    @Autowired
-    private CollectMapper collectMapper;
+        @Autowired
+        private CollectMapper collectMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveCollect(Collect collect) throws Exception {
+                return super.save(collect);
+                }
 
-    @Override
-    public CollectQueryVo getCollectById(Serializable id) throws Exception {
-        return collectMapper.getCollectById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateCollect(Collect collect) throws Exception {
+                return super.updateById(collect);
+                }
 
-    @Override
-    public Paging<CollectQueryVo> getCollectPageList(CollectQueryParam collectQueryParam) throws Exception {
-        Page page = setPageParam(collectQueryParam, OrderItem.desc("create_time"));
-        IPage<CollectQueryVo> iPage = collectMapper.getCollectPageList(page, collectQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteCollect(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public CollectQueryVo getCollectById(Serializable id) throws Exception {
+            return collectMapper.getCollectById(id);
+            }
 
-}
+            @Override
+            public Paging<CollectQueryVo> getCollectPageList(CollectQueryParam collectQueryParam) throws Exception {
+            Page page = setPageParam(collectQueryParam, OrderItem.desc("create_time"));
+            IPage<CollectQueryVo> iPage = collectMapper.getCollectPageList(page, collectQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

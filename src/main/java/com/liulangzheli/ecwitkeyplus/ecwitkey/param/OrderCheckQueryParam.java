@@ -5,20 +5,20 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import com.liulangzheli.ecwitkeyplus.common.param.QueryParam;
+import com.liulangzheli.ecwitkeyplus.common.param.OrderQueryParam;
 
 /**
- * <p>
+ * <pre>
  * 订单验收信息 查询参数对象
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @date 2019-10-22
+ * @date 2019-11-04
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "OrderCheckQueryParam对象", description = "订单验收信息查询参数")
-public class OrderCheckQueryParam extends QueryParam {
-    private static final long serialVersionUID = 1L;
+        public class OrderCheckQueryParam extends OrderQueryParam {
+        private static final long serialVersionUID = 1L;
 }

@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        settting_id, soft_supplier, company_type, estate, hot_key, protect_type, hot_tag, b_limit, e_limit, p_limit, website, record_num, company_name, tel, address, email, ser_num, role_type, remark
+        id, soft_supplier, company_type, estate, hot_key, protect_type, hot_tag, b_limit, e_limit, p_limit, website, record_num, company_name, tel, address, email, ser_num, role_type, remark
     </sql>
 
     <select id="getSysSettingById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.SysSettingQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from sys_setting where settting_id = #{id}
+        from sys_setting where id = #{id}
     </select>
 
     <select id="getSysSettingPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.SysSettingQueryVo">

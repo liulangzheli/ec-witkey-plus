@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 订单维权 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class OrderRightsServiceImpl extends BaseServiceImpl<OrderRightsMapper, OrderRights> implements OrderRightsService {
+        public class OrderRightsServiceImpl extends BaseServiceImpl<OrderRightsMapper, OrderRights> implements OrderRightsService {
 
-    @Autowired
-    private OrderRightsMapper orderRightsMapper;
+        @Autowired
+        private OrderRightsMapper orderRightsMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveOrderRights(OrderRights orderRights) throws Exception {
+                return super.save(orderRights);
+                }
 
-    @Override
-    public OrderRightsQueryVo getOrderRightsById(Serializable id) throws Exception {
-        return orderRightsMapper.getOrderRightsById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateOrderRights(OrderRights orderRights) throws Exception {
+                return super.updateById(orderRights);
+                }
 
-    @Override
-    public Paging<OrderRightsQueryVo> getOrderRightsPageList(OrderRightsQueryParam orderRightsQueryParam) throws Exception {
-        Page page = setPageParam(orderRightsQueryParam, OrderItem.desc("create_time"));
-        IPage<OrderRightsQueryVo> iPage = orderRightsMapper.getOrderRightsPageList(page, orderRightsQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteOrderRights(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public OrderRightsQueryVo getOrderRightsById(Serializable id) throws Exception {
+            return orderRightsMapper.getOrderRightsById(id);
+            }
 
-}
+            @Override
+            public Paging<OrderRightsQueryVo> getOrderRightsPageList(OrderRightsQueryParam orderRightsQueryParam) throws Exception {
+            Page page = setPageParam(orderRightsQueryParam, OrderItem.desc("create_time"));
+            IPage<OrderRightsQueryVo> iPage = orderRightsMapper.getOrderRightsPageList(page, orderRightsQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

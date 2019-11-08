@@ -9,29 +9,58 @@ import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 订单评价 服务类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 public interface OrderCommentService extends BaseService<OrderComment> {
+            
+                /**
+                 * 保存
+                 *
+                 * @param orderComment
+                 * @return
+                 * @throws Exception
+                 */
+                boolean saveOrderComment(OrderComment orderComment) throws Exception;
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    OrderCommentQueryVo getOrderCommentById(Serializable id) throws Exception;
+                /**
+                 * 修改
+                 *
+                 * @param orderComment
+                 * @return
+                 * @throws Exception
+                 */
+                boolean updateOrderComment(OrderComment orderComment) throws Exception;
 
-    /**
-     * 获取分页对象
-     *
-     * @param orderCommentQueryParam
-     * @return
-     */
-    Paging<OrderCommentQueryVo> getOrderCommentPageList(OrderCommentQueryParam orderCommentQueryParam) throws Exception;
+                /**
+                 * 删除
+                 *
+                 * @param id
+                 * @return
+                 * @throws Exception
+                 */
+                boolean deleteOrderComment(Long id) throws Exception;
+        
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             * @throws Exception
+             */
+        OrderCommentQueryVo getOrderCommentById(Serializable id) throws Exception;
 
-}
+            /**
+             * 获取分页对象
+             *
+             * @param orderCommentQueryParam
+             * @return
+             * @throws Exception
+             */
+            Paging<OrderCommentQueryVo> getOrderCommentPageList(OrderCommentQueryParam orderCommentQueryParam) throws Exception;
+    
+        }

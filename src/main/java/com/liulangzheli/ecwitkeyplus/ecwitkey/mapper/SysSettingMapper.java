@@ -12,31 +12,31 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 系统设置 Mapper 接口
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Repository
 public interface SysSettingMapper extends BaseMapper<SysSetting> {
+    
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             */
+        SysSettingQueryVo getSysSettingById(Serializable id);
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    SysSettingQueryVo getSysSettingById(Serializable id);
-
-    /**
-     * 获取分页对象
-     *
-     * @param page
-     * @param sysSettingQueryParam
-     * @return
-     */
-    IPage<SysSettingQueryVo> getSysSettingPageList(@Param("page") Page page, @Param("param") SysSettingQueryParam sysSettingQueryParam);
-
-}
+            /**
+             * 获取分页对象
+             *
+             * @param page
+             * @param sysSettingQueryParam
+             * @return
+             */
+            IPage<SysSettingQueryVo> getSysSettingPageList(@Param("page") Page page, @Param("param") SysSettingQueryParam sysSettingQueryParam);
+    
+        }

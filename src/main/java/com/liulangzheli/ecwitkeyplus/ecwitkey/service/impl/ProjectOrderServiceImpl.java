@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 项目订单 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class ProjectOrderServiceImpl extends BaseServiceImpl<ProjectOrderMapper, ProjectOrder> implements ProjectOrderService {
+        public class ProjectOrderServiceImpl extends BaseServiceImpl<ProjectOrderMapper, ProjectOrder> implements ProjectOrderService {
 
-    @Autowired
-    private ProjectOrderMapper projectOrderMapper;
+        @Autowired
+        private ProjectOrderMapper projectOrderMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveProjectOrder(ProjectOrder projectOrder) throws Exception {
+                return super.save(projectOrder);
+                }
 
-    @Override
-    public ProjectOrderQueryVo getProjectOrderById(Serializable id) throws Exception {
-        return projectOrderMapper.getProjectOrderById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateProjectOrder(ProjectOrder projectOrder) throws Exception {
+                return super.updateById(projectOrder);
+                }
 
-    @Override
-    public Paging<ProjectOrderQueryVo> getProjectOrderPageList(ProjectOrderQueryParam projectOrderQueryParam) throws Exception {
-        Page page = setPageParam(projectOrderQueryParam, OrderItem.desc("create_time"));
-        IPage<ProjectOrderQueryVo> iPage = projectOrderMapper.getProjectOrderPageList(page, projectOrderQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteProjectOrder(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public ProjectOrderQueryVo getProjectOrderById(Serializable id) throws Exception {
+            return projectOrderMapper.getProjectOrderById(id);
+            }
 
-}
+            @Override
+            public Paging<ProjectOrderQueryVo> getProjectOrderPageList(ProjectOrderQueryParam projectOrderQueryParam) throws Exception {
+            Page page = setPageParam(projectOrderQueryParam, OrderItem.desc("create_time"));
+            IPage<ProjectOrderQueryVo> iPage = projectOrderMapper.getProjectOrderPageList(page, projectOrderQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

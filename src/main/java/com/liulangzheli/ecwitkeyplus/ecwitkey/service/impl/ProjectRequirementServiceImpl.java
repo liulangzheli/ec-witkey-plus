@@ -15,35 +15,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import java.io.Serializable;
 
 
 /**
- * <p>
+ * <pre>
  * 项目类型要求 服务实现类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 @Slf4j
 @Service
-@Transactional(rollbackFor = Exception.class)
-public class ProjectRequirementServiceImpl extends BaseServiceImpl<ProjectRequirementMapper, ProjectRequirement> implements ProjectRequirementService {
+        public class ProjectRequirementServiceImpl extends BaseServiceImpl<ProjectRequirementMapper, ProjectRequirement> implements ProjectRequirementService {
 
-    @Autowired
-    private ProjectRequirementMapper projectRequirementMapper;
+        @Autowired
+        private ProjectRequirementMapper projectRequirementMapper;
+            
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean saveProjectRequirement(ProjectRequirement projectRequirement) throws Exception {
+                return super.save(projectRequirement);
+                }
 
-    @Override
-    public ProjectRequirementQueryVo getProjectRequirementById(Serializable id) throws Exception {
-        return projectRequirementMapper.getProjectRequirementById(id);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean updateProjectRequirement(ProjectRequirement projectRequirement) throws Exception {
+                return super.updateById(projectRequirement);
+                }
 
-    @Override
-    public Paging<ProjectRequirementQueryVo> getProjectRequirementPageList(ProjectRequirementQueryParam projectRequirementQueryParam) throws Exception {
-        Page page = setPageParam(projectRequirementQueryParam, OrderItem.desc("create_time"));
-        IPage<ProjectRequirementQueryVo> iPage = projectRequirementMapper.getProjectRequirementPageList(page, projectRequirementQueryParam);
-        return new Paging(iPage);
-    }
+                @Transactional(rollbackFor = Exception.class)
+                @Override
+                public boolean deleteProjectRequirement(Long id) throws Exception {
+                return super.removeById(id);
+                }
+        
+            @Override
+            public ProjectRequirementQueryVo getProjectRequirementById(Serializable id) throws Exception {
+            return projectRequirementMapper.getProjectRequirementById(id);
+            }
 
-}
+            @Override
+            public Paging<ProjectRequirementQueryVo> getProjectRequirementPageList(ProjectRequirementQueryParam projectRequirementQueryParam) throws Exception {
+            Page page = setPageParam(projectRequirementQueryParam, OrderItem.desc("create_time"));
+            IPage<ProjectRequirementQueryVo> iPage = projectRequirementMapper.getProjectRequirementPageList(page, projectRequirementQueryParam);
+            return new Paging(iPage);
+            }
+    
+        }

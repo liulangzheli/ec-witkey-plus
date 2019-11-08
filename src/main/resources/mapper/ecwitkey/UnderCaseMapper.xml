@@ -4,13 +4,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        case_id, user_id, case_name, category_id, major, province, city, soft_supplier, intro, create_time, remark
+        id, user_id, case_name, category_id, major, province, city, soft_supplier, intro, create_time, remark
     </sql>
 
     <select id="getUnderCaseById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.UnderCaseQueryVo">
         select
         <include refid="Base_Column_List"/>
-        from under_case where case_id = #{id}
+        from under_case where id = #{id}
     </select>
 
     <select id="getUnderCasePageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.UnderCaseQueryVo">

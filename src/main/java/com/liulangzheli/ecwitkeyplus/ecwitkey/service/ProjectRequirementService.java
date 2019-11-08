@@ -9,29 +9,58 @@ import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import java.io.Serializable;
 
 /**
- * <p>
+ * <pre>
  * 项目类型要求 服务类
- * </p>
+ * </pre>
  *
  * @author liulangzheli
- * @since 2019-10-22
+ * @since 2019-11-04
  */
 public interface ProjectRequirementService extends BaseService<ProjectRequirement> {
+            
+                /**
+                 * 保存
+                 *
+                 * @param projectRequirement
+                 * @return
+                 * @throws Exception
+                 */
+                boolean saveProjectRequirement(ProjectRequirement projectRequirement) throws Exception;
 
-    /**
-     * 根据ID获取查询对象
-     *
-     * @param id
-     * @return
-     */
-    ProjectRequirementQueryVo getProjectRequirementById(Serializable id) throws Exception;
+                /**
+                 * 修改
+                 *
+                 * @param projectRequirement
+                 * @return
+                 * @throws Exception
+                 */
+                boolean updateProjectRequirement(ProjectRequirement projectRequirement) throws Exception;
 
-    /**
-     * 获取分页对象
-     *
-     * @param projectRequirementQueryParam
-     * @return
-     */
-    Paging<ProjectRequirementQueryVo> getProjectRequirementPageList(ProjectRequirementQueryParam projectRequirementQueryParam) throws Exception;
+                /**
+                 * 删除
+                 *
+                 * @param id
+                 * @return
+                 * @throws Exception
+                 */
+                boolean deleteProjectRequirement(Long id) throws Exception;
+        
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param id
+             * @return
+             * @throws Exception
+             */
+        ProjectRequirementQueryVo getProjectRequirementById(Serializable id) throws Exception;
 
-}
+            /**
+             * 获取分页对象
+             *
+             * @param projectRequirementQueryParam
+             * @return
+             * @throws Exception
+             */
+            Paging<ProjectRequirementQueryVo> getProjectRequirementPageList(ProjectRequirementQueryParam projectRequirementQueryParam) throws Exception;
+    
+        }
