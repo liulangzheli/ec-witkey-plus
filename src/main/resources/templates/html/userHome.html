@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>企业/个人信息页</title>
+<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="css/common.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/myPagination.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/effect.js" type="text/javascript"></script>
+</head>
+
+<body data-page="userHome">
+<div class="floor bdB bgE">
+  <div class="floorZone txAR top"> <a href="login.html" title="" id="topUser">登录</a>|<a href="register.html" title=""id="topLog">注册</a>|<a href="javascript:void(0);" onclick="SetHome(this,'http://www.ztjzj.com');">设为首页</a>|<a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏本站</a>|<a href="article.html">常见问题</a>|<a href="article.html">使用帮助</a> </div>
+  
+  <!--end floorZone--> 
+  
+</div>
+
+<!--end floor-->
+
+<div class="floor">
+  <div class="floorZone searchZone">
+    <div class="logo fl"><a href="#" title="造价威客网">造价威客</a></div>
+    
+    <!--end logo-->
+    
+    <div class="search fl">
+      <div class="searchTab dd10 fl">
+        <div class="active">项目</div>
+        <div>服务商</div>
+      </div>
+      
+      <!--end searchTab-->
+      
+      <div class=" dd10 fl">
+        <input type="text" class="searchIpt" id ="searchText" placeholder="请输入..." /><a class="darkBlueBtn searchSbt" href="javascript:void(0)" onclick="transToSearchUrl()">搜索</a></div>
+    </div>
+    
+    <!--end search-->
+    
+    <div class="user fl txAR">
+      <div><a title="点击这里给我发消息" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2427113280&amp;site=qq&amp;menu=yes" target="_blank">联系客服</a></div>
+      <div>公众号</div>
+    </div>
+    
+    <!--end user--> 
+    
+  </div>
+  
+  <!--end floorZone--> 
+  
+</div>
+
+<!--end floor-->
+
+<div class="floor menuZone">
+  <div class="floorZone ">
+    <div class="menuLink"> <a href="index.html" >首页</a> <a href="newProd.html" class="active">发布项目</a> <a href="findProd.html">找项目</a> <a href="findCompany.html">找企业/团队</a> <a href="findPerson.html">找个人</a> </div>
+    
+    <!--end menuLink--> 
+    
+    <a class="fr" href="newProd.html">免费发布需求</a> </div>
+  
+  <!--end menuLine--> 
+  
+</div>
+
+<!--end menuZone-->
+
+<div class="floor">
+  <div class="floorZone">
+     <div class="leftBox">
+       <div class="box">
+       <div class="u1">
+        <div class="t"><a href="userHome.html"></a></div>
+        <div class="i">
+          <p><a href="userHome.html">淮安工作中心</a></p>
+          <p>工号：9342543593</p>
+          <p>工作经验：5年 </p>
+          <p>所在地：三明 </p>
+        </div><!--end i-->
+        </div><!--end u1-->        
+        <div class="u1 txAC">
+           <div class="dd45 fl bdR"><p>近期完成</p><p><b class="fcO">16</b></p></div>
+           <div class="dd5 fl"><p>近三个月收入</p><p><b class="fcO">38900</b></p></div>
+        </div><!--end u1--> 
+        <div class="u2 bdB">
+           <h3>项目类型</h3>
+           <div><span>住宅x<b>5</b></span><span>住宅x<b>5</b></span><span>工业建筑x<b>5</b></span><span>办公建筑x<b>5</b></span></div>
+           <h3>项目专业</h3>
+           <div><span>钢筋x<b>5</b></span><span>室内装修x<b>5</b></span><span>外墙装修x<b>5</b></span><span>土建x<b>5</b></span></div>
+        </div><!--end u1--> 
+         <div class="u1 txAC">
+             <a href="sign.html" class="orangeButton dd8 marB">雇佣</a><br/>
+             <a href="javascript:void(0)" class="greyButton dd8 marB">联系我</a>
+          </div><!--end u1-->
+          </div><!--end box-->
+          <div class="box fl bdB">
+          	 <h3>团队（<b>3</b>人）</h3>
+             <div class="u3" id="teamList">
+                <p><span>李工</span><label>[土建专业]</label><span>3年经验</span></p>
+                <p><span>李工</span><label>[土建专业]</label><span>3年经验</span></p>
+                <p><span>李工</span><label>[土建专业]</label><span>3年经验</span></p>
+                <p><span>李工</span><label>[土建专业]</label><span>3年经验</span></p>
+                
+             </div><!--end u3-->
+          </div><!--end box-->
+     </div><!--end leftBox-->
+     <div class="rightBox">
+          <div class="section">
+               <div class="bdA pdA marB">
+                  <p class="pdB"><b class="title">介绍</b></p>
+                  <div id="introBox">
+                    1、本工程为民用住宅计划投资金额为20万（不含基础。<br/>
+                    2、-层层高为3300，二层层高3000，三层3000（均含板厚），板厚120（可调整）<br/>
+                    3、使用斜屋面，露合部分考虑使用透明玻璃 需要考虑防水做法防止平层漏水）<br/>
+                    4、一层考虑使用24墙二层考虑使用18墙，三层考虑12墙。<br/>
+                    5、注意楼梯位置，考虑使用直角楼梯此位置需要通透。<br/>
+                    6、房屋朝向为正东方向。<br/>
+                    7、正北方邻邻居住房间距为500.<br/>
+                    8、二层、三层地面考虑使用瓷砖块料。一层不做考虑<br/>
+                    需要出：结构图<br/>
+                    温馨提示：项目周期较短，请算客合理把握时间，确认能够按时完成再进行投标。</div>
+               </div>            
+             </div><!--end section-->
+          <div class="section bdB ">
+            <div class="tab-wrapper ofHide">
+                    <ul class="tab-menu">
+                      <li class="active">线上项目</li>
+                      <li>线下项目</li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="content1" id="onlineCase">
+                          <div class="li pdA  clear ofHide ">
+                            <h3>湖北黄石|高层住宅|安装|算量+编清单+组价|广联达<label class="pdLR fc9">三明</label></h3>
+                            <p>承接日期：<span>2019-10-06</span>周期：<span>5天</span>项目规模：<span>4964平米
+</span>项目佣金：<span class="price">￥3800.0</span></p>
+                           </div>
+                          
+                          <!--end li-->
+                          <div class="li pdA  clear ofHide ">
+                            <h3>厦门|安装|算量+编清单+组价|广联达<label class="pdLR fc9">三明</label></h3>
+                            <p>承接日期：<span>2019-10-06</span>周期：<span>5天</span>项目规模：<span>4964平米
+</span>项目佣金：<span class="price">￥3800.0</span></p>
+                           </div>
+                          
+                          <!--end li-->                          
+
+                      </div>
+                      <!--end content1-->
+                      
+                      <div class="content2" id="offlineCase">
+                          <div class="li pdA  clear ofHide ">
+                            <h3>湖北黄石|高层住宅|广联达<label class="pdLR fc9">三明</label></h3>
+                            <p>承接日期：<span>2019-10-06</span>周期：<span>5天</span>项目规模：<span>4964平米
+</span>项目佣金：<span class="price">￥3800.0</span></p>
+                           </div>
+
+                          <!--end li-->
+                          <div class="li pdA  clear ofHide ">
+                            <h3>湖北黄石|高层住宅|安装|算量+编清单+组价|广联达<label class="pdLR fc9">三明</label></h3>
+                            <p>承接日期：<span>2019-10-06</span>周期：<span>5天</span>项目规模：<span>4964平米
+</span>项目佣金：<span class="price">￥3800.0</span></p>
+                           </div>
+
+                          <!--end li-->                          
+                        </ul>
+                      </div>
+                      <!--end content2--> 
+                    </div>
+                    <!--end tab-content--> 
+                  </div>         
+          </div><!--end section-->
+             
+     </div><!--end rightBox-->
+  </div>
+  <!--end floorZone-->
+</div>
+
+<!--end floor-->
+
+<div class="floor footFloor pdTB">
+  <div class="floorZone fcW pdTB">
+    <div class="dd2 fl fLine">
+      <div class="logo2">造价威客LOGO</div>
+    </div>
+    <div class="dd1 fl txAL">
+      <div class="line"></div>
+      <h2>关于我们</h2>
+      <ul>
+        <li><a href="article.html">公司简介</a></li>
+        <li><a href="article.html">平台公告</a></li>
+        <li><a href="article.html">联系方式</a></li>
+      </ul>
+    </div>
+    <div class="dd1 fl txAL">
+      <div class="line"></div>
+      <h2>交易保障</h2>
+      <ul>
+        <li><a href="article.html">网站协议</a></li>
+        <li><a href="article.html">支付方式</a></li>
+        <li><a href="article.html">维权</a></li>
+        <li><a href="article.html">意见反馈</a></li>
+      </ul>
+    </div>
+    <div class="dd3 fl">
+      <div class="line"></div>
+      <h2>联系方式</h2>
+      <p>地　　址：厦门市湖里区火炬高薪岐山北二路8899号23楼</p>
+      <p>联系电话：0592-5138XXX　5138XXX</p>
+      <p>传　　真：0592-5138XXX 　邮 　编：361011</p>
+      <p>网　　址：www.ztjzj.com</p>
+      <p>邮　　件：service@witkey.com</p>
+    </div>
+    <div class="dd3 fl txAR pdT">
+      <div class="chat">微信公众号</div>
+    </div>
+  </div>
+  
+  <!--end floorZone--> 
+  
+</div>
+
+<!--end floor-->
+
+<div class="floor footFloor txAC">
+  <p><a href="index.html">首页</a>|<a href="article.html">公司介绍</a>|<a href="article.html">公司新闻</a>|<a href="article.html">联系我们</a>|<a href="register.html">注册</a></p>
+</div>
+
+<!--end footFloor-->
+
+<div class="floor footFloor txAC">
+  <p class="fc9">&copy;造价威客网 版权所有 闽ICP备19xxx001号    本网站中提供的信息仅用作信息参考</p>
+</div>
+
+<!--end footFloor--> 
+
+<script src="js/distpicker.data.js"></script> 
+<script src="js/distpicker.js"></script> 
+<script src="js/main.js"></script>
+</body>
+</html>

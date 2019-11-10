@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>找个人</title>
+<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="css/common.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/myPagination.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/effect.js" type="text/javascript"></script>
+</head>
+
+<body data-page="personList">
+<div class="floor bdB bgE">
+  <div class="floorZone txAR top"> <a href="login.html" title="" id="topUser">登录</a>|<a href="register.html" title=""id="topLog">注册</a>|<a href="javascript:void(0);" onclick="SetHome(this,'http://www.ztjzj.com');">设为首页</a>|<a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏本站</a>|<a href="article.html">常见问题</a>|<a href="article.html">使用帮助</a> </div>
+  
+  <!--end floorZone--> 
+  
+</div>
+
+<!--end floor-->
+
+<div class="floor">
+  <div class="floorZone searchZone">
+    <div class="logo fl"><a href="#" title="造价威客网">造价威客</a></div>
+    
+    <!--end logo-->
+    
+    <div class="search fl">
+      <div class="searchTab dd10 fl">
+        <div class="active">项目</div>
+        <div>服务商</div>
+      </div>
+      
+      <!--end searchTab-->
+      
+      <div class=" dd10 fl">
+        <input type="text" class="searchIpt" placeholder="请输入..." />
+        <a class="darkBlueBtn searchSbt">搜索</a></div>
+    </div>
+    
+    <!--end search-->
+    
+    <div class="user fl txAR">
+      <div><a title="点击这里给我发消息" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2427113280&amp;site=qq&amp;menu=yes" target="_blank">联系客服</a></div>
+      <div>公众号</div>
+    </div>
+    
+    <!--end user--> 
+    
+  </div>
+  
+  <!--end floorZone--> 
+  
+</div>
+
+<!--end floor-->
+
+<div class="floor menuZone">
+  <div class="floorZone ">
+    <div class="menuLink"> <a href="index.html" >首页</a> <a href="newProd.html" class="active">发布项目</a> <a href="findProd.html">找项目</a> <a href="findCompany.html">找企业/团队</a> <a href="findPerson.html">找个人</a> </div>
+    
+    <!--end menuLink--> 
+    
+    <a class="fr" href="newProd.html">免费发布需求</a> </div>
+  
+  <!--end menuLine--> 
+  
+</div>
+
+<!--end menuZone-->
+
+<div class="floor">
+  <div class="floorZone filter">
+    <div class="bdA pdA ofHide marT filter">
+      
+       <div class=" pdLR ofHide">
+        <div class="dd1 fl txAR lx"><b>类&emsp;型：</b></div>
+        <div class="dd9 fl txAL">
+        <a href="javascript:void(0);" class="active">不限</a><a href="javascript:void(0);">住宅</a><a href="javascript:void(0);">公寓</a><a href="javascript:void(0);">别墅</a><a href="javascript:void(0);">办公建筑</a> <a href="javascript:void(0);">宾馆酒店</a><a href="javascript:void(0);">地下部分</a><a href="javascript:void(0);">商业建筑</a><a href="javascript:void(0);">交通建筑</a><a href="javascript:void(0);">工业建筑</a><a href="javascript:void(0);">教育建筑</a>
+        <a href="javascript:void(0);">卫生建筑</a><a href="javascript:void(0);">文体建筑</a><a href="javascript:void(0);">工业配套</a> <a href="javascript:void(0);">室外总体、公共绿化</a><a href="javascript:void(0);">市政交通</a><a href="javascript:void(0);">仿古建筑</a><a href="javascript:void(0);">特殊行业</a><a href="javascript:void(0);">市政工程</a><a href="javascript:void(0);">技术标</a>
+        </div>
+      </div>
+      <!--end div-->
+       <div class=" pdLR ofHide">
+        <div class="dd1 fl txAR"><b>专&emsp;业：</b></div>
+        <div class="dd9 fl txAL">
+        <a href="javascript:void(0);" class="active">不限</a><a href="javascript:void(0);">土建（不启钢筋）</a><a href="javascript:void(0);">钢筋</a><a href="javascript:void(0);">钢构</a><a href="javascript:void(0);">给水排水</a> <a href="javascript:void(0);">暖通燃气</a><a href="javascript:void(0);">电气消防</a><a href="javascript:void(0);">室内装修</a><a href="javascript:void(0);">外墙装修</a><a href="javascript:void(0);">其它</a></div>
+      </div>
+      <!--end div--> 
+      <div class=" pdLR ofHide">
+          <div class="dd1 fl txAR"><b>地&emsp;区：</b></div>
+          <div class="dd9 fl txAL"><select><option>福建</option><option>全国</option><option>不限</option></select>
+               <select><option>厦门</option><option>福州</option><option>漳州</option></select>
+            </div>
+      </div>     
+      <div class=" pdA ofHide ">
+        <div class="dd1 fl txAR"><b>搜&emsp;索：</b></div>
+        <input type="search" placeholder="请输入..."/>
+        <button class="blueButton" style="height:35px;line-height:35px;">搜索</button>
+      </div>
+      <!--end div--> 
+      
+    </div>
+    <!--end div--> 
+    
+  </div>
+  <!--end floorZone-->
+  
+  <div class="floorZone">
+    <div class="contentBox" id="personList">
+      <div class="li pdTB  clear ofHide ">
+      	<div class="dd1 fl t"><a href="userHome.html"></a></div>
+        <div class="dd7 fl">
+          <p><a href="userHome.html">李工</a><label class="pdLR fc9">三明</label></p>
+          <p class="lifo">项目类型： 住宅×33        教育建筑×26              办公建筑×11 </p>
+          <p class="lifo">项目专业： 钢筋×28        土建(不含钢筋)×27     电气消防×23</p>
+          <p class="lifo">工作经历：</p>
+        </div>
+        <div class="dd2 fl y">
+          <p>近期完成：16</p>
+          <p>按时交付率<span>89%</span></p>
+        </div>
+      </div>
+      <!--end li-->
+      <div class="li pdTB  clear ofHide ">
+      	<div class="dd1 fl t"><a href="userHome.html"></a></div>
+        <div class="dd7 fl">
+          <p><a href="userHome.html">李工</a><label class="pdLR fc9">三明</label></p>
+          <p class="lifo">项目类型： 住宅×33        教育建筑×26              办公建筑×11 </p>
+          <p class="lifo">项目专业： 钢筋×28        土建(不含钢筋)×27     电气消防×23</p>
+          <p class="lifo">工作经历：</p>
+        </div>
+        <div class="dd2 fl y">
+          <p>近期完成：16</p>
+          <p>按时交付率<span>89%</span></p>
+        </div>
+      </div>
+      <!--end li-->      <div class="li pdTB  clear ofHide ">
+      	<div class="dd1 fl t"><a href="userHome.html"></a></div>
+        <div class="dd7 fl">
+          <p><a href="userHome.html">李工</a><label class="pdLR fc9">三明</label></p>
+          <p class="lifo">项目类型： 住宅×33        教育建筑×26              办公建筑×11 </p>
+          <p class="lifo">项目专业： 钢筋×28        土建(不含钢筋)×27     电气消防×23</p>
+          <p class="lifo">工作经历：</p>
+        </div>
+        <div class="dd2 fl y">
+          <p>近期完成：16</p>
+          <p>按时交付率<span>89%</span></p>
+        </div>
+      </div>
+      <!--end li-->      <div class="li pdTB  clear ofHide ">
+      	<div class="dd1 fl t"><a href="userHome.html"></a></div>
+        <div class="dd7 fl">
+          <p><a href="userHome.html">李工</a><label class="pdLR fc9">三明</label></p>
+          <p class="lifo">项目类型： 住宅×33        教育建筑×26              办公建筑×11 </p>
+          <p class="lifo">项目专业： 钢筋×28        土建(不含钢筋)×27     电气消防×23</p>
+          <p class="lifo">工作经历：</p>
+        </div>
+        <div class="dd2 fl y">
+          <p>近期完成：16</p>
+          <p>按时交付率<span>89%</span></p>
+        </div>
+      </div>
+      <!--end li-->      <div class="li pdTB  clear ofHide ">
+      	<div class="dd1 fl t"><a href="userHome.html"></a></div>
+        <div class="dd7 fl">
+          <p><a href="userHome.html">李工</a><label class="pdLR fc9">三明</label></p>
+          <p class="lifo">项目类型： 住宅×33        教育建筑×26              办公建筑×11 </p>
+          <p class="lifo">项目专业： 钢筋×28        土建(不含钢筋)×27     电气消防×23</p>
+          <p class="lifo">工作经历：</p>
+        </div>
+        <div class="dd2 fl y">
+          <p>近期完成：16</p>
+          <p>按时交付率<span>89%</span></p>
+        </div>
+      </div>
+      <!--end li-->      <div class="li pdTB  clear ofHide ">
+      	<div class="dd1 fl t"><a href="userHome.html"></a></div>
+        <div class="dd7 fl">
+          <p><a href="userHome.html">李工</a><label class="pdLR fc9">三明</label></p>
+          <p class="lifo">项目类型： 住宅×33        教育建筑×26              办公建筑×11 </p>
+          <p class="lifo">项目专业： 钢筋×28        土建(不含钢筋)×27     电气消防×23</p>
+          <p class="lifo">工作经历：</p>
+        </div>
+        <div class="dd2 fl y">
+          <p>近期完成：16</p>
+          <p>按时交付率<span>89%</span></p>
+        </div>
+      </div>
+      <!--end li-->      <div class="li pdTB  clear ofHide ">
+      	<div class="dd1 fl t"><a href="userHome.html"></a></div>
+        <div class="dd7 fl">
+          <p><a href="userHome.html">李工</a><label class="pdLR fc9">三明</label></p>
+          <p class="lifo">项目类型： 住宅×33        教育建筑×26              办公建筑×11 </p>
+          <p class="lifo">项目专业： 钢筋×28        土建(不含钢筋)×27     电气消防×23</p>
+          <p class="lifo">工作经历：</p>
+        </div>
+        <div class="dd2 fl y">
+          <p>近期完成：16</p>
+          <p>按时交付率<span>89%</span></p>
+        </div>
+      </div>
+      <!--end li-->      <div class="li pdTB  clear ofHide ">
+      	<div class="dd1 fl t"><a href="userHome.html"></a></div>
+        <div class="dd7 fl">
+          <p><a href="userHome.html">李工</a><label class="pdLR fc9">三明</label></p>
+          <p class="lifo">项目类型： 住宅×33        教育建筑×26              办公建筑×11 </p>
+          <p class="lifo">项目专业： 钢筋×28        土建(不含钢筋)×27     电气消防×23</p>
+          <p class="lifo">工作经历：</p>
+        </div>
+        <div class="dd2 fl y">
+          <p>近期完成：16</p>
+          <p>按时交付率<span>89%</span></p>
+        </div>
+      </div>
+      <!--end li-->      <div class="li pdTB  clear ofHide ">
+      	<div class="dd1 fl t"><a href="userHome.html"></a></div>
+        <div class="dd7 fl">
+          <p><a href="userHome.html">李工</a><label class="pdLR fc9">三明</label></p>
+          <p class="lifo">项目类型： 住宅×33        教育建筑×26              办公建筑×11 </p>
+          <p class="lifo">项目专业： 钢筋×28        土建(不含钢筋)×27     电气消防×23</p>
+          <p class="lifo">工作经历：</p>
+        </div>
+        <div class="dd2 fl y">
+          <p>近期完成：16</p>
+          <p>按时交付率<span>89%</span></p>
+        </div>
+      </div>
+      <!--end li-->   
+      
+      
+      <div id="pagination" class="pagination"></div>
+    </div>
+    <!--end content-->
+    
+    
+    
+  </div>
+  <!--end floorZone--> 
+  
+</div>
+
+<!--end floor-->
+
+<div class="floor footFloor pdTB">
+  <div class="floorZone fcW pdTB">
+    <div class="dd2 fl fLine">
+      <div class="logo2">造价威客LOGO</div>
+    </div>
+    <div class="dd1 fl txAL">
+      <div class="line"></div>
+      <h2>关于我们</h2>
+      <ul>
+        <li><a href="article.html">公司简介</a></li>
+        <li><a href="article.html">平台公告</a></li>
+        <li><a href="article.html">联系方式</a></li>
+      </ul>
+    </div>
+    <div class="dd1 fl txAL">
+      <div class="line"></div>
+      <h2>交易保障</h2>
+      <ul>
+        <li><a href="article.html">网站协议</a></li>
+        <li><a href="article.html">支付方式</a></li>
+        <li><a href="article.html">维权</a></li>
+        <li><a href="article.html">意见反馈</a></li>
+      </ul>
+    </div>
+    <div class="dd3 fl">
+      <div class="line"></div>
+      <h2>联系方式</h2>
+      <p>地　　址：厦门市湖里区火炬高薪岐山北二路8899号23楼</p>
+      <p>联系电话：0592-5138XXX　5138XXX</p>
+      <p>传　　真：0592-5138XXX 　邮 　编：361011</p>
+      <p>网　　址：www.ztjzj.com</p>
+      <p>邮　　件：service@witkey.com</p>
+    </div>
+    <div class="dd3 fl txAR pdT">
+      <div class="chat">微信公众号</div>
+    </div>
+  </div>
+  
+  <!--end floorZone--> 
+  
+</div>
+
+<!--end floor-->
+
+<div class="floor footFloor txAC">
+  <p><a href="index.html">首页</a>|<a href="article.html">公司介绍</a>|<a href="article.html">公司新闻</a>|<a href="article.html">联系我们</a>|<a href="register.html">注册</a></p>
+</div>
+
+<!--end footFloor-->
+
+<div class="floor footFloor txAC">
+  <p class="fc9">&copy;造价威客网 版权所有 闽ICP备19xxx001号    本网站中提供的信息仅用作信息参考</p>
+</div>
+
+<!--end footFloor--> 
+
+<script src="js/myPagination.js"></script> 
+<script>
+
+window.onload = function () {
+
+    new Page({
+
+        id: 'pagination',
+
+        pageTotal: 50, //必填,总页数
+
+        pageAmount: 10,  //每页多少条
+
+        dataTotal: 500, //总共多少条数据
+
+        curPage:1, //初始页码,不填默认为1
+
+        pageSize: 5, //分页个数,不填默认为5
+
+        showPageTotalFlag:true, //是否显示数据统计,不填默认不显示
+
+        showSkipInputFlag:true, //是否支持跳转,不填默认不显示
+
+        getPage: function (page) {
+
+            //获取当前页数
+
+           console.log(page);
+
+        }
+
+    })
+
+
+
+    //如有问题可联系VX(base64): REo5ODc4OQ==
+
+}
+
+</script>
+</body>
+</html>
