@@ -177,4 +177,9 @@ public class JwtFilter extends AuthenticatingFilter {
         log.error("登陆失败，token:" + token + ",error:" + e.getMessage(), e);
         return false;
     }
+
+    @Override
+    public String getLoginUrl() {
+        return "/register.html";
+    }
 }
