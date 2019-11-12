@@ -59,7 +59,7 @@ ec-witkey-plus:
       exclude-paths: |
         /applications/**,/actuator/**,/instances/**,/logfile,/sba-settings.js,/assets/img/favicon.png,
         /swagger-ui.html,/swagger-resources/**,/webjars/springfox-swagger-ui/**,/v2/api-docs,
-        /druid/**,/favicon.ico
+        /druid/**,/favicon.ico,/login.html
   # 拦截器配置
   interceptor:
     permission:

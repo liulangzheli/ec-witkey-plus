@@ -34,6 +34,11 @@ import springfox.documentation.annotations.ApiIgnore;
 @Slf4j
 public class IndexController {
 
+    /*@RequestMapping("/")
+    public String check(){
+        return "index";
+    }*/
+
     @RequestMapping("/index")
     public ApiResult<String> index(){
         log.debug("index...");
