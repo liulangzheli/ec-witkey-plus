@@ -29,39 +29,44 @@ import java.io.Serializable;
  */
 @Slf4j
 @Service
-        public class OrderCheckServiceImpl extends BaseServiceImpl<OrderCheckMapper, OrderCheck> implements OrderCheckService {
+public class OrderCheckServiceImpl extends BaseServiceImpl<OrderCheckMapper, OrderCheck> implements OrderCheckService {
 
-        @Autowired
-        private OrderCheckMapper orderCheckMapper;
-            
-                @Transactional(rollbackFor = Exception.class)
-                @Override
-                public boolean saveOrderCheck(OrderCheck orderCheck) throws Exception {
-                return super.save(orderCheck);
-                }
+    @Autowired
+    private OrderCheckMapper orderCheckMapper;
 
-                @Transactional(rollbackFor = Exception.class)
-                @Override
-                public boolean updateOrderCheck(OrderCheck orderCheck) throws Exception {
-                return super.updateById(orderCheck);
-                }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean saveOrderCheck(OrderCheck orderCheck) throws Exception {
+        return super.save(orderCheck);
+    }
 
-                @Transactional(rollbackFor = Exception.class)
-                @Override
-                public boolean deleteOrderCheck(Long id) throws Exception {
-                return super.removeById(id);
-                }
-        
-            @Override
-            public OrderCheckQueryVo getOrderCheckById(Serializable id) throws Exception {
-            return orderCheckMapper.getOrderCheckById(id);
-            }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean updateOrderCheck(OrderCheck orderCheck) throws Exception {
+        return super.updateById(orderCheck);
+    }
 
-            @Override
-            public Paging<OrderCheckQueryVo> getOrderCheckPageList(OrderCheckQueryParam orderCheckQueryParam) throws Exception {
-            Page page = setPageParam(orderCheckQueryParam, OrderItem.desc("create_time"));
-            IPage<OrderCheckQueryVo> iPage = orderCheckMapper.getOrderCheckPageList(page, orderCheckQueryParam);
-            return new Paging(iPage);
-            }
-    
-        }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean deleteOrderCheck(Long id) throws Exception {
+        return super.removeById(id);
+    }
+
+    @Override
+    public OrderCheckQueryVo getOrderCheckById(Serializable id) throws Exception {
+        return orderCheckMapper.getOrderCheckById(id);
+    }
+
+    @Override
+    public OrderCheckQueryVo getOrderCheckByOrderId(Serializable orderId) throws Exception {
+        return orderCheckMapper.getOrderCheckByOrderId(orderId);
+    }
+
+    @Override
+    public Paging<OrderCheckQueryVo> getOrderCheckPageList(OrderCheckQueryParam orderCheckQueryParam) throws Exception {
+        Page page = setPageParam(orderCheckQueryParam, OrderItem.desc("create_time"));
+        IPage<OrderCheckQueryVo> iPage = orderCheckMapper.getOrderCheckPageList(page, orderCheckQueryParam);
+        return new Paging(iPage);
+    }
+
+}

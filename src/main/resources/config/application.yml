@@ -126,10 +126,10 @@ ec-witkey-plus:
   ############################ CORS end ##############################
 
   ########################## Resource start ##########################
+  ##/static/**=classpath:/static/
+  ##/templates/**=classpath:/templates/
   # 静态资源访问配置
   resource-handlers: |
-    /static/**=classpath:/static/
-    /templates/**=classpath:/templates/
     swagger-ui.html=classpath:/META-INF/resources/
     /webjars/**=classpath:/META-INF/resources/webjars/
   ########################## Resource end ############################
@@ -160,8 +160,8 @@ ec-witkey-plus:
       - urls: /login,/logout
         permission: anon
         # 排除静态资源
-      - urls: /static/**,/templates/**
-        permission: anon
+      #- urls: /static/**,/templates/**
+      #  permission: anon
         # 排除Swagger
       - urls: /docs,/swagger-ui.html,/webjars/springfox-swagger-ui/**,/swagger-resources/**,/v2/api-docs
         permission: anon

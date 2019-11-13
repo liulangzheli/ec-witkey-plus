@@ -13,6 +13,12 @@
         from order_check where id = #{id}
     </select>
 
+    <select id="getOrderCheckByOrderId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderCheckQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from order_check where id = #{orderId}
+    </select>
+
     <select id="getOrderCheckPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderCheckQueryVo">
         select
         <include refid="Base_Column_List"/>

@@ -76,6 +76,13 @@ private OrderCheckService orderCheckService;
             return ApiResult.ok(orderCheckQueryVo);
             }
 
+    @GetMapping("/infoByOrderId/{orderId}")
+    @ApiOperation(value = "获取OrderCheck对象详情", notes = "查看订单验收信息", response = OrderCheckQueryVo.class)
+    public ApiResult<OrderCheckQueryVo> getOrderCheckByOrderId(@PathVariable("orderId") Long orderId) throws Exception {
+        OrderCheckQueryVo orderCheckQueryVo = orderCheckService.getOrderCheckByOrderId(orderId);
+        return ApiResult.ok(orderCheckQueryVo);
+    }
+
     /**
      * 订单验收信息分页列表
      */

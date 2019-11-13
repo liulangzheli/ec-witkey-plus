@@ -21,22 +21,30 @@ import java.io.Serializable;
  */
 @Repository
 public interface OrderCheckMapper extends BaseMapper<OrderCheck> {
-    
-            /**
-             * 根据ID获取查询对象
-             *
-             * @param id
-             * @return
-             */
-        OrderCheckQueryVo getOrderCheckById(Serializable id);
 
-            /**
-             * 获取分页对象
-             *
-             * @param page
-             * @param orderCheckQueryParam
-             * @return
-             */
-            IPage<OrderCheckQueryVo> getOrderCheckPageList(@Param("page") Page page, @Param("param") OrderCheckQueryParam orderCheckQueryParam);
-    
-        }
+    /**
+     * 根据ID获取查询对象
+     *
+     * @param id
+     * @return
+     */
+    OrderCheckQueryVo getOrderCheckById(Serializable id);
+
+    /**
+     * 根据OrderID获取查询对象
+     *
+     * @param orderId
+     * @return
+     */
+    OrderCheckQueryVo getOrderCheckByOrderId(Serializable orderId);
+
+    /**
+     * 获取分页对象
+     *
+     * @param page
+     * @param orderCheckQueryParam
+     * @return
+     */
+    IPage<OrderCheckQueryVo> getOrderCheckPageList(@Param("page") Page page, @Param("param") OrderCheckQueryParam orderCheckQueryParam);
+
+}
