@@ -139,10 +139,15 @@ ec-witkey-plus:
     # 是否启用
     enable: true
     # shiro ini 多行字符串配置
+    #/static/**=anon,/templates/**=anon
     filter-chain-definitions: |
       /=anon
-      /static/**=anon
-      /templates/**=anon
+      /js/**=anon
+      /css/**=anon
+      /image/**=anon
+      /login.html=anon
+      /register.html=anon
+      /index.html=anon
       /druid/**=anon
       /hello/world=anon
       /ip/**=anon
