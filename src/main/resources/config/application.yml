@@ -100,8 +100,8 @@ ec-witkey-plus:
   # 资源访问全路径前缀：http://localhost:8888/resource/
   resource-access-url: http://localhost:${server.port}${server.servlet.context-path}${ec-witkey-plus.resource-access-path}
   # 全局允许上传的类型
-  allow-upload-file-extensions: jpg,png,docx,xlsx,pptx,pdf
-  allow-download-file-extensions: jpg,png,docx,xlsx,pptx,pdf
+  allow-upload-file-extensions: jpg,png,docx,xlsx,pptx,pdf,zip,rar
+  allow-download-file-extensions: jpg,png,docx,xlsx,pptx,pdf,zip,rar
 
   ############################ CORS start ############################
   # CORS跨域配置，默认允许跨域
@@ -148,6 +148,8 @@ ec-witkey-plus:
       /login.html=anon
       /register.html=anon
       /index.html=anon
+      /cregister.html=anon
+      /pregister.html=anon
       /druid/**=anon
       /hello/world=anon
       /ip/**=anon
