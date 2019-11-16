@@ -7,10 +7,27 @@
         id, user_id, create_time, pay_time, examine_time, pick_time, check_time, category_id, major, province, city, end_time, period, soft_supplier, soft_name, intro, state, remark
     </sql>
 
+    <!-- 通用查询结果列 -->
+    <sql id="User_And_Base_Column_List">
+        id, user_id, create_time, pay_time, examine_time, pick_time, check_time, category_id, major, province, city, end_time, period, soft_supplier, soft_name, intro, state, remark, nickname, user_type, company_name, licence_id, id_num
+    </sql>
+
     <select id="getProjectOrderById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
         select
         <include refid="Base_Column_List"/>
         from project_order where id = #{id}
+    </select>
+
+    <select id="getProjectOrderByUserId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderUserQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from project_order where user_id = #{userId}
+    </select>
+
+    <select id="getProjectOrderUserById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
+        select
+        <include refid="User_And_Base_Column_List"/>
+        from project_order m,sys_user s where m.user_id=s.id and id = #{id}
     </select>
 
     <select id="getProjectOrderPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">

@@ -21,22 +21,30 @@ import java.io.Serializable;
  */
 @Repository
 public interface CollectMapper extends BaseMapper<Collect> {
-    
-            /**
-             * 根据ID获取查询对象
-             *
-             * @param id
-             * @return
-             */
-        CollectQueryVo getCollectById(Serializable id);
 
-            /**
-             * 获取分页对象
-             *
-             * @param page
-             * @param collectQueryParam
-             * @return
-             */
-            IPage<CollectQueryVo> getCollectPageList(@Param("page") Page page, @Param("param") CollectQueryParam collectQueryParam);
-    
-        }
+    /**
+     * 根据ID获取查询对象
+     *
+     * @param id
+     * @return
+     */
+    CollectQueryVo getCollectById(Serializable id);
+
+    /**
+     * 根据USERID获取查询对象
+     *
+     * @param userId
+     * @return
+     */
+    CollectQueryVo getCollectByUserId(Serializable userId);
+
+    /**
+     * 获取分页对象
+     *
+     * @param page
+     * @param collectQueryParam
+     * @return
+     */
+    IPage<CollectQueryVo> getCollectPageList(@Param("page") Page page, @Param("param") CollectQueryParam collectQueryParam);
+
+}

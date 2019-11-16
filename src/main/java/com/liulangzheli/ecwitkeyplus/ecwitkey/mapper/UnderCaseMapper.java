@@ -21,22 +21,30 @@ import java.io.Serializable;
  */
 @Repository
 public interface UnderCaseMapper extends BaseMapper<UnderCase> {
-    
-            /**
-             * 根据ID获取查询对象
-             *
-             * @param id
-             * @return
-             */
-        UnderCaseQueryVo getUnderCaseById(Serializable id);
 
-            /**
-             * 获取分页对象
-             *
-             * @param page
-             * @param underCaseQueryParam
-             * @return
-             */
-            IPage<UnderCaseQueryVo> getUnderCasePageList(@Param("page") Page page, @Param("param") UnderCaseQueryParam underCaseQueryParam);
-    
-        }
+    /**
+     * 根据ID获取查询对象
+     *
+     * @param id
+     * @return
+     */
+    UnderCaseQueryVo getUnderCaseById(Serializable id);
+
+    /**
+     * 根据UserID获取查询对象
+     *
+     * @param userId
+     * @return
+     */
+    UnderCaseQueryVo getUnderCaseByUserId(Serializable userId);
+
+    /**
+     * 获取分页对象
+     *
+     * @param page
+     * @param underCaseQueryParam
+     * @return
+     */
+    IPage<UnderCaseQueryVo> getUnderCasePageList(@Param("page") Page page, @Param("param") UnderCaseQueryParam underCaseQueryParam);
+
+}

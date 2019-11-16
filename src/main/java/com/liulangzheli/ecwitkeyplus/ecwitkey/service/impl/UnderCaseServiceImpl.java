@@ -29,39 +29,44 @@ import java.io.Serializable;
  */
 @Slf4j
 @Service
-        public class UnderCaseServiceImpl extends BaseServiceImpl<UnderCaseMapper, UnderCase> implements UnderCaseService {
+public class UnderCaseServiceImpl extends BaseServiceImpl<UnderCaseMapper, UnderCase> implements UnderCaseService {
 
-        @Autowired
-        private UnderCaseMapper underCaseMapper;
-            
-                @Transactional(rollbackFor = Exception.class)
-                @Override
-                public boolean saveUnderCase(UnderCase underCase) throws Exception {
-                return super.save(underCase);
-                }
+    @Autowired
+    private UnderCaseMapper underCaseMapper;
 
-                @Transactional(rollbackFor = Exception.class)
-                @Override
-                public boolean updateUnderCase(UnderCase underCase) throws Exception {
-                return super.updateById(underCase);
-                }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean saveUnderCase(UnderCase underCase) throws Exception {
+        return super.save(underCase);
+    }
 
-                @Transactional(rollbackFor = Exception.class)
-                @Override
-                public boolean deleteUnderCase(Long id) throws Exception {
-                return super.removeById(id);
-                }
-        
-            @Override
-            public UnderCaseQueryVo getUnderCaseById(Serializable id) throws Exception {
-            return underCaseMapper.getUnderCaseById(id);
-            }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean updateUnderCase(UnderCase underCase) throws Exception {
+        return super.updateById(underCase);
+    }
 
-            @Override
-            public Paging<UnderCaseQueryVo> getUnderCasePageList(UnderCaseQueryParam underCaseQueryParam) throws Exception {
-            Page page = setPageParam(underCaseQueryParam, OrderItem.desc("create_time"));
-            IPage<UnderCaseQueryVo> iPage = underCaseMapper.getUnderCasePageList(page, underCaseQueryParam);
-            return new Paging(iPage);
-            }
-    
-        }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean deleteUnderCase(Long id) throws Exception {
+        return super.removeById(id);
+    }
+
+    @Override
+    public UnderCaseQueryVo getUnderCaseById(Serializable id) throws Exception {
+        return underCaseMapper.getUnderCaseById(id);
+    }
+
+    @Override
+    public UnderCaseQueryVo getUnderCaseByUserId(Serializable userId) throws Exception {
+        return underCaseMapper.getUnderCaseByUserId(userId);
+    }
+
+    @Override
+    public Paging<UnderCaseQueryVo> getUnderCasePageList(UnderCaseQueryParam underCaseQueryParam) throws Exception {
+        Page page = setPageParam(underCaseQueryParam, OrderItem.desc("create_time"));
+        IPage<UnderCaseQueryVo> iPage = underCaseMapper.getUnderCasePageList(page, underCaseQueryParam);
+        return new Paging(iPage);
+    }
+
+}

@@ -6,7 +6,8 @@ import com.liulangzheli.ecwitkeyplus.ecwitkey.param.ProjectOrderQueryParam;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo;
 import com.liulangzheli.ecwitkeyplus.common.api.ApiResult;
         import com.liulangzheli.ecwitkeyplus.common.controller.BaseController;
-            import io.swagger.annotations.Api;
+import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderUserQueryVo;
+import io.swagger.annotations.Api;
     import io.swagger.annotations.ApiOperation;
     import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -74,6 +75,26 @@ public class ProjectOrderController extends BaseController {
     public ApiResult<ProjectOrderQueryVo> getProjectOrder(@PathVariable("id") Long id) throws Exception {
         ProjectOrderQueryVo projectOrderQueryVo = projectOrderService.getProjectOrderById(id);
         return ApiResult.ok(projectOrderQueryVo);
+    }
+
+    /**
+     * 获取userId对应的项目订单
+     */
+    @GetMapping("/infoByUserId/{userId}")
+    @ApiOperation(value = "获取ProjectOrder对象详情", notes = "查看userId项目订单", response = ProjectOrderQueryVo.class)
+    public ApiResult<ProjectOrderQueryVo> getProjectOrderByUserId(@PathVariable("userId") Long userId) throws Exception {
+        ProjectOrderQueryVo projectOrderQueryVo = projectOrderService.getProjectOrderByUserId(userId);
+        return ApiResult.ok(projectOrderQueryVo);
+    }
+
+    /**
+     * 获取userId对应的项目订单
+     */
+    @GetMapping("/orderUser/{id}")
+    @ApiOperation(value = "获取ProjectOrderUser对象详情", notes = "查看user项目订单", response = ProjectOrderQueryVo.class)
+    public ApiResult<ProjectOrderUserQueryVo> getProjectOrderUserById(@PathVariable("id") Long id) throws Exception {
+        ProjectOrderUserQueryVo projectOrderUserQueryVo = projectOrderService.getProjectOrderUserById(id);
+        return ApiResult.ok(projectOrderUserQueryVo);
     }
 
     /**

@@ -13,6 +13,12 @@
         from under_case where id = #{id}
     </select>
 
+    <select id="getUnderCaseByUserId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.UnderCaseQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from under_case where user_id = #{userId}
+    </select>
+
     <select id="getUnderCasePageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.UnderCaseQueryVo">
         select
         <include refid="Base_Column_List"/>
