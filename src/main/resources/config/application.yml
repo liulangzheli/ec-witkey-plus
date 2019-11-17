@@ -150,6 +150,8 @@ ec-witkey-plus:
       /index.html=anon
       /cregister.html=anon
       /pregister.html=anon
+      /sysUser/register/company=anon
+      /sysUser/register/personal=anon
       /druid/**=anon
       /hello/world=anon
       /ip/**=anon
