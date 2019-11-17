@@ -57,7 +57,7 @@ public class SysUserController extends BaseController {
      * 个人注册
      */
     @PostMapping("/register/personal")
-    @RequiresPermissions("sys:register:personal")
+    //@RequiresPermissions("sys:register:personal")
     @ApiOperation(value = "个人注册", notes = "注册个人用户", response = ApiResult.class)
     public ApiResult<Boolean> addSysUserForPersonal(@Valid @RequestBody SysUser sysUser) throws Exception {
         boolean flag = sysUserService.saveSysUser(sysUser);
@@ -68,7 +68,7 @@ public class SysUserController extends BaseController {
      * 公司注册
      */
     @PostMapping("/register/company")
-    @RequiresPermissions("sys:register:company")
+    //@RequiresPermissions("sys:register:company")
     @ApiOperation(value = "公司注册", notes = "注册公司用户", response = ApiResult.class)
     public ApiResult<Boolean> addSysUserForCompany(@Valid @RequestBody SysUser sysUser) throws Exception {
         boolean flag = sysUserService.saveSysUser(sysUser);
