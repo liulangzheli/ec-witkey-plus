@@ -16,10 +16,45 @@ function loadPage(amount,len){//调用分页函数
            console.log(page);
         }
     })
-}
-function loadOrderInfo(){//订单信息
 	
+}
+function getProType(data){//发布需求-项目类别
+  if(data!=null&&data!=undefined){ 
+     var _str='',_childStr='';
+      $.each(data,function(key,item){
+		    if(item.parentId==0||item.parentId==''){
+				var pid=item.id;
+				$.each(data,function(key,item){
+				     if(item.id==pid)
+					   _childStr+='<label>'+item.name+'<input type="checkbox" contype="'+item.contType+'" name="'+item.id+'" id="'+item.id+key+'" value="'+item.name+'" onclick="setSelected(this,\'checkbox\')"/> '         
+								+'</label>'
+								+'          <div class="modal-dialog-box">'
+								+'         	 <div class="modal-dialog">'
+								+'					<h3>项目类型：<span>'+item.name+'</span></h3>'
+								+'                    <div class="dd8 marA">'
+								+'                         <table>'
+								+'                            <tr>'
+								+'                               <td align="right">单体数量：</td>'
+								+'                               <td><input type="text" name="'+item.id+key+'_qty" value="1" /></td>'
+								+'                            </tr>'
+								+'                            <tr>'
+								+'                               <td align="right">地上总建筑面积：</td>'
+								+'                               <td><input type="number" name="'+item.id+key+'_area"/>平米</td>'
+								+'                            </tr>'
+								+'                            <tr><td colspan="2" align="left">说明：</td></tr>'
+								+'                            <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>'
+								+'                            <tr>'
+								+'                            	<td align="center"><a href="javascript:void(0)" onclick="showBox(\'modal-dialog-box\',"'+item.id+key+'",1)"class="greyButton pdLR dd8 ">关闭</a></td>'
+								+'                            	<td align="center"><a href="javascript:void(0)" onclick="showBox(\'modal-dialog-box\',"'+item.id+key+'",1)"class="orangeButton pdLR dd8">确认</a></td>'
+								+'                            </tr>'
+								+'                         </table>'
+								+'                    </div>        '     				
 
+				});
+				 _str='<div><b>'+item.name+'：</b>'+_childStr;
+			}
+	  });
+  }
 }
 function getMajor(data){//获取项目专业类别
   if(data!=null&&data!=undefined){
@@ -50,20 +85,7 @@ function getProdList(data){//获取项目列表
 			 +'</div><!--end li-->'
 	 });
 	 $('#proList').empty().append(_str);
-		new Page({
-			id: 'pagination',
-			pageTotal: data.length, //必填,总页数
-			pageAmount: 10,  //每页多少条
-			dataTotal: 500, //总共多少条数据
-			curPage:1, //初始页码,不填默认为1
-			pageSize: 5, //分页个数,不填默认为5
-			showPageTotalFlag:true, //是否显示数据统计,不填默认不显示
-			showSkipInputFlag:true, //是否支持跳转,不填默认不显示
-			getPage: function (page) {
-				//获取当前页数
-			   console.log(page);
-			}
-		})	 
+	 loadPage(10,data.length)	
 }
 }
 function getRankList(data){//排行榜
@@ -187,7 +209,7 @@ function getProInfo(data){//获取项目信息
 	  }
   }
 }
-function getBiddingInfo(data){
+function getBiddingInfo(data){//竞标
   if(data!=null&&data!=undefined){
      var _str='',_detail="",_state='未中标';
 	 if($.cookie('uid')==data.owner_id){
@@ -281,20 +303,7 @@ function getCompanyList(data){//获取企业服务商列表
 			+'  </div><!--end li-->'
 	 });
 	 $('#companyList').empty().append(_str);
-		new Page({
-			id: 'pagination',
-			pageTotal: data.length, //必填,总页数
-			pageAmount: 10,  //每页多少条
-			dataTotal: 500, //总共多少条数据
-			curPage:1, //初始页码,不填默认为1
-			pageSize: 5, //分页个数,不填默认为5
-			showPageTotalFlag:true, //是否显示数据统计,不填默认不显示
-			showSkipInputFlag:true, //是否支持跳转,不填默认不显示
-			getPage: function (page) {
-				//获取当前页数
-			   console.log(page);
-			}
-		})	 
+	 loadPage(10,data.length);	 
 }
 }
 function getCompanyList(data){//获取个人服务商列表
@@ -319,20 +328,7 @@ function getCompanyList(data){//获取个人服务商列表
 			+'	  </div><!--end li-->'
 	 });
 	 $('#personList').empty().append(_str);
-		new Page({
-			id: 'pagination',
-			pageTotal: data.length, //必填,总页数
-			pageAmount: 10,  //每页多少条
-			dataTotal: 500, //总共多少条数据
-			curPage:1, //初始页码,不填默认为1
-			pageSize: 5, //分页个数,不填默认为5
-			showPageTotalFlag:true, //是否显示数据统计,不填默认不显示
-			showSkipInputFlag:true, //是否支持跳转,不填默认不显示
-			getPage: function (page) {
-				//获取当前页数
-			   console.log(page);
-			}
-		})	 
+	 loadPage(10,data.length)	 ;
 }
 }
 function getUserInfo(data){//获取用户展示信息
@@ -346,9 +342,9 @@ function getUserInfo(data){//获取用户展示信息
 		else
 		 	_tempName=item.companyName;
 	     _str+='   <div class="u1">'
-			+'		<div class="t"><a href="userHome.html?mid='+item.id+'"><img src="'+item.thumb+'" width="100%"/></a></div>'
+			+'		<div class="t"><a href="userHome.html?mid='+item.user_id+'"><img src="'+item.head+'" width="100%"/></a></div>'
 			+'		<div class="i">'
-			+'		  <p><a href="userHome.html">_tempName</a></p>'
+			+'		  <p><a href="userHome.html?id='+item.user_id+'">'+_tempName+'</a></p>'
 			+'		  <p>工号：'+item.user_id+'</p>'
 			+'		  <p>工作经验：'+item.jobtime+'</p>'
 			+'		  <p>所在地：'+item.city+' </p>'

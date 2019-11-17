@@ -14,16 +14,16 @@
 		  return;	   
 	}else{
 		tagTransition('#btnLogin','登录中',true);
-		$.ajax({
+ 		$.ajax({
 			url: basePath + "login",
 			async: false, // true:异动 false：同步
 			data:  {
             "user_id": loginName,
             "password": password
-        },
+    	    },
 			cache: false,
-			//contentType: false
 			success: function(text) {
+				if(text.code==200){
 				text.data.userId=loginName;				
 				$.cookie("uid", loginName,{expires:7});	
 				window.location.href=basePath+'index.html';
@@ -31,12 +31,18 @@
 //					doLastAction(window.lastAction);
 //					delete window.lastAction;
 //				}
-			},
-			error: function(text) {
+				}else{
 				$(".error").text("用户名或者密码错误");
 				$.cookie("ISLOGIN", false);
 				tagTransition('#btnLogin','登录',false);
-
+				}
+				
+			},
+			error: function(text) {
+				alert('登录失败');
+				$.cookie("ISLOGIN", false);
+				tagTransition('#btnLogin','登录',false)				
+				
 			}
 		});
 	}

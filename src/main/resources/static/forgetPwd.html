@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员中心</title>
+<title>忘记密码</title>
 <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="css/common.css" type="text/css" />
 <link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -11,7 +11,7 @@
 <script src="js/effect.js" type="text/javascript"></script><script src="js/effect.js" type="text/javascript"></script>
 </head>
 
-<body>
+<body data-page="receipt">
 <div class="floor bdB bgE">
   <div class="floorZone txAR top"> <a href="login.html" title="" id="topUser">登录</a>|<a href="register.html" title=""id="topLog">注册</a>|<a href="javascript:void(0);" onclick="SetHome(this,'http://www.ztjzj.com');">设为首页</a>|<a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏本站</a>|<a href="article.html">常见问题</a>|<a href="article.html">使用帮助</a> </div>
   <!--end floorZone--> 
@@ -67,25 +67,44 @@
   <div class="floorZone">
 
     
-    <div class="rightBox marL article marB">
+    <div class="content marL article marB">
       <div class="bdA pdA">
         <h3 class="txAC marB pdTB bdB">忘记密码</h3>
         <!--end title-->
         
         <div class="content pdTB  marA">
-          <div class="marT30">
-            <label>旧密码：</label>
-            <input type="passowrd" placeholder="旧密码"/>
+          <div class="f1 state">
+              <div class="marT30">
+                <label>请输入您已注册的账户名：</label>
+                <input type="text" name="username" placeholder=""/>
+              </div>
+              <div class=" marT"><label></label><a href="javascript:void(0)"  onclick="showBox('f2','state')"class="darkBlueBtn pdLR">&nbsp;下一步&nbsp;</a></div>
+		  </div>
+          <div class="f2 state dsNone">
+			  <div class="marT30">
+                <label>请输入注册时填写的邮箱：</label>
+                <input type="email" name="email" placeholder=""/>
+              </div>
+              <div class=" marT"><label></label><a href="javascript:void(0)" id="getcode" class="darkBlueBtn pdLR">&nbsp;提交并查收邮件&nbsp;</a></div>               
           </div>
-          <div class="marT">
-            <label>新密码：</label>
-            <input type="passord" placeholder="请输入新密码"/>
+          <div class="f3 state dsNone">
+			  <div class="marT30">
+                <label>请输入邮箱收到的验证码：</label>
+                <input type="text" name="code" placeholder=""/>
+              </div>
+              <div class=" marT"><label></label><a href="javascript:void(0)"  id="checkcode"class="darkBlueBtn pdLR">&nbsp;提交并查收邮件&nbsp;</a></div>               
           </div>
-          <div class="marT">
-            <label>新密码：</label>
-            <input type="passord" placeholder="请再次输入新密码"/>
-          </div>
-          <div class=" marT"><label></label><a href="" class="darkBlueBtn pdLR">&nbsp;提&nbsp;交&nbsp;</a></div>
+          <div class="f4 state dsNone">
+			  <div class="marT30">
+                <label>新密码：</label>
+                <input type="password" name="newpwd" placeholder=""/>
+              </div>
+ 			 <div class="marT30">
+                <label>确认新密码：</label>
+                <input type="password" name="repeatepwd" placeholder=""/>
+              </div>              
+              <div class=" marT"><label></label><a href="javascript:void(0)" id="setPwd" class="darkBlueBtn pdLR">&nbsp;提交并查收邮件&nbsp;</a></div>               
+          </div>          
         </div>
         <!--end content--> 
         

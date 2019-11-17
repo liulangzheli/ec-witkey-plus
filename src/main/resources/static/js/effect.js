@@ -1,3 +1,4 @@
+
 //设为首页
 function SetHome(obj,url){
     try{
@@ -97,39 +98,29 @@ function showBox(s,h,e){//显示的标签类别，h隐藏的标签类别
 			   $('.'+s).fadeIn();
 	   break;
 	}
-
+	
 }
-function confirm(id,tag){
-  if(tag==1){//验收通过
-		$.ajax({
-            type: "POST",
-            url:basePath + "order.action",
-            contentType: false,
-			processData:false,
-            data: {'pageid':'checksource','check_id':id,'state':1},
-            success: function(result) {
-					alert('项目完成，佣金已成功打入到服务商账号！');
-					window.location=basePath+"index.html";		
-            },
-            error:function(){
-			}
-        });  
-		
-  }else if(tag==2){//驳回
-		$.ajax({
-            type: "POST",
-            url:basePath + "order.action",
-            contentType: false,
-			processData:false,
-            data: {'pageid':'checksource','check_id':id,'state':2},
-            success: function(result) {
-					alert('已拒绝，佣金已成功打入到服务商账号！');
-					window.location=basePath+"index.html";		
-            },
-            error:function(){
-			}
-        });        
-  }
+function showDalog(title,content,tip){//弹窗提示信息
+ var _title=title||'';
+ var _content=content||'';
+ var _tip=tip||'';
+ var _str='   <div class="modal-dialog-box">'
+     +'    	 <div class="modal-dialog">'
+	 +'				<h3>'+_title+'</h3>'
+     +'                <div class="dd8 marA">'
+     +'                     <table>'
+     +'                       <tr><td colspan="2" align="left">'+_content+'</td></tr>'
+     +'                       <tr><td colspan="2" align="left" class="tip">'+_tip+'</td></tr>'
+     +'                        <tr>'
+     +'                       	<td align="center"><a href="javascript:void(0)" onclick="showBox(\'modal-dialog-box\',\'\',1)"class="greyButton dd8 pdLR ">取消</a></td>'
+      +'                      	<td align="center"><a href="javascript:void(0)" onclick="beServer()"class="orangeButton dd8 pdLR">确认</a></td>'
+      +'                      </tr>'
+      +'                   </table>'
+      +'              </div>        '                                
+      +'         </div>'
+      +'       </div>'
+   $('body').append(_str);
+   showBox('modal-dialog-box','',0);
 }
 function tab(wrapper,allTabs,tabMenu){//切换效果
   var $wrapper = $(wrapper),
@@ -215,6 +206,39 @@ function progressCommit(){//进度提交
 			}
         });
 }
+function confirm(id,tag){//项目验收
+  if(tag==1){//验收通过
+		$.ajax({
+            type: "POST",
+            url:basePath + "order.action",
+            contentType: false,
+			processData:false,
+            data: {'pageid':'checksource','check_id':id,'state':1},
+            success: function(result) {
+					alert('项目完成，佣金已成功打入到服务商账号！');
+					window.location=basePath+"index.html";		
+            },
+            error:function(){
+			}
+        });  
+		
+  }else if(tag==2){//驳回
+		$.ajax({
+            type: "POST",
+            url:basePath + "order.action",
+            contentType: false,
+			processData:false,
+            data: {'pageid':'checksource','check_id':id,'state':2},
+            success: function(result) {
+					alert('已拒绝，佣金已成功打入到服务商账号！');
+					window.location=basePath+"index.html";		
+            },
+            error:function(){
+			}
+        });        
+  }
+}
+
 $(document).ready(function() {
  //搜索框效果
   $('.searchTab>div').click(function(){
@@ -225,8 +249,17 @@ $(document).ready(function() {
 	  else
 	        $('.search .searchSbt').attr('onclick','transToSearchUrl(1)');
   });
-  var params=getParamValue('id'),searchkey=getParamValue('key');
-  switch($('body').attr('data-page')) {
+  var params=getParamValue('id'),searchkey=getParamValue('key'),page=$('body').attr('data-page');
+  if(page=="mCenter"||page=="mInfo"||page=="mCrop"||page=="modifyPwd"||
+  page=="mOrder"||page=="mCollect"||page=="mTeam"||page=="mTransaction"
+  ||page=="mWithdraw"){//会员中心左侧数据加载
+ 	   $('#beserver').click(function(){//申请为服务商
+          showDalog('提示','请确认将该账号申请为服务商账号','备注：服务商账号仅允许在线承接项目，若需发布项目需求，需重新申请账号');
+ 	   });  
+	   //会员信息
+       loadData('sysUser/info/'+$.cookie('uid'),{'user_id':$.cookie('uid')}, getUserInfo, null, false);
+  }
+  switch(page) {
      	case "home"://首页
 	         break;
 		case "addProject"://发布项目
@@ -234,67 +267,126 @@ $(document).ready(function() {
 		     break;
 		case "pay"://付款
 		    var params=getParamValue('id');
-		    loadData({'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+		    loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
 		    break;				 
 		case "projectList"://找项目
 			//selectInt();pageid：PROJECT
-			var params=getParamValue('key');
-			loadData({'pageid':'PROJECT','type':"major"}, getMajor, null, false);
-			loadData({'pageid':'PROJECT','type': "project",'searchkey':params}, getProdList, null, false);
-			loadData({'pageid':'PROJECT','type':"topcompany"}, getRankList, null, false);
-			loadData({'pageid':'PROJECT','type':"topPerson"}, getRankList, null, false);
+			loadData('uiAct/listAll.action',{'pageid':'PROJECT','type':"major"}, getMajor, null, false);
+			loadData('uiAct/listAll.action',{'pageid':'PROJECT','type': "project",'searchkey':params}, getProdList, null, false);
+			loadData('uiAct/listAll.action',{'pageid':'PROJECT','type':"topcompany"}, getRankList, null, false);
+			loadData('uiAct/listAll.action',{'pageid':'PROJECT','type':"topPerson"}, getRankList, null, false);
 			$('.filter a').click(function(){
 			      $(this).removeClass('active');
 				  $(this).siblings().removeClass('active');
 				  $(this).addClass('active');
 				  var skey=$(this).text();
-				  loadData({'pageid':'PROJECT','searchkey':skey}, getProdList, null, false);
+				  loadData('uiAct/listAll.action',{'pageid':'PROJECT','searchkey':skey}, getProdList, null, false);
 			});
 		    break;
 		case "projectInfo"://项目详情
 			  //服务商登录
-			  loadData({'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			  loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
 			  //服务商登录
-			  loadData({'pageid':'DETAIL','order_id':params}, getBiddingInfo, null, false);
+			  loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getBiddingInfo, null, false);
 			  //
 		    break;
 		case "receipt"://应邀项目
-			  loadData({'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
-			  loadData({'pageid':'accepting','order_id':params}, getEmployer, null, false);
+			  loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			  loadData('uiAct/listAll.action',{'pageid':'accepting','order_id':params}, getEmployer, null, false);
 		      break;
 		case "working"://提交项目成果
 			var params=getParamValue('id');
-			 loadData({'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
-			 loadData({'pageid':'progress','order_id':params}, getProgress, null, false);
+			 loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			 loadData('uiAct/listAll.action',{'pageid':'progress','order_id':params}, getProgress, null, false);
 		    break;			
 		case "check"://验收
-			 loadData({'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
-			 loadData({'pageid':'progress','order_id':params}, getProgress, null, false);
+			 loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			 loadData('uiAct/listAll.action',{'pageid':'progress','order_id':params}, getProgress, null, false);
 		    break;						
 		case "companyList"://找企业
 			selectInt();
-			loadData({'pageid':'COMPANYLIST'}, getCompanyList, null, false);
+			loadData('uiAct/listAll.action',{'pageid':'COMPANYLIST'}, getCompanyList, null, false);
 		    break;
 		case "personList"://找个人
-			loadData({'pageid':'PERSONLIST'}, getPersonList, null, false);
+			loadData('uiAct/listAll.action',{'pageid':'PERSONLIST'}, getPersonList, null, false);
 		    break;
 		case "userHome"://用户介绍主页
-		     var params=getParams();
-			loadData({'pageid':'USERHOME'}, getUserInfo, null, false);
+			loadData('uiAct/listAll.action',{'pageid':'USERHOME'}, getUserInfo, null, false);
 		    break;
-		case "search"://搜索页
-		    break;	
-		case "login"://搜索页
-		    break;				
-		case "register"://会员信息注册			
-		    break;		  
 		case "cRegister"://企业会员注册
 		    break;		  	
 		case "pRegister"://个人会员信息注册
 		    break;		  					
-		case "forgetPwd"://忘记密码			
+		case "forgetPwd"://找回密码
+		   	$('#getCode').click(function(){
+				   var user=$('input[name="username"]').val();	
+				   var email=$('input[name="email"]').val();	
+				    if(user==""||email=='')
+					alert('用户和注册邮箱不能为空');
+					else
+					$.ajax({
+						type: "POST",
+						url:basePath + "verifyCode",
+						contentType: false,
+						processData:false,
+						data: {'email':email,'user_id':user},
+						success: function(result) {
+								showBox('f3','state');	
+						},
+						error:function(){
+							
+						}
+					});
+			});	
+			$('#checkcode').click(function(){
+			    if($('input[name="code"]').val()!=''){
+					var user=$('input[name="username"]').val();	
+				   var email=$('input[name="email"]').val();
+				   var code=$('input[name="code"]').val();	
+			  		$.ajax({
+						type: "POST",
+						url:basePath + "verifyCode",
+						contentType: false,
+						processData:false,
+						data: {'email':email,'user_id':user,'code':code},
+						success: function(result) {
+								showBox('f4','state');	
+						},
+						error:function(){
+							
+						}
+					});
+				}else
+			     alert('验证码不能为空');
+			});
+			$('#setPwd').click(function(){
+				 var pwd=$('input[name="newpwd"]').val();
+			    if($('input[name="repeatepwd"]').val()!=pwd){
+						alert('啊哦~~两次密码不一致！');
+				}else {
+				   var user=$('input[name="username"]').val();	
+				   var email=$('input[name="email"]').val();
+				   var code=$('input[name="code"]').val();	
+			  		$.ajax({
+						type: "POST",
+						url:basePath + "setPwd",
+						contentType: false,
+						processData:false,
+						data: {'user_id':user,'pwd':pwd},
+						success: function(result) {
+								alert('密码修改成功')	;
+								window.location.href=basePath+'login.html';
+						},
+						error:function(){
+							
+						}
+					});
+				}
+			     
+			});
 		    break;		  		
-		case "mCenter"://会员中心			
+		case "mCenter"://会员中心
+					
 		    break;		  		
 		case "mInfo"://会员信息
 		    break;		  	

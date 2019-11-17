@@ -1,8 +1,51 @@
 //会员中心代码
-function getUserInfo(data,args){//获取用户信息	
-	  if(data!=undefined &&data!=null&&data.data.recCnt!=0){
-		data=data.data.dataInfo;
-		$("#userName").empty().append(data[0].loginName+'['+data[0].expValue+']');		
+function beServer(){//申请为服务商
+     var loginName=$.cookie('uid');
+     $.ajax({
+        url: basePath + "login",
+			async: false, // true:异动 false：同步
+			data:  {
+            "user_id": loginName,
+    	    },
+			cache: false,
+			success: function(text) {
+			  alert('请等待平台审核...')
+			},
+			error:function(text){
+			  console.log(text);
+			  alert('申请失败！')
+			}
+	 });
+}
+function getUserInfo(data){//获取用户信息	
+	  if(data!=undefined &&data!=null){		  	
+		 $.each(data,function(key,item){
+			var  _intro=item.intro,_tempName='',_str='',_serStr='';
+			 if(item.user_type==0)
+				_tempName=item.username;
+			else
+				_tempName=item.companyName;
+			if(item.is_service==0)
+				_serStr='<p><a href="javascript:void(0)" id="beserver">申请为服务商</a></p>'
+			 _str+='   <div class="u1">'
+				+'		<div class="t"><a href="userHome.html?mid='+item.user_id+'"><img src="'+item.head+'" width="100%"/></a></div>'
+				+'		<div class="i">'
+				+'		  <p><a href="userHome.html?id='+item.user_id+'">'+_tempName+'</a></p>'
+				+'		  <p>工号：'+item.user_id+'</p>'+_serStr
+				+'		</div><!--end i-->'
+				+'		</div><!--end u1-->'        
+				+'		<div class="u1 txAC">'
+				+'		   <div class="dd45 fl bdR"><p>余额</p><p><b class="fcO">'+item.surplus+'</b></p></div>'
+				+'		   <div class="dd5 fl"><p>近三个月收入</p><p><b class="fcO">'+item.recentIncome+'</b></p></div>'
+				+'		</div><!--end u1--> '
+			   +'    	<div class="u1 txAC bgE">'
+			   +'  			<dd class="dd33 fl"><p>累记发布</p><p><span class=" fc6">16</span></p></dd>'
+			   +' 			 <dd class="dd33 fl bgC"><p>选标</p><p><span class="fc6">16</span></p></dd>'
+			   +' 			 <dd class="dd33 fl bgC"><p>维权</p><p><span class="fc6">16</span></p></dd>'
+			   +'		 </div><!--end u1--> '
+			   
+		 });
+			$("#userBox").empty().append(_str);		
 	  }
 }
 function getUserCrop(data,args){//获取用户头像  
@@ -16,6 +59,10 @@ function getOrderList(data,args){//订单列表
 	if(data!=undefined&&data!=null){	
 
 	}
+}
+function loadOrderInfo(){//订单信息
+	
+
 }
 
 function cancelOrder(message,args){//关闭交易
@@ -179,10 +226,3 @@ function showPreview(coords){//会员头像裁剪上传
 		$('input[name="height"]').val(Math.round(coords.w * realImagePercentH));
 	}
 }
-$(document).ready(function() {
-  switch($('body').attr('data-page')) {
-    case "MPWD":
-	    
-	break;
-  }
-});

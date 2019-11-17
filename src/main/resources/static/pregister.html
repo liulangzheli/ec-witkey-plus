@@ -5,10 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>个人账号注册</title>
 <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" href="css/common.css" type="text我/css" />
+<link rel="stylesheet" href="css/common.css" type="text/css" />
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
-<body data-page="cRegister">
+<body data-page="pRegister">
 <div class="floor bdB bgE">
   <div class="floorZone txAR top"> <a href="login.html" title="" id="topUser">登录</a>|<a href="register.html" title=""id="topLog">注册</a>|<a href="javascript:void(0);" onclick="SetHome(this,'http://www.ztjzj.com');">设为首页</a>|<a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏本站</a>|<a href="article.html">常见问题</a>|<a href="article.html">使用帮助</a> </div>
   <!--end floorZone--> 
@@ -89,14 +89,14 @@
         </div>
         <div class="marT">
           <label  class="m"><b>*</b>联系电话：</label>
-          <input type="tel" id="tel" name="tel"placeholder=""/>
+          <input type="text" id="tel" name="tel"placeholder=""/>
           <label id="tel_succeed" class="blank"></label>
 					<span class="clear"></span>
 					<label class="error"  id="tel_error"></label>
         </div>
         <div class="marT">
           <label class="m"><b>*</b>邮箱：</label>
-          <input type="email" id="email" name="email"placeholder=""/>
+          <input type="text" id="email" name="email"placeholder=""/>
 					<label id="email_succeed" class="blank"></label>
 					<span class="clear"></span>
 					<label class="error"  id="email_error"></label>          
@@ -144,15 +144,19 @@
         
         <div class="marT">
           <label class="m"><b>*</b>身份证号：</label>
-          <input type="text" id="licenceid" name="licence_id" placeholder=""/>
+          <input type="text" id="licenceid" name="id_num" placeholder=""/>
           			<label id="licenceid_succeed" class="blank"></label>
 					<span class="clear"></span>
 					<label class="error"  id="licenceid_error"></label>  
         </div>
         <div class="marT">
-          <label class="m">&nbsp;</label>
-          <label class="add" for="idFront">身份证正面<input type="file"accept="image/*" id="idFront" name="id_front"/></label><label class="add" for="idBack">身份证背面<input type="file" id="idBack"accept="image/*" name="id_back"/></label>
+          <label class="m"><b>*</b>证件正面：</label>
+          <label class="add" for="idFront"><input type="file"accept="image/*" id="idFront" name="id_front"/></label>
         </div>
+        <div class="marT">
+          <label class="m"><b>*</b>证件背面：</label>
+          <label class="add" for="idBack"><input type="file" id="idBack"accept="image/*" name="id_back"/></label>
+        </div>        
         <div class=" marA10 pdTB"><a  href="javascript:void(0)"  id="registersubmit"class="orangeButton dd2  marR" style="margin-left:160px">同意协议并注册</a>
         <a href="javascript:history.go(-1)" class="greyButton dd1  marL">&nbsp;返&nbsp;回&nbsp;</a></div>
                 <div class="marT txAL">

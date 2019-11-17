@@ -23,9 +23,11 @@ $("#email").jdValidate(validatePrompt.mail, validateFunction.mail);
  
 //表单提交验证和服务器请求
 $("#registersubmit").click(function() {
-   // var flag = validateFunction.FORM_validate();
-   var flag=true,actionUrl='';
-		var formdata = new FormData($('#formpersonal'));
+   //var flag = validateFunction.FORM_validate();
+	var flag=true;
+   var actionUrl='';
+		var formdata = new FormData(document.querySelector("form"));
+		formdata.append('pageid','personReg');
 	if(	$('body').attr('data-page')=='pRegister'){
   		formdata.append("id_front", $('#idFront')[0].files[0]);
 		formdata.append("id_back",$('#idBack')[0].files[0]);
@@ -34,7 +36,6 @@ $("#registersubmit").click(function() {
   		formdata.append("licencePic", $('#licencePic')[0].files[0]);
 		actionUrl='sysUser/register/company';
 	}
-	
     if (flag) {
         $(this).attr({"value":"提交中,请稍等"});
         $.ajax({
@@ -43,6 +44,7 @@ $("#registersubmit").click(function() {
             contentType: false,
 			processData:false,
             data: formdata,
+			dataType:json,
             success: function(result) {
             	switch(result.retCode){
 				case 100000:
@@ -50,13 +52,14 @@ $("#registersubmit").click(function() {
 				break;
 				}
             },
-            error:function(){
+            error:function(text){
+				alert("提交失败")
 			          $("#registersubmit").text("同意协议并注册");
 			}
         });
     }
 });
-cregistersbt
+
 
 function addMailAddress(self){
 	try{

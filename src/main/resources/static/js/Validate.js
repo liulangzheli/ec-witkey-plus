@@ -37,7 +37,9 @@ var validateRegExp = {
 	realname : "^[A-Za-z0-9\\u4e00-\\u9fa5]+$", // 真实姓名
 	companyname : "^[A-Za-z0-9_()（）\\-\\u4e00-\\u9fa5]+$",
 	companyaddr : "^[A-Za-z0-9_()（）\\#\\-\\u4e00-\\u9fa5]+$",
-	companysite : "^http[s]?:\\/\\/([\\w-]+\\.)+[\\w-]+([\\w-./?%&#=]*)?$"
+	companysite : "^http[s]?:\\/\\/([\\w-]+\\.)+[\\w-]+([\\w-./?%&#=]*)?$",
+	userid:"^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$",
+	licenseid:"^(?:(?![IOZSV])[\dA-Z]){2}\d{6}(?:(?![IOZSV])[\dA-Z]){10}$)|(^\d{15}$",
 };
 
 // 主函数
@@ -279,7 +281,14 @@ var validateRules = {
 	},
 	isCompanysite : function(str) {
 		return new RegExp(validateRegExp.companysite).test(str);
+	},
+	isUserid:function(str){
+		return new RegExp(validateRegExp.userid).test(str);
+	},
+	isLicenceid:function(str){
+		return new RegExp(validateRegExp.licenceid).test(str);
 	}
+	
 };
 // 验证文本
 var validatePrompt = {
@@ -289,7 +298,7 @@ var validatePrompt = {
 		isNull : "请输入用户名",
 		error : {
 			beUsed : "该用户名已被使用，请使用其它用户名注册，如果您是&quot;{1}&quot;，请<a href="
-					+ basePath + "dl.html class='flk13'>登录</a>",
+					+ basePath + "login.html class='flk13'>登录</a>",
 			badLength : "用户名长度只能在4-50位字符之间",
 			badFormat : "用户名只能由中英文、数字及“_”、“-”组成",
 			fullNumberName : "用户名不能全为数字"
@@ -319,7 +328,7 @@ var validatePrompt = {
 		succeed : "",
 		isNull : "请输入邮箱",
 		error : {
-			beUsed : "该邮箱已被使用，请更换其它邮箱",
+			beUsed : "该邮箱已被使用，请更换其它邮箱！",
 			badFormat : "邮箱格式不正确",
 			badLength : "您填写的邮箱过长，邮件地址只能在50个字符以内"
 		}
@@ -336,7 +345,26 @@ var validatePrompt = {
 			 } 
 	
 	},
-	authcode : {
+	userid:{
+	     onFocus:"请输入身份证号",
+		 succeed:"",
+	     isNull:"请输入身份证号",	
+		 error:{
+			  badLength:"请输入15位或18位身份证号",
+			  badFormat:"请输入15位或18位身份证号",
+			  badLength:"请输入15位或18位身份证号"			  
+			 } 
+	},
+	licenceid : {
+	     onFocus:"请输入企业营业执照注册号(统一社会信用代码)",
+		 succeed:"",
+	     isNull:"请输入企业营业执照注册号(统一社会信用代码)",	
+		 error:{
+			  badLength:"机构代码为15位或18位代码",
+			  badFormat:"机构代码为15位或18位代码",
+			  badLength:"机构代码为15位或18位代码"			  
+			 } 
+	},authcode : {
 		onFocus : "请输入图片中的字符，不区分大小写",
 		succeed : "",
 		isNull : "请输入验证码",
@@ -402,23 +430,7 @@ var validateFunction = {
 			validateSettings.error.run(option,
 					option.prompts.error.fullNumberName);
 		} else {
-			if (!namestate || nameold != option.value) {
-				if (nameold != option.value) {
-					nameold = option.value;
-					option.errorEle
-							.html("<span style='color:#999'>检验中……</span>");
-					var args = new Object();
-					args.option = option;
-					loadByAction("mAct.action", "CHECKUSER",
-							  option.value, "",
-							checkValidateUser, args, false);
-				} else {
-					if(option.element.attr('sta')!="1")
-       					validateSettings.succeed.run(option);
-					else
-       					validateSettings.error.run(option,option.prompts.error.beUsed.replace("{1}",option.value));
-				}
-			}
+
 		}
 	},
 	pwd : function(option) {
@@ -482,33 +494,7 @@ var validateFunction = {
 			if (!format2) {
 				validateSettings.error.run(option,
 						option.prompts.error.badLength);
-			} else {
-				if (!emailstate || emailold != option.value) {
-					if (emailold != option.value) {
-						emailold = option.value;
-/*						option.errorEle
-								.html("<span style='color:#999'>检验中……</span>");
-						$.getJSON("AjaxService.aspx?action=CheckUemail&str="
-								+ escape(option.value) + "&r=" + Math.random(),
-								function(date) {
-									if (date.success == 0) {
-										validateSettings.succeed.run(option);
-										emailstate = true;
-									} else {
-										validateSettings.error.run(option,
-												option.prompts.error.beUsed);
-										emailstate = false;
-									}
-								})*/
-					} else {
-						validateSettings.error.run(option,
-								option.prompts.error.beUsed);
-						emailstate = false;
-					}
-				} else {
-					validateSettings.succeed.run(option);
-				}
-			}
+			} 
 		}
 	},
 	qq : function(option) {

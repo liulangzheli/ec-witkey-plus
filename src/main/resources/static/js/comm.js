@@ -89,9 +89,9 @@ function saveUInfotoCookie(args) {
 	}
 	return $.cookie("USERINFO");
 }
-function loadData(conditions, callback, args, async) {//数据加载
+function loadData(action,conditions, callback, args, async) {//数据加载
 	$.ajax({
-		url : basePath + "uiAct/listAll.action",
+		url : basePath + action,
 		async : async, // true:异动 false：同步
 		data : conditions,
 		cache : false,
@@ -104,6 +104,21 @@ function loadData(conditions, callback, args, async) {//数据加载
 		error : function(text) {
 			if ($("#" + id).attr("isLoading") != undefined)
 				$("#" + id).attr("isLoading", false);
+		}
+	});
+}
+function loadByActionEx(action, callback, args, async) {
+	$.ajax({
+		url : basePath + action,
+		async : async, // true:异动 false：同步
+		data : args,
+		cache : false,
+		success : function(text) {
+			if (args == null || args == undefined)
+				args = new Object();
+			args.text = text;
+			if(callback != undefined)
+				return callback(text, args);
 		}
 	});
 }
