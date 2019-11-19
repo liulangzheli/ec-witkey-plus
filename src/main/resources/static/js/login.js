@@ -15,17 +15,20 @@
 	}else{
 		tagTransition('#btnLogin','登录中',true);
  		$.ajax({
+			type: "POST",
 			url: basePath + "login",
 			async: false, // true:异动 false：同步
 			data:  {
-            "user_id": loginName,
+            "username": loginName,
             "password": password
     	    },
 			cache: false,
 			success: function(text) {
 				if(text.code==200){
-				text.data.userId=loginName;				
-				$.cookie("uid", loginName,{expires:7});	
+				 var loginName=text.loginSysUserVo.username;				
+				$.cookie("user_id", loginName,{expires:7});	
+				$.cookie("ISLOGIN", true);
+				
 				window.location.href=basePath+'index.html';
 				//if (window.lastAction != undefined || window.lastAction != null){
 //					doLastAction(window.lastAction);
@@ -33,13 +36,13 @@
 //				}
 				}else{
 				$(".error").text("用户名或者密码错误");
-				$.cookie("ISLOGIN", false);
-				tagTransition('#btnLogin','登录',false);
+				    $.cookie("ISLOGIN", false);
+				    tagTransition('#btnLogin','登录',false);
 				}
 				
 			},
 			error: function(text) {
-				alert('登录失败');
+				alert('登录失败：'+text.code);
 				$.cookie("ISLOGIN", false);
 				tagTransition('#btnLogin','登录',false)				
 				
@@ -141,7 +144,7 @@ function validateLogin(self, event) {
 		formdata.append('city',$("select[name=city]:checked").val());
 		formdata.append('zone',$("select[name=zone]:checked").val());
 		formdata.append('period',$("input[name=period]").val());
-		formdata.append('soft_supplier',$("input[name=soft_supplier]:").val());
+		formdata.append('soft_supplier',$("input[name=soft_supplier]").val());
 		formdata.append('soft_name',$("input[name=soft_name]").val());
 		formdata.append('intro',$("textarea[name=intro]").val());
 		formdata.append('amount',$("input[name=amount]").val());
@@ -183,16 +186,16 @@ function getcommLoginInfo(data) {
 	if (data != undefined && !$.isEmptyObject(data)) {
 		var loginInfo = '';
 		var homeData = data;
-		if (data.NData != undefined) {
-			if (data.NData.length == 0) {
+		if (data.loginSysUserVo != undefined) {
+			if (data.loginSysUserVo.length == 0) {
 				clearToLogin();
 				return;
 			}
-			loginInfo = formatData(data);
-		} else if (data.data != undefined) {
-			loginInfo = data.data;
+			loginInfo = data.loginSysUserVo;
+		} else if (data.data.loginSysUserVo != undefined) {
+			loginInfo = data.loginSysUserVo;
 		} else
-			loginInfo = data;
+			loginInfo = data.loginSysUserVo;
 			$("#topUser").text(loginInfo.loginName);
 			$("#topUser").attr('href','mcenter.html');
 			$("#topLog").text('[退出]');

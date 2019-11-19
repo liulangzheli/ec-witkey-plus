@@ -18,19 +18,20 @@ function loadPage(amount,len){//调用分页函数
     })
 	
 }
+
 function getProType(data){//发布需求-项目类别
   if(data!=null&&data!=undefined){ 
      var _str='',_childStr='';
       $.each(data,function(key,item){
-		    if(item.parentId==0||item.parentId==''){
+		    if(item.cateParentId==0||item.cateParentId==''){
 				var pid=item.id;
 				$.each(data,function(key,item){
 				     if(item.id==pid)
-					   _childStr+='<label>'+item.name+'<input type="checkbox" contype="'+item.contType+'" name="'+item.id+'" id="'+item.id+key+'" value="'+item.name+'" onclick="setSelected(this,\'checkbox\')"/> '         
+					   _childStr+='<label>'+item.cateName+'<input type="checkbox" contype="'+item.contType+'" name="'+item.id+'" id="'+item.id+key+'" value="'+item.cateName+'" onclick="setSelected(this,\'checkbox\')"/> '         
 								+'</label>'
 								+'          <div class="modal-dialog-box">'
 								+'         	 <div class="modal-dialog">'
-								+'					<h3>项目类型：<span>'+item.name+'</span></h3>'
+								+'					<h3>项目类型：<span>'+item.cateName+'</span></h3>'
 								+'                    <div class="dd8 marA">'
 								+'                         <table>'
 								+'                            <tr>'
@@ -51,19 +52,32 @@ function getProType(data){//发布需求-项目类别
 								+'                    </div>        '     				
 
 				});
-				 _str='<div><b>'+item.name+'：</b>'+_childStr;
+				 _str='<div><b>'+item.cateName+'：</b>'+_childStr;
 			}
 	  });
+	  $('#projectType').empty().append(_str);
   }
 }
 function getMajor(data){//获取项目专业类别
   if(data!=null&&data!=undefined){
-	  var _str='<a href="javascript:void(0);" class="active">不限</a>';
-	  $.each(data,function(key,item)  {
-	     _str+='<a href="javascript:void(0);" mid='+item.id+'>'+item.value+'</a>'
+     var _str='',_childStr='',_nodeStr='';
+      $.each(data,function(key,item){
+		    if(item.cateParentId==0||item.cateParentId==''){
+				var pid=item.id,pname=item.cateName;
+				$.each(data,function(i,citem){
+				     if(citem.id==pid){
+					   _childStr+='<label>'+citem.cateName+'<input type="checkbox" contype="'+citem.contType+'" name="'+citem.id+'" id="'+citem.id+i+'" value="'+pname+'|'+citem.cateName+'" onclick="setSelected(this,\'checkbox\')"/> '         
+								+'</label>';
+					   var nodePid=citem.id,nodeName=citem.cateName;
+					   $.each(data,function(j,node){
+						   	_nodeStr='<label for="m'+node.id+'" class="c"><input type="checkbox" name="m'+node.id+key+'"id="m'+node.id+'" value="'+pname+'|'+nodeName+'|'+node.cateName+'" onclick="setSelected(this,\'checkbox\')"/>主体结构钢筋</label>'    
+					   });
+					 }
+				});
+				 _str='<div><b>'+item.cateName+'：</b>'+_childStr;
+			}
 	  });
-	  $('#marjorList').empty().append(_str);
-  }
+	  $('#majorType').empty().append(_str);  }
 }
 function getProdList(data){//获取项目列表
   if(data!=null&&data!=undefined){

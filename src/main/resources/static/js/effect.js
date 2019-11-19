@@ -238,8 +238,23 @@ function confirm(id,tag){//项目验收
         });        
   }
 }
-
+$.fn.serializeObject = function() {
+	var o = {};
+	var a = this.serializeArray();
+	$.each(a, function() {
+		if (o[this.name]) {
+			if (!o[this.name].push) {
+				o[this.name] = [ o[this.name] ];
+			}
+			o[this.name].push(this.value || '');
+		} else {
+			o[this.name] = this.value || '';
+		}
+	});
+	return o;
+};
 $(document).ready(function() {
+
  //搜索框效果
   $('.searchTab>div').click(function(){
       $('.searchTab>div').removeClass('active');
@@ -259,6 +274,8 @@ $(document).ready(function() {
 	   //会员信息
        loadData('sysUser/info/'+$.cookie('uid'),{'user_id':$.cookie('uid')}, getUserInfo, null, false);
   }
+	if(page=='login'||page=='pRegister'||page=='cRegister')
+		checkLogin();
   switch(page) {
      	case "home"://首页
 	         break;

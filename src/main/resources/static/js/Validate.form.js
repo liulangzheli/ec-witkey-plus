@@ -29,11 +29,11 @@ $("#registersubmit").click(function() {
 		var formdata = new FormData(document.querySelector("form"));
 		formdata.append('pageid','personReg');
 	if(	$('body').attr('data-page')=='pRegister'){
-  		formdata.append("id_front", $('#idFront')[0].files[0]);
-		formdata.append("id_back",$('#idBack')[0].files[0]);
+  		// formdata.append("id_front", $('#idFront')[0].files[0]);
+		// formdata.append("id_back",$('#idBack')[0].files[0]);
 		actionUrl='sysUser/register/personal';
 	}else{
-  		formdata.append("licencePic", $('#licencePic')[0].files[0]);
+  		// formdata.append("licencePic", $('#licencePic')[0].files[0]);
 		actionUrl='sysUser/register/company';
 	}
     if (flag) {
@@ -41,20 +41,24 @@ $("#registersubmit").click(function() {
         $.ajax({
             type: "POST",
             url: basePath+actionUrl,
-            contentType: false,
 			processData:false,
-            data: formdata,
-			dataType:json,
+			//contentType: false,
+			//data: formdata,
+			data:JSON.stringify($('form').serializeObject()),//不上传文件
+			contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
             success: function(result) {
+            	console.log(result)
             	switch(result.retCode){
 				case 100000:
 					firstLogin();					
 				break;
 				}
+
             },
             error:function(text){
+				console.log(text);
 				alert("提交失败")
-			          $("#registersubmit").text("同意协议并注册");
+			    $("#registersubmit").text("同意协议并注册");
 			}
         });
     }
