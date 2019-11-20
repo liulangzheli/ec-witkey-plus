@@ -18,10 +18,11 @@
 			type: "POST",
 			url: basePath + "login",
 			async: false, // true:异动 false：同步
-			data:  {
+			data: JSON.stringify({
             "username": loginName,
             "password": password
-    	    },
+    	    }),
+			contentType:"application/json",
 			cache: false,
 			success: function(text) {
 				if(text.code==200){
