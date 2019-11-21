@@ -18,10 +18,11 @@
 			type: "POST",
 			url: basePath + "login",
 			async: false, // true:异动 false：同步
-			data:  {
-            "username": loginName,
-            "password": password
-    	    },
+			data:JSON.stringify({
+				"username": loginName,
+				"password": password
+			})  ,
+			contentType:"application/json",
 			cache: false,
 			success: function(text) {
 				if(text.code==200){
@@ -35,7 +36,7 @@
 //					delete window.lastAction;
 //				}
 				}else{
-				$(".error").text("用户名或者密码错误");
+				$(".error").text(text.msg);
 				    $.cookie("ISLOGIN", false);
 				    tagTransition('#btnLogin','登录',false);
 				}
