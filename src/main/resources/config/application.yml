@@ -145,13 +145,11 @@ ec-witkey-plus:
       /js/**=anon
       /css/**=anon
       /image/**=anon
-      /login.html=anon
-      /register.html=anon
-      /index.html=anon
-      /cregister.html=anon
-      /pregister.html=anon
+      /*.html=anon
       /sysUser/register/company=anon
       /sysUser/register/personal=anon
+      /static/**=anon
+      /templates/**=anon
       /druid/**=anon
       /hello/world=anon
       /ip/**=anon
@@ -164,8 +162,8 @@ ec-witkey-plus:
       - urls: /login,/logout
         permission: anon
         # 排除静态资源
-      #- urls: /static/**,/templates/**
-      #  permission: anon
+      - urls: /static/**,/templates/**
+        permission: anon
         # 排除Swagger
       - urls: /docs,/swagger-ui.html,/webjars/springfox-swagger-ui/**,/swagger-resources/**,/v2/api-docs
         permission: anon
