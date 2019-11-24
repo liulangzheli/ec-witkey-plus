@@ -333,24 +333,11 @@ $(document).ready(function() {
 		case "cRegister"://企业会员注册
 		$.validator.setDefaults( {
 			submitHandler: function () {
-			   //var flag = validateFunction.FORM_validate();
-				var flag=true;
-			   var actionUrl='';
-					var formdata = new FormData(document.querySelector("form"));
-					formdata.append('pageid','personReg');
-				if(	$('body').attr('data-page')=='pRegister'){
-					// formdata.append("id_front", $('#idFront')[0].files[0]);
-					// formdata.append("id_back",$('#idBack')[0].files[0]);
-					actionUrl='sysUser/register/personal';
-				}else{
-					// formdata.append("licencePic", $('#licencePic')[0].files[0]);
-					actionUrl='sysUser/register/company';
-				}
-				if (flag) {
+					//var formdata = new FormData(document.querySelector("form"));
 					$(this).attr({"value":"提交中,请稍等"});
 					$.ajax({
 						type: "POST",
-						url: basePath+actionUrl,
+						url: basePath+'sysUser/register/company',
 						processData:false,
 						//contentType: false,
 						//data: formdata,
@@ -358,12 +345,14 @@ $(document).ready(function() {
 						contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
 						success: function(result) {
 							console.log(result)
-							switch(result.retCode){
-							case 100000:
-								firstLogin();					
-							break;
-							}
-			
+							 switch(result.code){
+                                    case 200:
+                                        firstLogin();
+                                    break;
+									default:
+									    alert(result.msg+':'+result.code)
+									break;
+                                }
 						},
 						error:function(text){
 							console.log(text);
@@ -372,8 +361,7 @@ $(document).ready(function() {
 						}
 					});
 				}
-			}
-		} );
+			} );
 			$( "#companyForm" ).validate( {
 				rules: {
 					user_id: {
@@ -479,24 +467,14 @@ $(document).ready(function() {
 		case "pRegister"://个人会员信息注册
             $.validator.setDefaults( {
                 submitHandler: function () {
-                    //var flag = validateFunction.FORM_validate();
-                    var flag=true;
-                    var actionUrl='';
-                    var formdata = new FormData(document.querySelector("form"));
-                    formdata.append('pageid','personReg');
-                    if(	$('body').attr('data-page')=='pRegister'){
+                    //var formdata = new FormData(document.querySelector("form"));
+                    //formdata.append('pageid','personReg');
                         // formdata.append("id_front", $('#idFront')[0].files[0]);
                         // formdata.append("id_back",$('#idBack')[0].files[0]);
-                        actionUrl='sysUser/register/personal';
-                    }else{
-                        // formdata.append("licencePic", $('#licencePic')[0].files[0]);
-                        actionUrl='sysUser/register/company';
-                    }
-                    if (flag) {
                         $(this).attr({"value":"提交中,请稍等"});
                         $.ajax({
                             type: "POST",
-                            url: basePath+actionUrl,
+                            url: basePath+'sysUser/register/personal',
                             processData:false,
                             //contentType: false,
                             //data: formdata,
@@ -504,10 +482,13 @@ $(document).ready(function() {
                             contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
                             success: function(result) {
                                 console.log(result)
-                                switch(result.retCode){
-                                    case 100000:
+                                switch(result.code){
+                                    case 200:
                                         firstLogin();
-                                        break;
+                                    break;
+									default:
+									    alert(result.msg+':'+result.code)
+									break;
                                 }
 
                             },
@@ -518,7 +499,6 @@ $(document).ready(function() {
                             }
                         });
                     }
-                }
             } );
             $( "#formpersonal" ).validate( {
                 rules: {
