@@ -13,6 +13,12 @@
         from order_bidding where id = #{id}
     </select>
 
+    <select id="getOrderBiddingByOrderId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingInfoQueryVo">
+        select
+        ob.id, ob.order_id, ob.user_id, ob.create_time, ob.state, ob.message, ob.remark,po.user_id owner_id,po.state order_state,su.nickname,su.head,su.state user_state
+        from order_bidding ob,sys_user su,project_order po where ob.user_id=su.id and ob.order_id=po.id and ob.order_id = #{orderId}
+    </select>
+
     <select id="getOrderBiddingPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingQueryVo">
         select
         <include refid="Base_Column_List"/>

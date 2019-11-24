@@ -18,7 +18,32 @@
         select
         <include refid="Base_Column_List"/>
         from sys_user
-        where deleted = 0
+        <where><!-- 某些为空时用来组装语句 -->
+            deleted = 0
+            <if test="param.id != null">
+                AND id=#{param.id}
+            </if><if test="param.username != null">
+                AND username=#{param.username}
+            </if>
+            <if test="param.nickname != null">
+                AND nickname=#{param.nickname}
+            </if>
+            <if test="param.gender != null">
+                AND gender=#{param.gender}
+            </if>
+            <if test="param.state != null">
+                AND state=#{param.state}
+            </if>
+            <if test="param.userType != null">
+                AND user_type=#{param.userType}
+            </if>
+            <if test="param.isService != null">
+                AND is_service=#{param.isService}
+            </if>
+            <if test="param.email != null">
+                AND email=#{param.email}
+            </if>
+        </where>
     </select>
 
 </mapper>

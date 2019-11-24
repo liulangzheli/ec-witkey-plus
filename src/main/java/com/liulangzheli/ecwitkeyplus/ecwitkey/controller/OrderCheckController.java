@@ -28,53 +28,53 @@ import com.liulangzheli.ecwitkeyplus.common.param.IdParam;
  * @since 2019-11-04
  */
 @Slf4j
-        @RestController
-    @RequestMapping("/orderCheck")
+@RestController
+@RequestMapping("/orderCheck")
 @Api("订单验收信息 API")
-        public class OrderCheckController extends BaseController {
-    
-@Autowired
-private OrderCheckService orderCheckService;
+public class OrderCheckController extends BaseController {
 
-        /**
+    @Autowired
+    private OrderCheckService orderCheckService;
+
+    /**
      * 添加订单验收信息
      */
     @PostMapping("/add")
-            @ApiOperation(value = "添加OrderCheck对象", notes = "添加订单验收信息", response = ApiResult.class)
+    @ApiOperation(value = "添加OrderCheck对象", notes = "添加订单验收信息", response = ApiResult.class)
     public ApiResult<Boolean> addOrderCheck(@Valid @RequestBody OrderCheck orderCheck) throws Exception {
-                        boolean flag = orderCheckService.saveOrderCheck(orderCheck);
-                    return ApiResult.result(flag);
-            }
+        boolean flag = orderCheckService.saveOrderCheck(orderCheck);
+        return ApiResult.result(flag);
+    }
 
     /**
      * 修改订单验收信息
      */
     @PostMapping("/update")
-            @ApiOperation(value = "修改OrderCheck对象", notes = "修改订单验收信息", response = ApiResult.class)
+    @ApiOperation(value = "修改OrderCheck对象", notes = "修改订单验收信息", response = ApiResult.class)
     public ApiResult<Boolean> updateOrderCheck(@Valid @RequestBody OrderCheck orderCheck) throws Exception {
-                        boolean flag = orderCheckService.updateOrderCheck(orderCheck);
-                    return ApiResult.result(flag);
-            }
+        boolean flag = orderCheckService.updateOrderCheck(orderCheck);
+        return ApiResult.result(flag);
+    }
 
     /**
      * 删除订单验收信息
      */
     @PostMapping("/delete/{id}")
-            @ApiOperation(value = "删除OrderCheck对象", notes = "删除订单验收信息", response = ApiResult.class)
+    @ApiOperation(value = "删除OrderCheck对象", notes = "删除订单验收信息", response = ApiResult.class)
     public ApiResult<Boolean> deleteOrderCheck(@PathVariable("id") Long id) throws Exception {
-                        boolean flag = orderCheckService.deleteOrderCheck(id);
-                    return ApiResult.result(flag);
-            }
+        boolean flag = orderCheckService.deleteOrderCheck(id);
+        return ApiResult.result(flag);
+    }
 
     /**
      * 获取订单验收信息
      */
     @GetMapping("/info/{id}")
-            @ApiOperation(value = "获取OrderCheck对象详情", notes = "查看订单验收信息", response = OrderCheckQueryVo.class)
+    @ApiOperation(value = "获取OrderCheck对象详情", notes = "查看订单验收信息", response = OrderCheckQueryVo.class)
     public ApiResult<OrderCheckQueryVo> getOrderCheck(@PathVariable("id") Long id) throws Exception {
         OrderCheckQueryVo orderCheckQueryVo = orderCheckService.getOrderCheckById(id);
-            return ApiResult.ok(orderCheckQueryVo);
-            }
+        return ApiResult.ok(orderCheckQueryVo);
+    }
 
     @GetMapping("/infoByOrderId/{orderId}")
     @ApiOperation(value = "获取OrderCheck对象详情", notes = "查看订单验收信息", response = OrderCheckQueryVo.class)
@@ -87,11 +87,11 @@ private OrderCheckService orderCheckService;
      * 订单验收信息分页列表
      */
     @PostMapping("/getPageList")
-            @ApiOperation(value = "获取OrderCheck分页列表", notes = "订单验收信息分页列表", response = OrderCheckQueryVo.class)
+    @ApiOperation(value = "获取OrderCheck分页列表", notes = "订单验收信息分页列表", response = OrderCheckQueryVo.class)
     public ApiResult<Paging<OrderCheckQueryVo>> getOrderCheckPageList(@Valid @RequestBody OrderCheckQueryParam orderCheckQueryParam) throws Exception {
-            Paging<OrderCheckQueryVo> paging = orderCheckService.getOrderCheckPageList(orderCheckQueryParam);
-            return ApiResult.ok(paging);
-            }
-    
-        }
+        Paging<OrderCheckQueryVo> paging = orderCheckService.getOrderCheckPageList(orderCheckQueryParam);
+        return ApiResult.ok(paging);
+    }
+
+}
 

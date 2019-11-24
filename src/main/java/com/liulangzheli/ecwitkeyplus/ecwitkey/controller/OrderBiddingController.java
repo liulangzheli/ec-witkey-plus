@@ -3,6 +3,7 @@ package com.liulangzheli.ecwitkeyplus.ecwitkey.controller;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.entity.OrderBidding;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.service.OrderBiddingService;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.param.OrderBiddingQueryParam;
+import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingInfoQueryVo;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingQueryVo;
 import com.liulangzheli.ecwitkeyplus.common.api.ApiResult;
         import com.liulangzheli.ecwitkeyplus.common.controller.BaseController;
@@ -74,6 +75,16 @@ public class OrderBiddingController extends BaseController {
     public ApiResult<OrderBiddingQueryVo> getOrderBidding(@PathVariable("id") Long id) throws Exception {
         OrderBiddingQueryVo orderBiddingQueryVo = orderBiddingService.getOrderBiddingById(id);
         return ApiResult.ok(orderBiddingQueryVo);
+    }
+
+    /**
+     * 获取订单竞标信息
+     */
+    @GetMapping("/infoOrder/{orderId}")
+    @ApiOperation(value = "获取OrderBidding对象详情", notes = "项目竞标信息", response = OrderBiddingInfoQueryVo.class)
+    public ApiResult<OrderBiddingInfoQueryVo> getOrderBiddingByOrderId(@PathVariable("orderId") Long orderId) throws Exception {
+        OrderBiddingInfoQueryVo orderBiddingInfoQueryVo = orderBiddingService.getOrderBiddingByOrderId(orderId);
+        return ApiResult.ok(orderBiddingInfoQueryVo);
     }
 
     /**
