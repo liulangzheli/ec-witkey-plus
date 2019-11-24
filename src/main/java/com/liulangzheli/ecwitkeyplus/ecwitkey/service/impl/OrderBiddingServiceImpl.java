@@ -4,6 +4,7 @@ import com.liulangzheli.ecwitkeyplus.ecwitkey.entity.OrderBidding;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.mapper.OrderBiddingMapper;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.service.OrderBiddingService;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.param.OrderBiddingQueryParam;
+import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingInfoQueryVo;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingQueryVo;
 import com.liulangzheli.ecwitkeyplus.common.service.impl.BaseServiceImpl;
 import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
@@ -29,39 +30,44 @@ import java.io.Serializable;
  */
 @Slf4j
 @Service
-        public class OrderBiddingServiceImpl extends BaseServiceImpl<OrderBiddingMapper, OrderBidding> implements OrderBiddingService {
+public class OrderBiddingServiceImpl extends BaseServiceImpl<OrderBiddingMapper, OrderBidding> implements OrderBiddingService {
 
-        @Autowired
-        private OrderBiddingMapper orderBiddingMapper;
-            
-                @Transactional(rollbackFor = Exception.class)
-                @Override
-                public boolean saveOrderBidding(OrderBidding orderBidding) throws Exception {
-                return super.save(orderBidding);
-                }
+    @Autowired
+    private OrderBiddingMapper orderBiddingMapper;
 
-                @Transactional(rollbackFor = Exception.class)
-                @Override
-                public boolean updateOrderBidding(OrderBidding orderBidding) throws Exception {
-                return super.updateById(orderBidding);
-                }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean saveOrderBidding(OrderBidding orderBidding) throws Exception {
+        return super.save(orderBidding);
+    }
 
-                @Transactional(rollbackFor = Exception.class)
-                @Override
-                public boolean deleteOrderBidding(Long id) throws Exception {
-                return super.removeById(id);
-                }
-        
-            @Override
-            public OrderBiddingQueryVo getOrderBiddingById(Serializable id) throws Exception {
-            return orderBiddingMapper.getOrderBiddingById(id);
-            }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean updateOrderBidding(OrderBidding orderBidding) throws Exception {
+        return super.updateById(orderBidding);
+    }
 
-            @Override
-            public Paging<OrderBiddingQueryVo> getOrderBiddingPageList(OrderBiddingQueryParam orderBiddingQueryParam) throws Exception {
-            Page page = setPageParam(orderBiddingQueryParam, OrderItem.desc("create_time"));
-            IPage<OrderBiddingQueryVo> iPage = orderBiddingMapper.getOrderBiddingPageList(page, orderBiddingQueryParam);
-            return new Paging(iPage);
-            }
-    
-        }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean deleteOrderBidding(Long id) throws Exception {
+        return super.removeById(id);
+    }
+
+    @Override
+    public OrderBiddingQueryVo getOrderBiddingById(Serializable id) throws Exception {
+        return orderBiddingMapper.getOrderBiddingById(id);
+    }
+
+    @Override
+    public OrderBiddingInfoQueryVo getOrderBiddingByOrderId(Serializable orderId) throws Exception {
+        return orderBiddingMapper.getOrderBiddingByOrderId(orderId);
+    }
+
+    @Override
+    public Paging<OrderBiddingQueryVo> getOrderBiddingPageList(OrderBiddingQueryParam orderBiddingQueryParam) throws Exception {
+        Page page = setPageParam(orderBiddingQueryParam, OrderItem.desc("create_time"));
+        IPage<OrderBiddingQueryVo> iPage = orderBiddingMapper.getOrderBiddingPageList(page, orderBiddingQueryParam);
+        return new Paging(iPage);
+    }
+
+}
