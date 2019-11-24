@@ -91,6 +91,7 @@ function saveUInfotoCookie(args) {
 }
 function loadData(action,conditions, callback, args, async) {//数据加载
 	$.ajax({
+		type: "get",
 		url : basePath + action,
 		async : async, // true:异动 false：同步
 		data : conditions,
@@ -99,11 +100,10 @@ function loadData(action,conditions, callback, args, async) {//数据加载
 			if (args == null || args == undefined)
 				args = new Object();
 			args.text = text;
-			return callback(text.data, id, args);
+			return callback(text, args);
 		},
 		error : function(text) {
-			if ($("#" + id).attr("isLoading") != undefined)
-				$("#" + id).attr("isLoading", false);
+			alert('加载异常错误：'+text.code)
 		}
 	});
 }
