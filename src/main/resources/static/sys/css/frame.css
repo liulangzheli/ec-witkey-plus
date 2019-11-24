@@ -1,0 +1,134 @@
+body { padding: 0; margin: 0; line-height: 18px; color: #666; font-weight: normal; font: 14px '黑体', '宋体', Arial, sans-serif; z-index:1;}
+a { color: #333; text-decoration: none; font-weight: normal; /* font-size: 1em; */ cursor: pointer; }
+h1, h3, h5, h6, ul, li, p { list-style: none; margin: 0 auto; padding: 0; }
+a, button, input { outline: 0 none; text-decoration: none; }
+ul, li { margin: 0; padding: 0; display: block; }
+p, div, h1, h2, h3, h4, h5, h6, a, input[data-field="datetime"] { -moz-user-select: none; /*火狐*/ -webkit-user-select: none;  /*webkit浏览器*/ -ms-user-select: none;   /*IE10*/ -khtml-user-select: none; /*早期浏览器*/ user-select: none; }
+input[type='text'],input[type='number'], input[type='password'], input[type='search'], input[type='email'], input[type='tel'], input[type='datetime-local'], input[type='datetime'], input[type='date'], select { height: 35px; margin: 0; text-indent: 10px;border-radius:3px; border: 1px #ddd solid; padding: 0; }
+input[type='radio'] { margin: 0; }
+ input.search::-webkit-input-placeholder {
+ color:#DE8694;
+}
+ input.search:-moz-placeholder {
+ color: #DE8694;
+}
+ input.search:-ms-input-placeholder {
+ color: #DE8694;
+}
+textarea { text-indent: 10px; border: 1px #ddd solid; line-height: 20px; }
+del { color: #666; font-weight: normal; font-size: 12px; padding-top: 5px; }
+.fc6 { color: #666; }
+.fc9 { color: #999; }
+.fcR { color: red; }
+.fcO { color: #F93; }
+.fcB { color: #063391; }
+.fcW { color: #fff; }
+.txAR { text-align: right; }
+.txAL { text-align: left; }
+.txAC { text-align: center; }
+.orangeButton, .blueButton, .greyButton, .darkBlueBtn,.bdButton ,.greenButton{ line-height: 40px; display: inline-block; text-align: center; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.orangeButton, .tab.active, .tab-menu li.active { background: #F90; }
+.blueButton, .darkBlueBtn:hover { background: #007ec9; }
+.greenButton{ background:#399;}
+.greyButton { background: #eee; color: #666; }
+.bdButton{color:#666;border:1px #ddd solid;}
+.blueBg, .darkBlueBtn { background: #0d3874; }
+.greyButton:hover { background: #f6f8f7 }
+.orangeButton:hover, .tab:hover, .tab-menu li.active:hover, .searchTab>div:hover { background: #f7b551; color: #fff; }
+.greenButton:hover{background:#6C9}
+.blueButton:hover { background: #028bde; }
+.bgE { background: #efefef; }
+.bgC{background:#2f2f2f;}
+.fl { float: left; }
+.fr { float: right; }
+.fn { float: none; }
+.clear { clear: both; }
+.dsNone { display: none; }
+.dsIb { display: inline-block; }
+.dsB { display: block; }
+.ofHide { overflow: hidden; }
+.pd0 { padding: 0px; }
+.pdT { padding-top: 10px; }
+.pdL { padding-left: 10px; }
+.pdR { padding-right: 10px; }
+.pdB { padding-bottom: 10px; }
+.pdA { padding: 10px; }
+.pdLR { padding: 0 10px; }
+.pdTB { padding: 10px 0; }
+.mar0 { margin: 0; }
+.marT { margin-top: 10px; }
+.marT30 { margin-top: 30px; }
+.marR { margin-right: 10px; }
+.marL { margin-left: 10px; }
+.marL5 { margin-left: 5px; }
+.marB { margin-bottom: 10px; }
+.marLR { margin: 0 10px; }
+.marA { margin: 0 auto; }
+.marA10 { margin: 10px auto; }
+.mar10 { margin: 10px; }
+.bdT { border-top: 1px #eee solid; }
+.bdB { border-bottom: 1px #eee solid; }
+.bdL { border-left: 1px #eee solid; }
+.bdR { border-right: 1px #eee solid; }
+.bdLR { border: 1px #eee solid; border-top: none; border-bottom: none; }
+.bdTB { border: 1px #eee solid; border-left: none; border-right: none; }
+.bdA { border: 1px #eee solid; }
+.bdN { border: none; }
+.bd-r { border-radius: 5px; }
+.vm { vertical-align: middle; }
+.vt { vertical-align: top; }
+.txOver { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.floor { width: 100%; height: auto; margin: 0 auto; clear: both; }
+.floorZone { width: 1240px; margin: 0 auto; overflow: hidden; clear: both; }
+.dataList dt { background: #efefef; }
+.dataList { overflow: hidden; }
+dl { width: 100%; }
+.dataList dd, .dataList dt { text-indent: 10px; }
+.dataList dl { border-top: 1px #ddd solid; }
+.dataList dl:nth-child(even) { background: #deeffa; }
+.tabZone .dataList dl:nth-child(even) { background: none; }
+dd, dd, dt, dl { float: left; margin: 0; line-height: 30px; }
+dt { font-weight: bold; font-size: 16px; line-height: 55px; }
+dl.dt { border: none; }
+.dd101 { width: 5%; }
+.dd1 { width: 10%; }
+.dd15{width:15%;}
+.dd2 { width: 20%; }
+.dd25 { width: 25%; }
+.dd3 { width: 30%; }
+.dd33 { width: 33.3%; }
+.dd4 { width: 40%; }
+.dd45 { width: 45%; }
+.dd5 { width: 50%; }
+.dd6 { width: 60%; }
+.dd7 { width: 70%; }
+.dd8 { width: 80%; }
+.dd9 { width: 90%; }
+.dd10 { width: 100%; }
+.dataList dd{padding:10px 0; vertical-align:middle}
+.dataList .greenButton,.dataList .greyButton{text-indent:0; line-height:30px;}
+.dataList dd.time{font-size:12px;}
+/*头部*/
+.top{ line-height:40px; color:#fff;}
+/*左边栏*/
+.leftSide{width:220px;background:#5c5c5c; position:fixed;left:0;z-index:1;top:0px;bottom:40px;display:block;}
+.leftSide h2{margin:0;background:#399; line-height:80px;text-align:center; color:#fff;}
+.leftSide a{color:#fff; display:inline-block; text-indent:10px;width:100%;}
+.leftSide h3{background:#333; line-height:40px; text-align:center;}
+.leftSide h3 a{ text-indent:0px;}
+.leftSide li,.leftSide dd{width:100%; float:left; line-height:40px; }
+.leftSide dd a:hover{background:#444;}
+/*右内容框*/
+.rightSide{padding-left:220px;top:40px;padding-bottom:40px;right:0; overflow:auto;z-index:1;}
+/*弹窗*/
+.modal-dialog-box{ background:rgba(0,0,0,0.5); position:absolute; z-index:999;width:100%;height:100%;top:0;left:0;display:none;}
+.modal-dialog{position:absolute;z-index:3;width:1000px;top:100px;left:50px;background:#fff;border-radius:5px;border:1px #ddd solid;
+}
+.modal-dialog h3{ text-align:center;padding:30px 0 20px;}
+.modal-dialog .tip{font-size:12px;padding-top:15px;}
+.tipdialog{width:50%;left:100px;}
+.modal-dialog th{background:#efefef;}
+.modal-dialog td,.modal-dialog th{border:1px #ddd solid;}
+.modal-dialog .greenButton,.modal-dialog .greyButton{ line-height:40px;}
+/*脚部*/
+.copyright{position:fixed; bottom:0; background:#333; line-height:40px; color:#fff;}

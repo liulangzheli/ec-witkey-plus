@@ -331,8 +331,277 @@ $(document).ready(function() {
 			loadData('uiAct/listAll.action',{'pageid':'USERHOME'}, getUserInfo, null, false);
 		    break;
 		case "cRegister"://企业会员注册
+		$.validator.setDefaults( {
+			submitHandler: function () {
+					//var formdata = new FormData(document.querySelector("form"));
+					$(this).attr({"value":"提交中,请稍等"});
+					$.ajax({
+						type: "POST",
+						url: basePath+'sysUser/register/company',
+						processData:false,
+						//contentType: false,
+						//data: formdata,
+						data:JSON.stringify($('form').serializeObject()),//不上传文件
+						contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+						success: function(result) {
+							console.log(result)
+							 switch(result.code){
+                                    case 200:
+                                        firstLogin();
+                                    break;
+									default:
+									    alert(result.msg+':'+result.code)
+									break;
+                                }
+						},
+						error:function(text){
+							console.log(text);
+							alert("提交失败")
+							$("#registersubmit").text("同意协议并注册");
+						}
+					});
+				}
+			} );
+			$( "#companyForm" ).validate( {
+				rules: {
+					user_id: {
+						required: true,
+						minlength: 4,
+						maxlength:50
+					},
+					pwd: {
+						required: true,
+						minlength: 6,
+						maxlength:16
+					},
+					confirm_password: {
+						required: true,
+						minlength: 6,
+						maxlength:16,
+						equalTo: "#password"
+					},
+					tel:{
+						required: true,
+						minlength: 11,
+						maxlength:11,
+					},
+					email: {
+						required: true,
+						email: true
+					},
+					licence_id: {
+						required: true,
+						minlength: 15,
+						maxlength:18,
+					},
+					licence_pic: "required",
+					company_name: "required"
+				},
+				messages: {
+					user_id: {
+						required: "请输入用户名",
+						minlength: "用户名最小长度为4个字符",
+						maxlength:"用户名最大长度为50个字符",
+					},
+					pwd: {
+						required: "请再次输入确认密码",
+						minlength: "密码最小长度为6个字符",
+						maxlength:"密码名最大长度为16个字符",
+					},
+					confirm_password: {
+						required: "请再次输入确认密码",
+						minlength: "密码最小长度为6个字符",
+						equalTo: "两次密码不一致"
+					},
+					email: "请输入有效的邮箱地址",
+					tel: {
+						required:"请输入有效的手机号码",
+						minlength:"手机号码为11位数字",
+						maxlength:"手机号码为11位数字"
+						},
+					licence_id: {
+						required:"请输入企业营业执照注册号(统一社会信用代码)",
+						minlength:"机构代码最小长度为15位字符",
+						maxlength:"机构代码最小长度为最大长度为18位字符"
+						},
+					company_name:"请输入企业名称",
+					licence_pic:"请上传营业执照扫描件",
+					agree: "同意注册协议才可注册"
+				},
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+
+					// Add `has-feedback` class to the parent div.form-group
+					// in order to add icons to inputs
+					element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+					if ( element.prop( "type" ) === "checkbox" ) {
+						error.insertAfter( element.parent( "label" ) );
+					} else {
+						error.insertAfter( element );
+					}
+
+					// Add the span element, if doesn't exists, and apply the icon classes to it.
+					if ( !element.next( "span" )[ 0 ] ) {
+						$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+					}
+				},
+				success: function ( label, element ) {
+					// Add the span element, if doesn't exists, and apply the icon classes to it.
+					if ( !$( element ).next( "span" )[ 0 ] ) {
+						$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+					}
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+					$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+				},
+				unhighlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+					$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+				}
+			} );		
 		    break;		  	
 		case "pRegister"://个人会员信息注册
+            $.validator.setDefaults( {
+                submitHandler: function () {
+                    //var formdata = new FormData(document.querySelector("form"));
+                    //formdata.append('pageid','personReg');
+                        // formdata.append("id_front", $('#idFront')[0].files[0]);
+                        // formdata.append("id_back",$('#idBack')[0].files[0]);
+                        $(this).attr({"value":"提交中,请稍等"});
+                        $.ajax({
+                            type: "POST",
+                            url: basePath+'sysUser/register/personal',
+                            processData:false,
+                            //contentType: false,
+                            //data: formdata,
+                            data:JSON.stringify($('form').serializeObject()),//不上传文件
+                            contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                            success: function(result) {
+                                console.log(result)
+                                switch(result.code){
+                                    case 200:
+                                        firstLogin();
+                                    break;
+									default:
+									    alert(result.msg+':'+result.code)
+									break;
+                                }
+
+                            },
+                            error:function(text){
+                                console.log(text);
+                                alert("提交失败")
+                                $("#registersubmit").text("同意协议并注册");
+                            }
+                        });
+                    }
+            } );
+            $( "#formpersonal" ).validate( {
+                rules: {
+                    user_id: {
+                        required: true,
+                        minlength: 4,
+                        maxlength:50
+                    },
+                    pwd: {
+                        required: true,
+                        minlength: 6,
+                        maxlength:16
+                    },
+                    confirm_password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength:16,
+                        equalTo: "#password"
+                    },
+                    tel:{
+                        required: true,
+                        minlength: 11,
+                        maxlength:11,
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    id_num: {
+                        required: true,
+                        minlength: 15,
+                        maxlength:18,
+                    },
+                    id_front: "required",
+                    id_back: "required"
+                },
+                messages: {
+                    user_id: {
+                        required: "请输入用户名",
+                        minlength: "用户名最小长度为4个字符",
+                        maxlength:"用户名最大长度为50个字符",
+                    },
+                    pwd: {
+                        required: "请再次输入确认密码",
+                        minlength: "密码最小长度为6个字符",
+                        maxlength:"密码名最大长度为16个字符",
+                    },
+                    confirm_password: {
+                        required: "请再次输入确认密码",
+                        minlength: "密码最小长度为6个字符",
+                        equalTo: "两次密码不一致"
+                    },
+                    email: "请输入有效的邮箱地址",
+                    tel: {
+                        required:"请输入有效的手机号码",
+                        minlength:"手机号码为11位数字",
+                        maxlength:"手机号码为11位数字"
+                    },
+                    id_num: {
+                        required:"请输入身份证号",
+                        minlength:"最小长度为15位字符",
+                        maxlength:"最大长度为18位字符"
+                    },
+                    id_front:"请上传身份证正面",
+                    id_back:"请上传身份证背面",
+                    agree: "同意注册协议才可注册"
+                },
+                errorElement: "em",
+                errorPlacement: function ( error, element ) {
+                    // Add the `help-block` class to the error element
+                    error.addClass( "help-block" );
+
+                    // Add `has-feedback` class to the parent div.form-group
+                    // in order to add icons to inputs
+                    element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+                    if ( element.prop( "type" ) === "checkbox" ) {
+                        error.insertAfter( element.parent( "label" ) );
+                    } else {
+                        error.insertAfter( element );
+                    }
+
+                    // Add the span element, if doesn't exists, and apply the icon classes to it.
+                    if ( !element.next( "span" )[ 0 ] ) {
+                        $( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+                    }
+                },
+                success: function ( label, element ) {
+                    // Add the span element, if doesn't exists, and apply the icon classes to it.
+                    if ( !$( element ).next( "span" )[ 0 ] ) {
+                        $( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+                    }
+                },
+                highlight: function ( element, errorClass, validClass ) {
+                    $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+                    $( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+                },
+                unhighlight: function ( element, errorClass, validClass ) {
+                    $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+                    $( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+                }
+            } );
+
 		    break;		  					
 		case "forgetPwd"://找回密码
 		   	$('#getCode').click(function(){
