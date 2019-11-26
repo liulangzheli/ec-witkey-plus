@@ -264,7 +264,7 @@ $(document).ready(function() {
 	  else
 	        $('.search .searchSbt').attr('onclick','transToSearchUrl(1)');
   });
-  var params=getParamValue('id'),searchkey=getParamValue('key'),page=$('body').attr('data-page');
+  var params=getParamValue('id')||'',searchkey=getParamValue('key')||'',page=$('body').attr('data-page');
   if(page=="mCenter"||page=="mInfo"||page=="mCrop"||page=="modifyPwd"||
   page=="mOrder"||page=="mCollect"||page=="mTeam"||page=="mTransaction"
   ||page=="mWithdraw"){//会员中心左侧数据加载
@@ -283,52 +283,52 @@ $(document).ready(function() {
 		     
 		     break;
 		case "pay"://付款
-		    var params=getParamValue('id');
-		    loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+
+		    loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
 		    break;				 
 		case "projectList"://找项目
 			//selectInt();pageid：PROJECT
-			loadData('uiAct/listAll.action',{'pageid':'PROJECT','type':"major"}, getMajor, null, false);
-			loadData('uiAct/listAll.action',{'pageid':'PROJECT','type': "project",'searchkey':params}, getProdList, null, false);
-			loadData('uiAct/listAll.action',{'pageid':'PROJECT','type':"topcompany"}, getRankList, null, false);
-			loadData('uiAct/listAll.action',{'pageid':'PROJECT','type':"topPerson"}, getRankList, null, false);
+
+			loadData('action',{'pageid':'PROJECT','type':"major"}, getMajor, null, false);
+			loadData('projectOrder/getPageList',{'pageid':'PROJECT','major': "",'searchkey':params}, getProdList, null, false);
+			loadData('sysUser/getPageList',{'pageid':'LIST','type':"topcompany"}, getRankList, null, false);
+			loadData('sysUser/getPageList',{'pageid':'LIST','type':"topPerson"}, getRankList, null, false);
 			$('.filter a').click(function(){
 			      $(this).removeClass('active');
 				  $(this).siblings().removeClass('active');
 				  $(this).addClass('active');
 				  var skey=$(this).text();
-				  loadData('uiAct/listAll.action',{'pageid':'PROJECT','searchkey':skey}, getProdList, null, false);
+				  loadData('sysUser/getPageList',{'pageid':'LIST','searchkey':skey}, getProdList, null, false);
 			});
 		    break;
 		case "projectInfo"://项目详情
-			  //服务商登录
-			  loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
-			  //服务商登录
+			  //项目信息
+			  loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			  //服务商竞标信息
 			  loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getBiddingInfo, null, false);
 			  //
 		    break;
 		case "receipt"://应邀项目
-			  loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
-			  loadData('uiAct/listAll.action',{'pageid':'accepting','order_id':params}, getEmployer, null, false);
+			  loadData('orderBidding/update',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			  loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getEmployer, null, false);
 		      break;
 		case "working"://提交项目成果
-			var params=getParamValue('id');
-			 loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			 loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
 			 loadData('uiAct/listAll.action',{'pageid':'progress','order_id':params}, getProgress, null, false);
 		    break;			
 		case "check"://验收
-			 loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
-			 loadData('uiAct/listAll.action',{'pageid':'progress','order_id':params}, getProgress, null, false);
+			 loadData('action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			 loadData('orderCheck/infoByOrderId',{'pageid':'progress','order_id':params}, getProgress, null, false);
 		    break;						
-		case "companyList"://找企业
+		case "companyList"://找企业project_type
 			selectInt();
-			loadData('uiAct/listAll.action',{'pageid':'COMPANYLIST'}, getCompanyList, null, false);
+			loadData('sysUser/getPageList',{'pageid':'CSERVICE','major':'','province':'','city':'','searchkey':params}, getCompanyList, null, false);
 		    break;
 		case "personList"://找个人
-			loadData('uiAct/listAll.action',{'pageid':'PERSONLIST'}, getPersonList, null, false);
+			loadData('sysUser/getPageList',{'pageid':'PSERVICE','major':'','province':'','city':'','searchkey':params}, getPersonList, null, false);
 		    break;
 		case "userHome"://用户介绍主页
-			loadData('uiAct/listAll.action',{'pageid':'USERHOME'}, getUserInfo, null, false);
+			loadData('sysUser/getPageList',{'pageid':'SUPPLIERINFO','user_id':params}, getUserInfo, null, false);
 		    break;
 		case "cRegister"://企业会员注册
 		$.validator.setDefaults( {
@@ -678,7 +678,8 @@ $(document).ready(function() {
 		    break;		  	
 		case "mCrop"://头像修改
 		    break;	
-		case "modifyPwd"://密码修改			
+		case "modifyPwd"://密码修改	
+		
 		    break;		
 		case "mOrder"://我的订单
 		    break;		  		
