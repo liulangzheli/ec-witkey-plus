@@ -38,10 +38,10 @@ public class UnderCaseQueryVo implements Serializable {
                                                         private String major;
     
                                         @ApiModelProperty(value = "省")
-                                                        private Integer province;
+                                                        private String province;
     
                                         @ApiModelProperty(value = "市")
-                                                        private Integer city;
+                                                        private String city;
     
                                         @ApiModelProperty(value = "软件")
                                                         private String softSupplier;

@@ -83,13 +83,13 @@ private static final long serialVersionUID = 1L;
                                                 private Integer isService;
             
                         @ApiModelProperty(value = "省")
-                                                private Integer province;
+                                                private String province;
             
                         @ApiModelProperty(value = "市")
-                                                private Integer city;
+                                                private String city;
             
                         @ApiModelProperty(value = "区/县")
-                                                private Integer zone;
+                                                private String zone;
             
                         @ApiModelProperty(value = "联系地址")
                                                 private String address;

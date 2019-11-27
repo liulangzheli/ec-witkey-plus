@@ -50,10 +50,10 @@ public class ProjectOrderUserQueryVo implements Serializable {
     private String major;
 
     @ApiModelProperty(value = "项目所在地（省）")
-    private Integer province;
+    private String province;
 
     @ApiModelProperty(value = "项目所在地（市）")
-    private Integer city;
+    private String city;
 
     @ApiModelProperty(value = "截止报名时间")
     private Date endTime;

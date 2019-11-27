@@ -15,17 +15,17 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <pre>
- * 线下案例
+ * 团队成员
  * </pre>
  *
  * @author liulangzheli
- * @since 2019-11-04
+ * @since 2019-11-27
  */
 @Data
 @Accessors(chain = true)
         @EqualsAndHashCode(callSuper = true)
-    @ApiModel(value = "UnderCase对象", description = "线下案例")
-public class UnderCase extends BaseEntity {
+    @ApiModel(value = "Team对象", description = "团队成员")
+public class Team extends BaseEntity {
 
 private static final long serialVersionUID = 1L;
 
@@ -33,14 +33,14 @@ private static final long serialVersionUID = 1L;
                                             @TableId(value = "id", type = IdType.ID_WORKER)
                                         private Long id;
     
-                        @ApiModelProperty(value = "会员ID")
-                                                                private Long userId;
+                        @ApiModelProperty(value = "姓名")
+                                                                private String tname;
                         
-                        @ApiModelProperty(value = "项目名称")
-                                                                private String caseName;
+                        @ApiModelProperty(value = "加入工作时间")
+                                                                private Date jobtime;
                         
-                        @ApiModelProperty(value = "项目类型ID")
-                                                                private Long categoryId;
+                        @ApiModelProperty(value = "入职时间")
+                                                                private Date entrytime;
                         
                         @ApiModelProperty(value = "专业")
                                                                 private String major;
@@ -50,17 +50,5 @@ private static final long serialVersionUID = 1L;
                         
                         @ApiModelProperty(value = "市")
                                                                 private String city;
-                        
-                        @ApiModelProperty(value = "软件")
-                                                                private String softSupplier;
-                        
-                        @ApiModelProperty(value = "介绍")
-                                                                private String intro;
-                        
-                        @ApiModelProperty(value = "创建时间")
-                                                                private Date createTime;
-                        
-                        @ApiModelProperty(value = "备注")
-                                                                private String remark;
                         
         }

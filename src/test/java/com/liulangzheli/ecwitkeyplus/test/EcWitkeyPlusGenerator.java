@@ -41,15 +41,15 @@ public class EcWitkeyPlusGenerator {
 
         // 组件作者等配置
         codeGenerator
-                .setModuleName("system")
+                .setModuleName("ecwitkey")
                 .setAuthor("liulangzheli")
                 .setPkIdColumnName("id");
 
         // 生成策略
         codeGenerator
-                .setGeneratorStrategy(CodeGenerator.GeneratorStrategy.SIMPLE)
-                .setPageListOrder(false)
-                .setParamValidation(false);
+                .setGeneratorStrategy(CodeGenerator.GeneratorStrategy.ALL)
+                .setPageListOrder(true)
+                .setParamValidation(true);
 
         // 生成实体映射相关代码,可用于数据库字段更新
         // 当数据库字段更新时，可自定义自动生成哪些那文件
@@ -60,11 +60,11 @@ public class EcWitkeyPlusGenerator {
 
         // 生成业务相关代码
         codeGenerator
-                .setGeneratorController(false)
-                .setGeneratorService(false)
-                .setGeneratorServiceImpl(false)
-                .setGeneratorMapper(false)
-                .setGeneratorMapperXml(false);
+                .setGeneratorController(true)
+                .setGeneratorService(true)
+                .setGeneratorServiceImpl(true)
+                .setGeneratorMapper(true)
+                .setGeneratorMapperXml(true);
 
         // 是否生成Shiro RequiresPermissions注解
         codeGenerator.setRequiresPermissions(false);
@@ -79,7 +79,7 @@ public class EcWitkeyPlusGenerator {
         // xxx,yyy,zzz为需要生成代码的表名称
         String[] tables = {
                 //"category","project_order","project_requirement","project_source","project_examine","order_pay","order_bidding","order_progress","order_check","order_rights","order_comment","collect","under_case","article","sys_setting"
-                "sys_user"
+                "team"
         };
 
         // 循环生成

@@ -155,9 +155,9 @@ CREATE TABLE `sys_user`
     `update_time`   timestamp   NULL     DEFAULT NULL COMMENT '修改时间',
 	`user_type`			int(11)     NOT NULL COMMENT '用户类型，0：个人/团队，1：企业',
 	`is_service`		int(11)     NOT NULL COMMENT '是否为服务商，0：否,1：是',
-	`province`			int(6)     	NOT NULL COMMENT '省',
-	`city`					int(6)     	NOT NULL COMMENT '市',
-	`zone`					int(6)     	NOT NULL COMMENT '区/县',
+	`province`			varchar(6)     	NOT NULL COMMENT '省',
+	`city`					varchar(6)     	NOT NULL COMMENT '市',
+	`zone`					varchar(6)     	NOT NULL COMMENT '区/县',
     `address`       varchar(50) NULL comment '联系地址',
     `email`       	varchar(50) NOT NULL comment '邮箱',
 	`tax`						int(11)     NULL COMMENT '传真',
@@ -187,8 +187,8 @@ CREATE TABLE `sys_user`
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO sys_user (id, username, nickname, password, salt, phone, gender, head, remark, state, department_id, role_id, deleted, version, create_time, update_time,user_type,is_service,province,city,zone,email) VALUES (1, 'admin', '管理员', '11a254dab80d52bc4a347e030e54d861a9d2cdb2af2185a9ca4a7318e830d04d', '666', '', 1, 'http://localhost:8888//resource/201910281559227.jpg', 'Administrator Account', 1, 1, 1, 0, 1, '2019-08-26 00:52:01', '2019-10-27 23:32:29',0,0,35,06,22,'79363508@qq.com');
-INSERT INTO sys_user (id, username, nickname, password, salt, phone, gender, head, remark, state, department_id, role_id, deleted, version, create_time, update_time,user_type,is_service,province,city,zone,email) VALUES (2, 'test', '测试人员', '34783fb724b259beb71a1279f7cd93bdcfd92a273d566f926419a37825c500df', '087c2e9857f35f1e243367f3b89b81c1', '', 1, null, 'Tester Account', 1, 1, 2, 0, 0, '2019-10-05 14:04:27', null,0,0,35,06,22,'79363508@qq.com');
+INSERT INTO sys_user (id, username, nickname, password, salt, phone, gender, head, remark, state, department_id, role_id, deleted, version, create_time, update_time,user_type,is_service,province,city,zone,email) VALUES (1, 'admin', '管理员', '11a254dab80d52bc4a347e030e54d861a9d2cdb2af2185a9ca4a7318e830d04d', '666', '', 1, 'http://localhost:8888//resource/201910281559227.jpg', 'Administrator Account', 1, 1, 1, 0, 1, '2019-08-26 00:52:01', '2019-10-27 23:32:29',0,0,'35','06','22','79363508@qq.com');
+INSERT INTO sys_user (id, username, nickname, password, salt, phone, gender, head, remark, state, department_id, role_id, deleted, version, create_time, update_time,user_type,is_service,province,city,zone,email) VALUES (2, 'test', '测试人员', '34783fb724b259beb71a1279f7cd93bdcfd92a273d566f926419a37825c500df', '087c2e9857f35f1e243367f3b89b81c1', '', 1, null, 'Tester Account', 1, 1, 2, 0, 0, '2019-10-05 14:04:27', null,0,0,'35','06','22','79363508@qq.com');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -375,8 +375,8 @@ create table project_order
 	check_time		datetime						comment '验收完成时间',
 	category_id			bigint								comment '分类id',
 	major			varchar(256)					comment '专业要求,用|隔开',
-	province		int								comment '项目所在地（省）',
-	city			int								comment '项目所在地（市）',
+	province		varchar(6)								comment '项目所在地（省）',
+	city			varchar(6)								comment '项目所在地（市）',
 	end_time		datetime						comment '截止报名时间',
 	period			int								comment '交付周期 单位天',
 	soft_supplier	varchar(64)						comment '软件供应商',
@@ -567,8 +567,8 @@ create table under_case
 	case_name		varchar(64)							comment '项目名称',
 	category_id		bigint									comment '项目类型ID',
 	major			varchar(64)							comment '专业',
-	province		int									comment '省',
-	city			int									comment '市',
+	province		varchar(6)									comment '省',
+	city			varchar(6)									comment '市',
 	soft_supplier	varchar(64)							comment '软件',
 	intro			varchar(256)						comment '介绍',
 	create_time		timestamp default CURRENT_TIMESTAMP	comment '创建时间',
@@ -615,3 +615,18 @@ create table sys_setting
 	role_type				int									comment '管理员角色类型',
     remark      	varchar(256)                    	comment '备注'
 )ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统设置' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for team
+-- ----------------------------
+drop table if exists `team`;
+create table team
+(
+    id     	   bigint                         	not null comment '主键' primary key,
+	tname			varchar(32)						comment '姓名',
+	jobtime 		datetime						comment '加入工作时间',
+	entrytime		datetime						comment '入职时间',
+	major			varchar(32)						comment '专业',
+	province		varchar(6)						comment '省',
+	city			varchar(6)						comment	'市'
+)ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '团队成员' ROW_FORMAT = Dynamic;
