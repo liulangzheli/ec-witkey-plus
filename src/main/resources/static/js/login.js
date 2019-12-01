@@ -2,16 +2,13 @@
     var loginName = $("#username").val();
     var password = $("#password").val();
 	var isKeep=$("#keep").is(":checked");//判断是否被选中
-	if(loginName==''&&password!=''){
+	if(loginName===''&&password!==''){
 	     $(".error").text('用户名不能为空');
-		  return;
 	}
-	else if(password==''&&loginName!=''){
+	else if(password===''&&loginName!==''){
 	     $(".error").text('密码不能为空');
-		  return;	   
-	}else if(password==''&&loginName==''){ 
+	}else if(password===''&&loginName===''){
 	     $(".error").text('用户名及密码不能为空');
-		  return;	   
 	}else{
 		tagTransition('#btnLogin','登录中',true);
  		$.ajax({
@@ -25,11 +22,13 @@
 			contentType:"application/json",
 			cache: false,
 			success: function(text) {
-				if(text.code==200){
-				 var loginName=text.loginSysUserVo.username;				
-				$.cookie("user_id", loginName,{expires:7});	
-				$.cookie("ISLOGIN", true);
-				
+				if(text.code===200){
+				$.cookie('userId', text.data.loginSysUserVo.user_id,{expires:7});
+				$.cookie('nickName', text.data.loginSysUserVo.nickname);
+				$.cookie('roleName',text.data.loginSysUserVo.roleName);
+				$.cookie("ISLOGIN",true);
+				$.cookie("PermissionCodes", text.data.loginSysUserVo.permissionCodes);
+
 				window.location.href=basePath+'index.html';
 				//if (window.lastAction != undefined || window.lastAction != null){
 //					doLastAction(window.lastAction);
@@ -121,24 +120,20 @@ function doLastAction(self) {
 function checkLogin(e) {
 	if (e != undefined)
 		window.lastAction = e.target;
-		if ($.cookie("ISLOGIN") == null || $.cookie("ISLOGIN") == undefined
-				|| $.cookie("ISLOGIN") == "false" || !$.cookie("ISLOGIN")) {
-			
-			if ($.cookie('uid') != null && $.cookie('uid') != undefined
-					&& $.cookie('uid') != '')
-				$('#topUser').val($.cookie('uid'));
+		if ($.cookie("ISLOGIN") === null || $.cookie("ISLOGIN") === undefined
+				|| $.cookie("ISLOGIN") === "false" || !$.cookie("ISLOGIN")) {
 			return false;
-		} else {			
-			return true;
+		} else {
+			if ($.cookie('userId') !== null && $.cookie('userId') !== undefined
+				&& $.cookie('userId') !== '')
+				return true;
 		}
-
-		return true;
 }
 //提交订单检查是否登录并提交数据
 function validateLogin(self, event) {
 	if (checkLogin(event)) {		
 		var formdata = new FormData();
-		formdata.append('user_id',$.cookie('uid'));
+		formdata.append('user_id',$.cookie('userId'));
 		formdata.append('use_type',$("input[name=needType]:checked").val());
 		formdata.append('cate_id',$("input[name=childType]:checked").val());
 		formdata.append('province',$("select[name=province]:checked").val());
@@ -180,7 +175,7 @@ function validateLogin(self, event) {
 // 登入超时
 function clearToLogin() {
 	$.removeCookie("ISLOGIN");
-	$.removeCookie("USERINFO");
+	$.removeCookie("userId");
 }
 
 function getcommLoginInfo(data) {
