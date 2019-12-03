@@ -23,11 +23,11 @@
 			cache: false,
 			success: function(text) {
 				if(text.code===200){
-				$.cookie('userId', text.data.loginSysUserVo.user_id,{expires:7});
-				$.cookie('nickName', text.data.loginSysUserVo.nickname);
-				$.cookie('roleName',text.data.loginSysUserVo.roleName);
-				$.cookie("ISLOGIN",true);
-				$.cookie("PermissionCodes", text.data.loginSysUserVo.permissionCodes);
+				$.cookie('userId', text.data.loginSysUserVo.id,{expires:7,path: '/'});
+				$.cookie('nickName', text.data.loginSysUserVo.nickname,{expires:7,path: '/'});
+				$.cookie('roleName',text.data.loginSysUserVo.roleName,{expires:7,path: '/'});
+				$.cookie("ISLOGIN",true,{expires:7,path: '/'});
+				$.cookie("PermissionCodes", text.data.loginSysUserVo.permissionCodes,{expires:7,path: '/'});
 
 				window.location.href=basePath+'index.html';
 				//if (window.lastAction != undefined || window.lastAction != null){
@@ -60,7 +60,7 @@ function firstLogin(args){
 			},
 			cache: false,
 			success: function(text) {
-				getcommLoginInfo(text);
+				getcommLoginInfo(text.data);
 			},
 			error: function(text) {
 			}
@@ -68,17 +68,19 @@ function firstLogin(args){
 }
 // JavaScript Document
 function doLoginOut() {//退出
-	// $.cookie("ISLOGIN", null);//删除cookie无效
 	$.ajax({
-		url : basePath + "uiAct/loginOut.action",
+		url : basePath + "logout",
 		type : "POST",
 		cache : false,
 		success : function(data) {
 			$.cookie("ISLOGIN", null);
-			$.cookie("USERINFO", null);
-			$("#topUser").text('[登录]');
+			//$.cookie("USERINFO", null);
+            $.cookie('userId', null);
+            $.cookie('nickName', null);
+            $.cookie('roleName',null);
+			$("#topUser").text('登录');
 			$("#topUser").attr('href','login.html');
-			$("#topLog").text('[注册]');
+			$("#topLog").text('注册');
 			$("#topLog").attr('href','register.html');
 		},
 		error : function(text) {
@@ -118,7 +120,7 @@ function doLastAction(self) {
 	$(self).trigger('click');
 }
 function checkLogin(e) {
-	if (e != undefined)
+	if (e !== undefined)
 		window.lastAction = e.target;
 		if ($.cookie("ISLOGIN") === null || $.cookie("ISLOGIN") === undefined
 				|| $.cookie("ISLOGIN") === "false" || !$.cookie("ISLOGIN")) {
@@ -179,16 +181,16 @@ function clearToLogin() {
 }
 
 function getcommLoginInfo(data) {
-	if (data != undefined && !$.isEmptyObject(data)) {
+	if (data !== undefined && !$.isEmptyObject(data)) {
 		var loginInfo = '';
 		var homeData = data;
-		if (data.loginSysUserVo != undefined) {
-			if (data.loginSysUserVo.length == 0) {
+		if (data.loginSysUserVo !== undefined) {
+			if (data.loginSysUserVo.length === 0) {
 				clearToLogin();
 				return;
 			}
 			loginInfo = data.loginSysUserVo;
-		} else if (data.data.loginSysUserVo != undefined) {
+		} else if (data.data.loginSysUserVo !== undefined) {
 			loginInfo = data.loginSysUserVo;
 		} else
 			loginInfo = data.loginSysUserVo;
@@ -210,6 +212,38 @@ function getcommLoginInfo(data) {
 	} else
 		clearToLogin();
 }
+
+//index.html 页面是否已登录状态检查
+$(document).ready(function(){
+    // 执行代码
+    if ($.cookie('userId') !== null && $.cookie('userId') !== undefined
+        && $.cookie('userId') !== ''){
+        var nickname = $.cookie('nickName');
+        var rolename = $.cookie('roleName');
+        $("#topUser").text('[' + nickname + '|'+ rolename + ']');
+        $("#topUser").attr('href','mcenter.html');
+        $("#topLog").text('[退出]');
+        $("#topLog").attr('href','javascript:void(this)');
+        $("#topLog").attr('onclick','doLoginOut()');
+    } else
+        clearToLogin();
+});
+function checkLoginInfo() {
+    if ($.cookie('userId') !== null && $.cookie('userId') !== undefined
+        && $.cookie('userId') !== ''){
+        var nickname = $.cookie('nickName');
+        var rolename = $.cookie('roleName');
+        $("#topUser").text('[' + nickname + '|'+ rolename + ']');
+        $("#topUser").attr('href','mcenter.html');
+        $("#topLog").text('[退出]');
+        $("#topLog").attr('href','javascript:void(0)');
+        $("#topLog").attr('onclick','doLoginOut()');
+    } else
+        clearToLogin();
+}
+
+
+
 function transToSearchUrl() {
 	var searchValue = encodeURIComponent($("#searchText").val());
 	window.location.href = basePath + "ss.html?id=" + searchValue;
