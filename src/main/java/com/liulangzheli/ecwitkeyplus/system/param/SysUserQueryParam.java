@@ -139,6 +139,9 @@ public class SysUserQueryParam extends QueryParam {
         @ApiModelProperty(value = "企业组织机构代码")
         private String licenseId;
 
+        @ApiModelProperty(value = "营业执照")
+        private String licensePic;
+
         @ApiModelProperty(value = "网址")
         private String website;
 
