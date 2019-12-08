@@ -161,7 +161,7 @@ CREATE TABLE `sys_user`
     `address`       varchar(50) NULL comment '联系地址',
     `email`       	varchar(50) NOT NULL comment '邮箱',
 	`tax`						int(11)     NULL COMMENT '传真',
-	`scale`					varchar(10)     NULL COMMENT '传真',
+	`scale`					varchar(10)     NULL COMMENT '规模',
 	`intro`					varchar(500)     NULL COMMENT '介绍',
 	`wechat`				varchar(20)     NULL COMMENT '微信号',
 	`pro_type`			int(10)     NULL COMMENT '承接项目类型',

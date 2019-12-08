@@ -94,7 +94,7 @@ public class SysUserQueryVo implements Serializable {
     @ApiModelProperty(value = "传真")
     private Integer tax;
 
-    @ApiModelProperty(value = "传真")
+    @ApiModelProperty(value = "规模")
     private String scale;
 
     @ApiModelProperty(value = "介绍")
