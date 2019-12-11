@@ -24,11 +24,11 @@
 			success: function(text) {
 				if(text.code===200){
 				$.cookie('userId', text.data.loginSysUserVo.id,{expires:7,path: '/'});
-				$.cookie('nickName', text.data.loginSysUserVo.nickname,{expires:7,path: '/'});
+				$.cookie('userName', text.data.loginSysUserVo.username,{expires:7,path: '/'});
 				$.cookie('roleName',text.data.loginSysUserVo.roleName,{expires:7,path: '/'});
 				$.cookie("ISLOGIN",true,{expires:7,path: '/'});
 				$.cookie("PermissionCodes", text.data.loginSysUserVo.permissionCodes,{expires:7,path: '/'});
-
+				$.cookie("token", text.data.token,{expires:7,path: '/'});
 				window.location.href=basePath+'index.html';
 				//if (window.lastAction != undefined || window.lastAction != null){
 //					doLastAction(window.lastAction);
@@ -53,7 +53,7 @@
 function firstLogin(args){
 		$.ajax({
 			url: basePath + "uiAct/handle.action",
-			async: false, // true:异动 false：同步
+			async: false, // true:异步 false：同步
 			data: {
 				"loginName": $("#username").val(),
 				"loginPassword": $("#pwd").val()
@@ -76,8 +76,9 @@ function doLoginOut() {//退出
 			$.cookie("ISLOGIN", null);
 			//$.cookie("USERINFO", null);
             $.cookie('userId', null);
-            $.cookie('nickName', null);
+            $.cookie('userName', null);
             $.cookie('roleName',null);
+			$.cookie('token',null);
 			$("#topUser").text('登录');
 			$("#topUser").attr('href','login.html');
 			$("#topLog").text('注册');
@@ -218,9 +219,9 @@ $(document).ready(function(){
     // 执行代码
     if ($.cookie('userId') !== null && $.cookie('userId') !== undefined
         && $.cookie('userId') !== ''){
-        var nickname = $.cookie('nickName');
+        var username = $.cookie('userName');
         var rolename = $.cookie('roleName');
-        $("#topUser").text('[' + nickname + '|'+ rolename + ']');
+        $("#topUser").text('[' + username + '|'+ rolename + ']');
         $("#topUser").attr('href','mcenter.html');
         $("#topLog").text('[退出]');
         $("#topLog").attr('href','javascript:void(this)');
@@ -231,9 +232,9 @@ $(document).ready(function(){
 function checkLoginInfo() {
     if ($.cookie('userId') !== null && $.cookie('userId') !== undefined
         && $.cookie('userId') !== ''){
-        var nickname = $.cookie('nickName');
+        var username = $.cookie('userName');
         var rolename = $.cookie('roleName');
-        $("#topUser").text('[' + nickname + '|'+ rolename + ']');
+        $("#topUser").text('[' + username + '|'+ rolename + ']');
         $("#topUser").attr('href','mcenter.html');
         $("#topLog").text('[退出]');
         $("#topLog").attr('href','javascript:void(0)');
