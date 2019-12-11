@@ -331,45 +331,62 @@ $(document).ready(function() {
 			loadData('sysUser/getPageList',{'pageid':'SUPPLIERINFO','user_id':params}, getUserInfo, null, false);
 		    break;
 		case "cRegister"://企业会员注册
-		$.validator.setDefaults( {
+		$.validator.setDefaults({
 			submitHandler: function () {
-					//var formdata = new FormData(document.querySelector("form"));
-					$(this).attr({"value":"提交中,请稍等"});
-					$.ajax({
-						type: "POST",
-						url: basePath+'sysUser/register/company',
-						processData:false,
-						//contentType: false,
-						//data: formdata,
-						data:JSON.stringify($('form').serializeObject()),//不上传文件
-						contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-						success: function(result) {
-							console.log(result)
-							 switch(result.code){
-                                    case 200:
-                                        firstLogin();
-                                    break;
-									default:
-									    alert(result.msg+':'+result.code)
-									break;
-                                }
-						},
-						error:function(text){
-							console.log(text);
-							alert("提交失败")
-							$("#registersubmit").text("同意协议并注册");
+				$(this).attr({"value":"提交中,请稍等"});
+                //1、先提交图片
+				var formData = new FormData();
+                formData.append('img', $('#licensePicUpload')[0].files[0]); // 固定格式
+                formData.append('token',$.cookie("token"));
+				$.ajax({
+                    url:basePath +'upload/',														//后台接收数据地址
+                    //headers:{'Content-Type':'multipart/form-data'},//加上这个报错
+                    data:formData,
+                    type: "POST",
+                    dataType: "json",
+                    cache: false,			//上传文件无需缓存
+                    processData: false,		//用于对data参数进行序列化处理 这里必须false
+                    contentType: false,
+                    success:function(res) {
+						var code = res.code;
+						if (code === 200) {
+							//alert("图片上传成功！" + res.data.toString());
+							$(licensePic).val(res.data.toString());
+							//alert("form=" + JSON.stringify($('form').serializeObject()));
+							//2、提交注册form表单
+							$.ajax({
+								type: "POST",
+								url: basePath +'sysUser/register/company',
+								async: false,
+								data:JSON.stringify($('form').serializeObject()), //不上传文件
+								contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+								cache: false,
+								success: function(result) {
+									console.log(result);
+									if(result.code === 200) {
+										alert("注册成功！");
+										firstLogin();
+										window.location.href=basePath+'cregister.html';
+									}else{
+										alert("注册失败! 错误代码：" + result.code + " " + result.msg);
+									}
+								}
+							});
+						} else {
+							alert("图片上传失败，注册未完成！");
 						}
-					});
-				}
-			} );
-			$( "#companyForm" ).validate( {
+					}
+                });
+			}
+		});
+		$( "#companyForm" ).validate( {
 				rules: {
-					user_id: {
+                    username: {
 						required: true,
 						minlength: 4,
 						maxlength:50
 					},
-					pwd: {
+                    password: {
 						required: true,
 						minlength: 6,
 						maxlength:16
@@ -380,33 +397,33 @@ $(document).ready(function() {
 						maxlength:16,
 						equalTo: "#password"
 					},
-					tel:{
+                    phone:{
 						required: true,
 						minlength: 11,
-						maxlength:11,
+						maxlength:11
 					},
 					email: {
 						required: true,
 						email: true
 					},
-					licence_id: {
+					licenseId: {
 						required: true,
 						minlength: 15,
-						maxlength:18,
+						maxlength:18
 					},
-					licence_pic: "required",
-					company_name: "required"
+					licensePicUpload: "required",
+					companyname: "required"
 				},
 				messages: {
-					user_id: {
-						required: "请输入用户名",
-						minlength: "用户名最小长度为4个字符",
-						maxlength:"用户名最大长度为50个字符",
+                    username: {
+						required: "请输入账号",
+						minlength: "账号最小长度为4个字符",
+						maxlength:"账号最大长度为50个字符"
 					},
-					pwd: {
-						required: "请再次输入确认密码",
+                    password: {
+						required: "请输入密码",
 						minlength: "密码最小长度为6个字符",
-						maxlength:"密码名最大长度为16个字符",
+						maxlength:"密码名最大长度为16个字符"
 					},
 					confirm_password: {
 						required: "请再次输入确认密码",
@@ -414,18 +431,18 @@ $(document).ready(function() {
 						equalTo: "两次密码不一致"
 					},
 					email: "请输入有效的邮箱地址",
-					tel: {
+                    phone: {
 						required:"请输入有效的手机号码",
 						minlength:"手机号码为11位数字",
 						maxlength:"手机号码为11位数字"
 						},
-					licence_id: {
+					licenseId: {
 						required:"请输入企业营业执照注册号(统一社会信用代码)",
 						minlength:"机构代码最小长度为15位字符",
 						maxlength:"机构代码最小长度为最大长度为18位字符"
 						},
-					company_name:"请输入企业名称",
-					licence_pic:"请上传营业执照扫描件",
+					companyname:"请输入企业名称",
+					licensePicUpload:"请上传营业执照扫描件",
 					agree: "同意注册协议才可注册"
 				},
 				errorElement: "em",
@@ -464,50 +481,98 @@ $(document).ready(function() {
 				}
 			} );		
 		    break;		  	
-		case "pRegister"://个人会员信息注册
+	  case "pRegister"://个人会员信息注册
             $.validator.setDefaults( {
                 submitHandler: function () {
-                    //var formdata = new FormData(document.querySelector("form"));
-                    //formdata.append('pageid','personReg');
-                        // formdata.append("id_front", $('#idFront')[0].files[0]);
-                        // formdata.append("id_back",$('#idBack')[0].files[0]);
-                        $(this).attr({"value":"提交中,请稍等"});
-                        $.ajax({
-                            type: "POST",
-                            url: basePath+'sysUser/register/personal',
-                            processData:false,
-                            //contentType: false,
-                            //data: formdata,
-                            data:JSON.stringify($('form').serializeObject()),//不上传文件
-                            contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-                            success: function(result) {
-                                console.log(result)
-                                switch(result.code){
-                                    case 200:
-                                        firstLogin();
-                                    break;
-									default:
-									    alert(result.msg+':'+result.code)
-									break;
-                                }
-
-                            },
-                            error:function(text){
-                                console.log(text);
-                                alert("提交失败")
-                                $("#registersubmit").text("同意协议并注册");
+                	$(this).attr({"value":"提交中,请稍等"});
+                	//alert("idFrontUploadPath="+ $('#idFrontUploadPath').val());
+					//alert("idBackUploadPath="+ $('#idBackUploadPath').val());
+                    //1、先提交图片
+                    var formData = new FormData();
+                    formData.append('img', $('#idFrontUploadPath')[0].files[0]); // 固定格式
+                    formData.append('img', $('#idBackUploadPath')[0].files[0]); // 固定格式
+                    formData.append('token',$.cookie("token"));
+                    $.ajax({
+                        url:basePath +'upload/uploadFiles',														//后台接收数据地址
+                        //headers:{'Content-Type':'multipart/form-data'},//加上这个报错
+                        data:formData,
+                        type: "POST",
+                        dataType: "json",
+                        cache: false,			//上传文件无需缓存
+                        processData: false,		//用于对data参数进行序列化处理 这里必须false
+                        contentType: false,
+                        success:function(res) {
+                            var code = res.code;
+                            if (code === 200) {
+                                //alert("图片上传成功！" );
+                                $(idFront).val(res.data[0]);
+								$(idBack).val(res.data[1]);
+								//$(idBack).val(res.data[1].toString());
+                                //alert("form=" + JSON.stringify($('form').serializeObject()));
+                                //2、提交注册form表单
+                                $.ajax({
+                                    type: "POST",
+                                    url: basePath +'sysUser/register/personal',
+                                    async: false,
+                                    data:JSON.stringify($('form').serializeObject()), //不上传文件
+                                    contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                                    cache: false,
+                                    success: function(result) {
+                                        console.log(result);
+                                        if(result.code === 200) {
+                                            alert("注册成功！");
+                                            firstLogin();
+                                            window.location.href=basePath+'pregister.html';
+                                        }else{
+                                            alert("注册失败! 错误代码：" + result.code + "(" + result.msg + ")");
+                                        }
+                                    },
+									error:function(text){
+                                    	alert("注册异常！")
+										$("#registersubmit").text("同意协议并注册");
+                                    }
+                                });
+                            } else {
+                                alert("图片上传失败，注册未完成！");
                             }
-                        });
+                        }
+                    });
+                        // $.ajax({
+                        //     type: "POST",
+                        //     url: basePath+'sysUser/register/personal',
+                        //     processData:false,
+                        //     //contentType: false,
+                        //     //data: formdata,
+                        //     data:JSON.stringify($('form').serializeObject()),//不上传文件
+                        //     contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+                        //     success: function(result) {
+                        //         console.log(result)
+                        //         switch(result.code){
+                        //             case 200:
+                        //                 firstLogin();
+                        //             break;
+						// 			default:
+						// 			    alert(result.msg+':'+result.code)
+						// 			break;
+                        //         }
+                        //
+                        //     },
+                        //     error:function(text){
+                        //         console.log(text);
+                        //         alert("提交失败")
+                        //         $("#registersubmit").text("同意协议并注册");
+                        //     }
+                        // });
                     }
             } );
             $( "#formpersonal" ).validate( {
                 rules: {
-                    user_id: {
+					username: {
                         required: true,
                         minlength: 4,
                         maxlength:50
                     },
-                    pwd: {
+					password: {
                         required: true,
                         minlength: 6,
                         maxlength:16
@@ -518,7 +583,7 @@ $(document).ready(function() {
                         maxlength:16,
                         equalTo: "#password"
                     },
-                    tel:{
+					phone:{
                         required: true,
                         minlength: 11,
                         maxlength:11,
@@ -527,21 +592,22 @@ $(document).ready(function() {
                         required: true,
                         email: true
                     },
-                    id_num: {
+					idNum: {
                         required: true,
                         minlength: 15,
                         maxlength:18,
                     },
-                    id_front: "required",
-                    id_back: "required"
+					idFrontUploadPath: "required",
+					idBackUploadPath: "required",
+					agree: "required"
                 },
                 messages: {
-                    user_id: {
+					username: {
                         required: "请输入用户名",
                         minlength: "用户名最小长度为4个字符",
                         maxlength:"用户名最大长度为50个字符",
                     },
-                    pwd: {
+					password: {
                         required: "请再次输入确认密码",
                         minlength: "密码最小长度为6个字符",
                         maxlength:"密码名最大长度为16个字符",
@@ -552,18 +618,18 @@ $(document).ready(function() {
                         equalTo: "两次密码不一致"
                     },
                     email: "请输入有效的邮箱地址",
-                    tel: {
+					phone: {
                         required:"请输入有效的手机号码",
                         minlength:"手机号码为11位数字",
                         maxlength:"手机号码为11位数字"
                     },
-                    id_num: {
+					idNum: {
                         required:"请输入身份证号",
                         minlength:"最小长度为15位字符",
                         maxlength:"最大长度为18位字符"
                     },
-                    id_front:"请上传身份证正面",
-                    id_back:"请上传身份证背面",
+					idFrontUploadPath:"请上传身份证正面",
+					idBackUploadPath:"请上传身份证背面",
                     agree: "同意注册协议才可注册"
                 },
                 errorElement: "em",
@@ -692,7 +758,30 @@ $(document).ready(function() {
 		case "mWithdraw"://提现
 		    break;									  				  							
   }
- //tab切换 
+//     //附带不用修改浏览器安全配置的javascript代码，兼容ie， firefox全系列
+//     function getPath(obj)
+//     {
+//         if(obj)
+//         {
+//             if (window.navigator.userAgent.indexOf("MSIE")>=0)
+//             {
+//                 obj.select();
+//                 return document.selection.createRange().text;
+//             }
+//         else if(window.navigator.userAgent.indexOf("Firefox")>=0 || window.navigator.userAgent.indexOf("Chrome")>=0)
+//             {
+//                 if(obj[0].files[0])
+//                 {
+//                     return obj[0].files.item(0).getAsDataURL();
+//                 }
+//                 return obj.value;
+//             }
+//             return obj.value;
+//         }
+//     }
+// //参数obj为input file对象
+
+    //tab切换
    $($('.tab-wrapper').length!=0)
   		tab('.tab-wrapper','.tab-content > div','.tab-menu li'); 
 });//end ready

@@ -67,10 +67,16 @@
       <div class="content pdTB  marA r2">
         <h2 class="txAC marB pdTB bdB">个人注册</h2>
 						<form id="formpersonal" method="post" class="form-horizontal" enctype="multipart/form-data" action="">
+							<div style="height:0px;width:0px;display:none">
+								<input type="hidden" class="form-control" id="userType" name="userType" value="0" />
+								<input type="hidden" class="form-control" id="isService" name="isService" value="1" />
+								<input type="hidden" class="form-control" id="departmentId" name="departmentId" value="1" />
+								<input type="hidden" class="form-control" id="roleId" name="roleId" value="1" />
+							</div>
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="username"><b>*</b>账号</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="username" name="username" placeholder="账号名" />
+									<input type="text" class="form-control" id="username" name="username" placeholder="账号" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -96,13 +102,13 @@
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="email"><b>*</b>邮箱</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="email" name="email" placeholder="" />
+									<input type="text" class="form-control" id="email" name="email" placeholder="邮箱" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="wechat">微信号</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="wechat" name="wechat" placeholder="" />
+									<input type="text" class="form-control" id="wechat" name="wechat" placeholder="微信号" />
 								</div>
 							</div>
 
@@ -117,7 +123,7 @@
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="constellation">星座</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="constellation" name="constellation" placeholder="" />
+									<input type="text" class="form-control" id="constellation" name="constellation" placeholder="星座" />
 								</div>
 							</div>   
 							<div class="form-group">
@@ -144,32 +150,34 @@
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="teamname">团队名称</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="teamname" name="teamName" placeholder="" />
+									<input type="text" class="form-control" id="teamname" name="teamName" placeholder="团队名称" />
 								</div>
 							</div>   
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="id_num"><b>*</b>身份证号</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="id_num" name="idNum" placeholder="" />
+									<input type="text" class="form-control" id="id_num" name="idNum" placeholder="身份证号" />
 								</div>
 							</div>  
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="id_front"><b>*</b>身份证正面</label>
+								<label class="col-sm-4 control-label" for="idFrontUploadPath"><b>*</b>身份证正面</label>
 								<div class="col-sm-5">
-									<input type="file" class="form-control" id="id_front" name="idFront" style="border:none;" accept="image/*"/>
+									<input type="file" class="form-control" id="idFrontUploadPath" name="idFrontUploadPath" style="border:none;" accept="image/*"/>
+									<input type="hidden" class="form-control" id="idFront" name="idFront" style="border:none;" />
 								</div>
 							</div>  
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="id_back"><b>*</b>身份证背面</label>
+								<label class="col-sm-4 control-label" for="idBackUploadPath"><b>*</b>身份证背面</label>
 								<div class="col-sm-5">
-									<input type="file"  class="form-control" id="id_back" name="idBack" style="border:none;" accept="image/*" />
+									<input type="file"  class="form-control" id="idBackUploadPath" name="idBackUploadPath" style="border:none;" accept="image/*" />
+									<input type="hidden" class="form-control" id="idBack" name="idBack" style="border:none;" />
 								</div>
 							</div>                                                                                                                                                                  
 							<div class="form-group">
 								<div class="col-sm-5 col-sm-offset-4">
 									<div class="checkbox">
 										<label>
-											<input type="checkbox" id="agree1" name="agree" value="同意网站协议" checked="checked"/>《网站协议》
+											<input type="checkbox" id="agree1" name="agree" value="同意" checked="checked"/>《网站协议》
 										</label>
 									</div>
 								</div>
