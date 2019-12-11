@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 /**
  * 上传控制器
@@ -90,6 +91,40 @@ public class UploadController {
         log.info("fileAccessPath:{}",fileAccessPath);
 
         return ApiResult.ok(fileAccessPath);
+    }
+
+    /**
+     * 上传多个文件
+     */
+    @PostMapping("/uploadFiles")
+    @ApiOperation(value = "上传多个文件",notes = "上传多个文件",response = ApiResult.class)
+    public ApiResult<Boolean> upload(@RequestParam("img") MultipartFile[] multipartFiles) throws Exception {
+        String rs[] = new String[multipartFiles.length];
+        for (int i = 0; i < multipartFiles.length; i++) {
+            log.info("multipartFile" + i + " = " + multipartFiles[i]);
+            log.info("ContentType " + i + "= " + multipartFiles[i].getContentType());
+            log.info("OriginalFilename" + i + " = " + multipartFiles[i].getOriginalFilename());
+            log.info("Name" + i + "= " + multipartFiles[i].getName());
+            log.info("Size" + i + "= " + multipartFiles[i].getSize());
+
+            // 上传文件，返回保存的文件名称
+            String saveFileName = UploadUtil.upload(ecWitkeyPlusProperties.getUploadPath(), multipartFiles[i], originalFilename -> {
+                // 文件后缀
+                String fileExtension = FilenameUtils.getExtension(originalFilename);
+                // 这里可自定义文件名称，比如按照业务类型/文件格式/日期
+                UUID uuid = UUID.randomUUID();
+                String dateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssS"));
+                String fileName = dateString + uuid.toString() + "." + fileExtension;
+                return fileName;
+            });
+
+            // 上传成功之后，返回访问路径，请根据实际情况设置
+
+            String fileAccessPath = ecWitkeyPlusProperties.getResourceAccessUrl() + saveFileName;
+            log.info("fileAccessPath" + i + ":{}", fileAccessPath);
+            rs[i] = fileAccessPath;
+        }
+        return ApiResult.ok(rs);
     }
 
 }
