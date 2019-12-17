@@ -280,8 +280,8 @@ $(document).ready(function() {
      	case "home"://首页
 	         break;
 		case "addProject"://发布项目
-		     
-		     break;
+			alert("发布项目");
+			break;
 		case "pay"://付款
 
 		    loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
@@ -337,7 +337,7 @@ $(document).ready(function() {
                 //1、先提交图片
 				var formData = new FormData();
                 formData.append('img', $('#licensePicUpload')[0].files[0]); // 固定格式
-                formData.append('token',$.cookie("token"));
+                //formData.append('token',$.cookie("token"));
 				$.ajax({
                     url:basePath +'upload/',														//后台接收数据地址
                     //headers:{'Content-Type':'multipart/form-data'},//加上这个报错
@@ -370,12 +370,18 @@ $(document).ready(function() {
 									}else{
 										alert("注册失败! 错误代码：" + result.code + " " + result.msg);
 									}
+								},
+								error: function(rs){
+									alert("注册失败! 错误代码：" + rs.status + " " + rs.statusText);
 								}
 							});
 						} else {
 							alert("图片上传失败，注册未完成！");
 						}
-					}
+					},
+					error:function(rs){
+                        alert("图片上传失败，注册未完成！错误代码：" + rs.status + " " + rs.statusText);
+                    }
                 });
 			}
 		});
@@ -491,7 +497,7 @@ $(document).ready(function() {
                     var formData = new FormData();
                     formData.append('img', $('#idFrontUploadPath')[0].files[0]); // 固定格式
                     formData.append('img', $('#idBackUploadPath')[0].files[0]); // 固定格式
-                    formData.append('token',$.cookie("token"));
+                    //formData.append('token',$.cookie("token"));
                     $.ajax({
                         url:basePath +'upload/uploadFiles',														//后台接收数据地址
                         //headers:{'Content-Type':'multipart/form-data'},//加上这个报错
@@ -527,42 +533,19 @@ $(document).ready(function() {
                                             alert("注册失败! 错误代码：" + result.code + "(" + result.msg + ")");
                                         }
                                     },
-									error:function(text){
-                                    	alert("注册异常！")
+									error:function(rs){
+                                    	alert("注册异常！错误代码：" + rs.status + " " + rs.statusText);
 										$("#registersubmit").text("同意协议并注册");
                                     }
                                 });
                             } else {
                                 alert("图片上传失败，注册未完成！");
                             }
+                        },
+                        error:function(rs){
+                            alert("图片上传失败，注册未完成！错误代码：" + rs.status + " " + rs.statusText);
                         }
                     });
-                        // $.ajax({
-                        //     type: "POST",
-                        //     url: basePath+'sysUser/register/personal',
-                        //     processData:false,
-                        //     //contentType: false,
-                        //     //data: formdata,
-                        //     data:JSON.stringify($('form').serializeObject()),//不上传文件
-                        //     contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-                        //     success: function(result) {
-                        //         console.log(result)
-                        //         switch(result.code){
-                        //             case 200:
-                        //                 firstLogin();
-                        //             break;
-						// 			default:
-						// 			    alert(result.msg+':'+result.code)
-						// 			break;
-                        //         }
-                        //
-                        //     },
-                        //     error:function(text){
-                        //         console.log(text);
-                        //         alert("提交失败")
-                        //         $("#registersubmit").text("同意协议并注册");
-                        //     }
-                        // });
                     }
             } );
             $( "#formpersonal" ).validate( {
@@ -758,30 +741,139 @@ $(document).ready(function() {
 		case "mWithdraw"://提现
 		    break;									  				  							
   }
-//     //附带不用修改浏览器安全配置的javascript代码，兼容ie， firefox全系列
-//     function getPath(obj)
-//     {
-//         if(obj)
-//         {
-//             if (window.navigator.userAgent.indexOf("MSIE")>=0)
-//             {
-//                 obj.select();
-//                 return document.selection.createRange().text;
-//             }
-//         else if(window.navigator.userAgent.indexOf("Firefox")>=0 || window.navigator.userAgent.indexOf("Chrome")>=0)
-//             {
-//                 if(obj[0].files[0])
-//                 {
-//                     return obj[0].files.item(0).getAsDataURL();
-//                 }
-//                 return obj.value;
-//             }
-//             return obj.value;
-//         }
-//     }
-// //参数obj为input file对象
 
     //tab切换
    $($('.tab-wrapper').length!=0)
   		tab('.tab-wrapper','.tab-content > div','.tab-menu li'); 
 });//end ready
+
+function checkFloor1(){
+	var rs = false;
+	var hasNeedType = false;
+	var hasChildType = false;
+    for (var i = 0; i < $("[name='needType']").length; i++) {
+        if($("[name='needType']:eq("+i+")").prop("checked") == true) {
+            hasNeedType = true;
+			//alert($("[name='needType']:eq(" + i + ")").val());
+			for (var j = 0; j < $("[name='childType']").length; j++) {
+				if($("[name='childType']:eq("+j+")").prop("checked") == true) {
+					hasChildType = true;
+					//alert($("[name='childType']:eq(" + j + ")").val());
+				}
+			}
+        }
+    }
+    if(hasNeedType && hasChildType)
+        showBox('floor2','state');
+	else
+	if(!hasNeedType){
+		alert("请至少选择一个项目用途！");
+	}else
+	if(!hasChildType){
+		alert("请至少选择一个需求分类！");
+	}
+}
+
+function doAddCategory(){
+	//alert("form=" + JSON.stringify($('form').serializeObject()));
+	var formData = $('form').serializeObject();
+	//start 单个类别提交
+	var categoryFormData = new FormData();
+	categoryFormData.append('cateName', formData.childType);
+	categoryFormData.append('cateParentId',0);
+	categoryFormData.append('categoryType',0);
+	categoryFormData.append('intro',formData.childType);
+	categoryFormData.append('remark','');
+	categoryFormData.append('sort',0);
+	categoryFormData.append('token',$.cookie("token"));
+
+	var jsonData = {};
+	categoryFormData.forEach((value, key) => jsonData[key] = value);
+	
+	$.ajax({
+		type: "POST",
+		url: basePath +'category/add',
+		async: false,
+		data:jsonData, //不上传文件
+		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				//todo
+				alert("类别管理保存成功！");
+			}else{
+				//todo
+				alert("类别管理保存异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			alert("类别管理保存异常！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
+	//end
+	
+	//提交注册form表单
+	// $.ajax({
+	// 	type: "POST",
+	// 	url: basePath +'category/add',
+	// 	async: false,
+	// 	data:JSON.stringify($('form').serializeObject()), //不上传文件
+	// 	contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+	// 	cache: false,
+	// 	success: function(result) {
+	// 		console.log(result);
+	// 		if(result.code === 200) {
+	// 			alert("注册成功！");
+	// 			window.location.href=basePath+'cregister.html';
+	// 		}else{
+	// 			alert("注册失败! 错误代码：" + result.code + " " + result.msg);
+	// 		}
+	// 	}
+	// });	
+}
+
+function doAddProject(){
+	doAddCategory();
+    $(this).attr({"value":"提交中,请稍等"});
+    //1、先提交附件
+	var formData = new FormData();
+	formData.append('img', $('#sourceUploadPath')[0].files[0]); // 固定格式
+	//formData.append('token',$.cookie("token"));
+	// $.ajax({
+	// 	url:basePath +'upload/',														//后台接收数据地址
+	// 	//headers:{'Content-Type':'multipart/form-data'},//加上这个报错
+	// 	data:formData,
+	// 	type: "POST",
+	// 	dataType: "json",
+	// 	cache: false,			//上传文件无需缓存
+	// 	processData: false,		//用于对data参数进行序列化处理 这里必须false
+	// 	contentType: false,
+	// 	success:function(res) {
+	// 		var code = res.code;
+	// 		if (code === 200) {
+	// 			//alert("form=" + JSON.stringify($('form').serializeObject()));
+	// 			//2、提交注册form表单
+	// 			$.ajax({
+	// 				type: "POST",
+	// 				url: basePath +'projectOrder/add',
+	// 				async: false,
+	// 				data:JSON.stringify($('form').serializeObject()), //不上传文件
+	// 				contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+	// 				cache: false,
+	// 				success: function(result) {
+	// 					console.log(result);
+	// 					if(result.code === 200) {
+	// 						alert("注册成功！");
+	// 						window.location.href=basePath+'cregister.html';
+	// 					}else{
+	// 						alert("注册失败! 错误代码：" + result.code + " " + result.msg);
+	// 					}
+	// 				}
+	// 			});
+	// 		} else {
+	// 			alert("图片上传失败，注册未完成！");
+	// 		}
+	// 	}
+	// });
+}
