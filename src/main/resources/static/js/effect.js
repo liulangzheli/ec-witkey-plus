@@ -785,7 +785,7 @@ function doAddCategory(){
 	categoryFormData.append('intro',formData.childType);
 	categoryFormData.append('remark','');
 	categoryFormData.append('sort',0);
-	categoryFormData.append('token',$.cookie("token"));
+	//categoryFormData.append('token',$.cookie("token"));
 
 	var jsonData = {};
 	categoryFormData.forEach((value, key) => jsonData[key] = value);
@@ -794,9 +794,20 @@ function doAddCategory(){
 		type: "POST",
 		url: basePath +'category/add',
 		async: false,
-		data:jsonData, //不上传文件
+		//data:jsonData, //不上传文件
+		data:JSON.stringify({
+			"cateName": "aaa",
+			"cateParentId": 0,
+			"categoryType": 0,
+			"intro": "bbb",
+			"remark": "cc",
+			"sort": 0
+		}),
 		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
 		cache: false,
+		beforeSend: function (XMLHttpRequest) {
+			XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+		},
 		success:function(rs) {
 			var code = rs.code;
 			if (code === 200) {
