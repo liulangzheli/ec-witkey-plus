@@ -148,6 +148,7 @@ ec-witkey-plus:
       /*.html=anon
       /sysUser/register/company=anon
       /sysUser/register/personal=anon
+      /upload/=anon
       /upload/uploadFiles=anon
       /static/**=anon
       /templates/**=anon
