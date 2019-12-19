@@ -17,6 +17,12 @@
         select
         <include refid="Base_Column_List"/>
         from category
+        <where><!-- 某些为空时用来组装语句 -->
+            1 = 1
+            <if test="param.categoryType != null">
+                AND category_type=#{param.categoryType}
+            </if>
+        </where>
     </select>
 
 </mapper>
