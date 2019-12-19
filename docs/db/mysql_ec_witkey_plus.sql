@@ -374,6 +374,7 @@ create table project_order
 	examine_time		datetime						comment '审核时间',
 	pick_time		datetime						comment '选标完成时间',
 	check_time		datetime						comment '验收完成时间',
+	use_type		varchar(20)								comment '项目用途',
 	category_id			bigint								comment '分类id',
 	major			varchar(256)					comment '专业要求,用|隔开',
 	province		varchar(6)								comment '项目所在地（省）',

@@ -43,6 +43,9 @@ public class ProjectOrderUserQueryVo implements Serializable {
     @ApiModelProperty(value = "验收完成时间")
     private Date checkTime;
 
+    @ApiModelProperty(value = "项目用途")
+    private String useType;
+
     @ApiModelProperty(value = "分类id")
     private Long categoryId;
 

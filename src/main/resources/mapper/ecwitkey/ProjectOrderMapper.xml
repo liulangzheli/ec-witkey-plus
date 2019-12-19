@@ -4,12 +4,12 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id, create_time, pay_time, examine_time, pick_time, check_time, category_id, major, province, city, end_time, period, soft_supplier, soft_name, intro, state, remark
+        id, user_id, create_time, pay_time, examine_time, pick_time, check_time, use_type, category_id, major, province, city, end_time, period, soft_supplier, soft_name, intro, state, remark
     </sql>
 
     <!-- 通用查询结果列 -->
     <sql id="User_And_Base_Column_List">
-        id, user_id, create_time, pay_time, examine_time, pick_time, check_time, category_id, major, province, city, end_time, period, soft_supplier, soft_name, intro, state, remark, nickname, user_type, company_name, licence_id, id_num
+        id, user_id, create_time, pay_time, examine_time, pick_time, check_time, use_type, category_id, major, province, city, end_time, period, soft_supplier, soft_name, intro, state, remark, nickname, user_type, company_name, licence_id, id_num
     </sql>
 
     <select id="getProjectOrderById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
