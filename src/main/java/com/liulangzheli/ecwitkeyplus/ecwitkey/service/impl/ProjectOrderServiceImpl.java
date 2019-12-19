@@ -42,6 +42,14 @@ public class ProjectOrderServiceImpl extends BaseServiceImpl<ProjectOrderMapper,
 
     @Transactional(rollbackFor = Exception.class)
     @Override
+    public Long insertProjectOrder(ProjectOrder projectOrder) throws Exception {
+        super.save(projectOrder);
+        Long id = projectOrder.getId();
+        return id;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public boolean updateProjectOrder(ProjectOrder projectOrder) throws Exception {
         return super.updateById(projectOrder);
     }

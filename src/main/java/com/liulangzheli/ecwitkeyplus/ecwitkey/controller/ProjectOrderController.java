@@ -10,7 +10,6 @@ import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderUserQueryVo;
 import io.swagger.annotations.Api;
     import io.swagger.annotations.ApiOperation;
     import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
         import javax.validation.Valid;
     
 import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
-import com.liulangzheli.ecwitkeyplus.common.param.IdParam;
 
 /**
  * <pre>
@@ -45,6 +43,16 @@ public class ProjectOrderController extends BaseController {
     public ApiResult<Boolean> addProjectOrder(@Valid @RequestBody ProjectOrder projectOrder) throws Exception {
         boolean flag = projectOrderService.saveProjectOrder(projectOrder);
         return ApiResult.result(flag);
+    }
+
+    /**
+     * 添加项目订单
+     */
+    @PostMapping("/insert")
+    @ApiOperation(value = "添加ProjectOrder对象", notes = "添加项目订单", response = Long.class)
+    public ApiResult insertProjectOrder(@Valid @RequestBody ProjectOrder projectOrder) throws Exception {
+        Long id = projectOrderService.insertProjectOrder(projectOrder);
+        return ApiResult.result(id);
     }
 
     /**

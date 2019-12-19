@@ -29,6 +29,15 @@ public interface ProjectOrderService extends BaseService<ProjectOrder> {
     boolean saveProjectOrder(ProjectOrder projectOrder) throws Exception;
 
     /**
+     * 保存
+     *
+     * @param projectOrder
+     * @return
+     * @throws Exception
+     */
+    Long insertProjectOrder(ProjectOrder projectOrder) throws Exception;
+
+    /**
      * 修改
      *
      * @param projectOrder

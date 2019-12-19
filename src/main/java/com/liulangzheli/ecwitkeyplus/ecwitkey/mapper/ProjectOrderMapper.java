@@ -24,6 +24,13 @@ import java.io.Serializable;
 public interface ProjectOrderMapper extends BaseMapper<ProjectOrder> {
 
     /**
+     * 保存对象
+     * @param projectOrder
+     * @return
+     */
+    Long insertProjectOrder(ProjectOrder projectOrder);
+
+    /**
      * 根据ID获取查询对象
      *
      * @param id
