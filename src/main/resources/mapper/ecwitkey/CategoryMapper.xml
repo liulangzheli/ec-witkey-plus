@@ -22,6 +22,9 @@
             <if test="param.categoryType != null">
                 AND category_type=#{param.categoryType}
             </if>
+            <if test="param.categoryType != null">
+                AND category_type=#{param.categoryType}
+            </if>
         </where>
     </select>
 

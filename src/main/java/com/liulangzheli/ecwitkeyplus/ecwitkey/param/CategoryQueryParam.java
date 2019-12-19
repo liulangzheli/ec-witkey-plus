@@ -20,10 +20,12 @@ import com.liulangzheli.ecwitkeyplus.common.param.OrderQueryParam;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "CategoryQueryParam对象", description = "类别管理查询参数")
-        public class CategoryQueryParam extends OrderQueryParam {
-        private static final long serialVersionUID = 1L;
+public class CategoryQueryParam extends OrderQueryParam {
+    private static final long serialVersionUID = 1L;
 
-        @ApiModelProperty(value = "类别性质")
-        private int categoryType;
+    @ApiModelProperty(value = "类别性质")
+    private int categoryType;
 
+    @ApiModelProperty(value = "父级分类ID")
+    private int cateParentId;
 }
