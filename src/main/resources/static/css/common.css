@@ -4,7 +4,7 @@ h1, h3, h5, h6, ul, li, p { list-style: none; margin: 0 auto; padding: 0; }
 a, button, input { outline: 0 none; text-decoration: none; }
 ul, li { margin: 0; padding: 0; display: block; }
 p, div, h1, h2, h3, h4, h5, h6, a, input[data-field="datetime"] { -moz-user-select: none; /*火狐*/ -webkit-user-select: none;  /*webkit浏览器*/ -ms-user-select: none;   /*IE10*/ -khtml-user-select: none; /*早期浏览器*/ user-select: none; }
-input[type='text'],input[type='number'], input[type='password'], input[type='search'], input[type='email'], input[type='tel'], input[type='datetime-local'], input[type='datetime'], input[type='date'], select { height: 35px; margin: 0; text-indent: 10px;border-radius:3px; border: 1px #ddd solid; padding: 0; }
+input[type='text'],input[type='number'], input[type='password'], input[type='search'], input[type='email'], input[type='tel'], input[type='datetime-local'], input[type='datetime'], input[type='date'], select { height: 35px; margin: 0; text-indent: 5px;border-radius:3px; border: 1px #ddd solid; padding: 0; }
 input[type='radio'] { margin: 0; }
  input.search::-webkit-input-placeholder {
  color:#DE8694;

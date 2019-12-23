@@ -13,7 +13,7 @@
 		tagTransition('#btnLogin','登录中',true);
  		$.ajax({
 			type: "POST",
-			url: basePath + "login",
+			url: basePathAPI + "login",
 			async: false, // true:异动 false：同步
 			data: JSON.stringify({
             "username": loginName,
@@ -69,7 +69,7 @@ function firstLogin(args){
 // JavaScript Document
 function doLoginOut() {//退出
 	$.ajax({
-		url : basePath + "logout",
+		url : basePathAPI + "logout",
 		type : "POST",
 		cache : false,
 		success : function(data) {
@@ -79,10 +79,11 @@ function doLoginOut() {//退出
             $.cookie('userName', null);
             $.cookie('roleName',null);
 			$.cookie('token',null);
-			$("#topUser").text('登录');
-			$("#topUser").attr('href','login.html');
-			$("#topLog").text('注册');
-			$("#topLog").attr('href','register.html');
+			// $("#topUser").text('登录');
+			// $("#topUser").attr('href','login.html');
+			// $("#topLog").text('注册');
+			// $("#topLog").attr('href','register.html');
+			window.location.href=basePath+'login.html';
 		},
 		error : function(text) {
 			 alert(text);

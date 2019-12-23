@@ -24,7 +24,10 @@ public class ProjectRequirementQueryVo implements Serializable {
     
                                                 @ApiModelProperty(value = "主键")
                                                                         private Long id;
-    
+
+                                        @ApiModelProperty(value = "项目类型ID0")
+                                                        private Long categoryId0;
+
                                         @ApiModelProperty(value = "项目类型ID")
                                                         private Long categoryId;
     

@@ -58,8 +58,14 @@ public class ProjectOrderQueryVo implements Serializable {
     @ApiModelProperty(value = "项目所在地（市）")
     private String city;
 
+    @ApiModelProperty(value = "项目所在地（区）")
+    private String zone;
+
     @ApiModelProperty(value = "截止报名时间")
     private Date endTime;
+
+    @ApiModelProperty(value = "预算费用")
+    private Float amount;
 
     @ApiModelProperty(value = "交付周期 单位天")
     private Integer period;
@@ -73,7 +79,7 @@ public class ProjectOrderQueryVo implements Serializable {
     @ApiModelProperty(value = "详细描述")
     private String intro;
 
-    @ApiModelProperty(value = "订单状态 0：发布 1：进行中 2:  完成 3、关闭")
+    @ApiModelProperty(value = "订单状态 0：发布 1：已审核 2：进行中 3:  完成 4、关闭")
     private Integer state;
 
     @ApiModelProperty(value = "备注")

@@ -34,6 +34,13 @@
         select
         <include refid="Base_Column_List"/>
         from project_order
+        <where><!-- 某些为空时用来组装语句 -->
+            1 = 1
+            <if test="param.state != null">
+                AND state=#{param.state}
+            </if>
+            ORDER BY create_time asc
+        </where>
     </select>
 
 </mapper>

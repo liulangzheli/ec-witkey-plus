@@ -43,22 +43,33 @@ function tagTransition(tag, text, choice) {
 	}
 }
 
-function setSelected(obj,choice,tag){//发布项目设置选项效果
+function setSelected2(obj,choice,tag){//发布项目设置选项效果
 		if(choice=='radio'){
 			$(obj).parent().addClass('selected');
 			$(obj).parent().siblings().removeClass('selected');
-			$('.childBox').hide();
-			$('.childBox'+tag).fadeIn();
-		}else if($(obj).is(":checked")&&choice=="checkbox"){
-			$(obj).parent().addClass('selected');
-			$('.childBox'+tag).fadeIn();
-			$(obj).parent().next('.modal-dialog-box').fadeIn();
-			$('.modal-dialog-box').height($('body').height());
-			var mwidth=window.outerWidth/2-250;
-			$('.modal-dialog').css('left',mwidth+'px');
+			//alert($(obj).val());
+			showChildBox(loadCategory(1,$(obj).val()));
 		}else{
 			$(obj).parent().removeClass('selected');
 		}
+}
+
+function setSelected(obj,choice,tag){//发布项目设置选项效果
+	if(choice=='radio'){
+		$(obj).parent().addClass('selected');
+		$(obj).parent().siblings().removeClass('selected');
+		$('.childBox').hide();
+		$('.childBox'+tag).fadeIn();
+	}else if($(obj).is(":checked")&&choice=="checkbox"){
+		$(obj).parent().addClass('selected');
+		$('.childBox'+tag).fadeIn();
+		$(obj).parent().next('.modal-dialog-box').fadeIn();
+		$('.modal-dialog-box').height($('body').height());
+		var mwidth=window.outerWidth/2-250;
+		$('.modal-dialog').css('left',mwidth+'px');
+	}else{
+		$(obj).parent().removeClass('selected');
+	}
 }
 function showBox(s,h,e){//显示的标签类别，h隐藏的标签类别
 	switch(e){
@@ -280,7 +291,54 @@ $(document).ready(function() {
      	case "home"://首页
 	         break;
 		case "addProject"://发布项目
-			alert("发布项目");
+			showNeedType(loadCategory(0,0));
+			showProjectType(loadCategory(2,0));
+			//alert("发布项目");
+			// CategoryQueryParam={
+			// 	"current": 1,
+			// 	"keyword": "0",
+			// 	"orders": [
+			// 	  {
+			// 		"asc": true,
+			// 		"column": "createTime"
+			// 	  }
+			// 	],
+			// 	"size": 10
+			// }
+				
+			// 	$.ajax({
+			// 		type: "POST",
+			// 		url: basePathAPI +'category/getPageList',
+			// 		beforeSend: function(XMLHttpRequest) {
+			// 			XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+			// 		},
+			// 		async: false,
+			// 		data:JSON.stringify({
+			// 			"current": 1,
+			// 			"keyword": "0", //查 categoryType = 0
+			// 			"orders": [
+			// 			  {
+			// 				"asc": true,
+			// 				"column": "createTime"
+			// 			  }
+			// 			],
+			// 			"size": 10
+			// 		}),//JSON.stringify(jsonData), //必须用JSON.stringify()方法转。
+			// 		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+			// 		cache: false,
+			// 		success:function(rs) {
+			// 			var code = rs.code;
+			// 			if (code === 200) {
+			// 				res = true;
+			// 				alert("类别名称查询成功！");
+			// 			}else{
+			// 				alert("类别名称查询异常！错误代码：" + rs.code + " " + rs.msg);
+			// 			}
+			// 		},
+			// 		error:function(rs){
+			// 			alert("类别名称查询异常！错误代码：" + rs.status + " " + rs.statusText);
+			// 		}
+			// 	});
 			break;
 		case "pay"://付款
 
@@ -775,7 +833,7 @@ function checkFloor1(){
 }
 
 function doAddCategory(){
-	//alert("form=" + JSON.stringify($('form').serializeObject()));
+	var res = false;
 	var formData = $('form').serializeObject();
 	//start 单个类别提交
 	var categoryFormData = new FormData();
@@ -785,34 +843,27 @@ function doAddCategory(){
 	categoryFormData.append('intro',formData.childType);
 	categoryFormData.append('remark','');
 	categoryFormData.append('sort',0);
-	//categoryFormData.append('token',$.cookie("token"));
-
+	
 	var jsonData = {};
 	categoryFormData.forEach((value, key) => jsonData[key] = value);
 	
 	$.ajax({
 		type: "POST",
-		url: basePath +'category/add',
+		url: basePathAPI +'category/add',
+		beforeSend: function(XMLHttpRequest) {
+            XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+        },
 		async: false,
-		//data:jsonData, //不上传文件
-		data:JSON.stringify({
-			"cateName": "aaa",
-			"cateParentId": 0,
-			"categoryType": 0,
-			"intro": "bbb",
-			"remark": "cc",
-			"sort": 0
-		}),
+		data:JSON.stringify(jsonData), //必须用JSON.stringify()方法转。
 		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
 		cache: false,
-		beforeSend: function (XMLHttpRequest) {
-			XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
-		},
 		success:function(rs) {
 			var code = rs.code;
 			if (code === 200) {
 				//todo
+				res = true;
 				alert("类别管理保存成功！");
+
 			}else{
 				//todo
 				alert("类别管理保存异常！错误代码：" + rs.code + " " + rs.msg);
@@ -822,69 +873,342 @@ function doAddCategory(){
 			alert("类别管理保存异常！错误代码：" + rs.status + " " + rs.statusText);
 		}
 	});
+	return res;
 	//end
-	
-	//提交注册form表单
-	// $.ajax({
-	// 	type: "POST",
-	// 	url: basePath +'category/add',
-	// 	async: false,
-	// 	data:JSON.stringify($('form').serializeObject()), //不上传文件
-	// 	contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-	// 	cache: false,
-	// 	success: function(result) {
-	// 		console.log(result);
-	// 		if(result.code === 200) {
-	// 			alert("注册成功！");
-	// 			window.location.href=basePath+'cregister.html';
-	// 		}else{
-	// 			alert("注册失败! 错误代码：" + result.code + " " + result.msg);
-	// 		}
-	// 	}
-	// });	
 }
 
+function loadCategory(categoryType,cateParentId=null){
+	var records = null;
+	var queryParam = {
+		'categoryType':categoryType,
+		'cateParentId':cateParentId
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: basePathAPI +'category/getPageList',
+		beforeSend: function(XMLHttpRequest) {
+            XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+        },
+		async: false,
+		data:JSON.stringify(queryParam), //必须用JSON.stringify()方法转。
+		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				// for(i=0;i<rs.data.total;i++){
+				// 	alert("类别管理内容：" + rs.data.records[i].id + " " + rs.data.records[i].cateName);
+				// }
+				records = rs.data.records;
+				//alert("类别管理查询成功！");
+			}else{
+				alert("类别管理查询异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			alert("类别管理查询异常！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
+	return records;
+}
+
+function showNeedType(data){
+	if(data!=null&&data!=undefined){
+		var _str='<b>&nbsp;</b>';
+		for(i=0;i<data.length;i++){
+			_str+='<label for="needType' + i + '">' + data[i].cateName			
+				+'<input type="radio" name="needType" id="needType' + i + '" value="'+ data[i].id 
+				+'" onclick="setSelected2(this,\'radio\','+ i 
+				+')" /></label>&nbsp;';
+		}
+		$('#needType').empty().append(_str);
+	}
+}
+
+function showChildBox(data){
+	if(data!=null&&data!=undefined){
+		var _str='';
+		for(i=0;i<data.length;i++){
+			_str+='<label for="childType' + i + '" class="c"><input type="radio" name="childType" id="childType' 
+				+ i + '" value="' + data[i].id +'"/>'			
+				+ data[i].cateName + '</label>';
+		}
+		$('#childBox').empty().append(_str);
+	}
+}
+
+function showProjectRequirement(projectTypeName,indexId,data){
+	var _str = '';
+	if(projectTypeName!=null&&projectTypeName!=undefined&&data!=null&&data!=undefined){
+		_str='<div><b>'+projectTypeName+'：</b>';
+		for(var j=0;j<data.length;j++){
+			_str+='<label>'+data[j].cateName +'<input type="checkbox" contype="0" name="pro_'+indexId+'_type" id="pro_'+indexId+'_type' + j + '" value="'+ data[j].id +'" onclick="setSelected(this,\'checkbox\')"/></label>&nbsp;'
+                 + '<div class="modal-dialog-box">'
+                 + '<div class="modal-dialog">'
+                 + '<h3>项目类型：<span>'+projectTypeName+'</span></h3>'
+                 + '<div class="dd8 marA">'
+                 + '<table><tr><td align="right">单体数量：</td>'
+                 + '<td><input type="text" name="pro_'+indexId+'_type' + j + '_qty" value="1" /></td></tr>'
+                 + '<tr><td align="right">地上总建筑面积：</td>'
+                 + '<td><input type="number" name="pro_'+indexId+'_type' + j + '_area"/>平米</td></tr>'
+                 + '<tr><td colspan="2" align="left">说明：</td></tr>'
+                 + '<tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>'
+                 + '<tr><td align="center"><a href="javascript:void(0)" onclick="showBox(\'modal-dialog-box\',\'pro_'+indexId+'_type' + j + '\',1)"class="greyButton pdLR ">关闭</a></td>'
+                 + '<td align="center"><a href="javascript:void(0)" onclick="showBox(\'modal-dialog-box\',\'pro_'+indexId+'_type' + j + '\',1)"class="orangeButton pdLR">确认</a></td>'
+				 + '</tr></table></div></div></div>';
+		}
+		_str += '</div>';
+		if(data.length === 0)
+			_str = '';
+		//$('#projectType').empty().append(_str);
+	}
+	return _str;
+}
+
+function showProjectType(data){
+	if(data!=null&&data!=undefined){
+		var _str = '';
+		for(var i=0;i<data.length;i++){
+			for(var j=5;j<=8;j++){ //目前，先根据category表来的。
+				_str += showProjectRequirement(data[i].cateName,i,loadCategory(j,data[i].id));
+			}
+		}
+		$('#projectType').empty().append(_str);
+	}
+}
+
+function doAddProjectRequirement(orderId){
+	var res = false;
+	ProjectRequirement={
+		"categoryId0": 0,
+		"categoryId": 0,
+		"amount": 0,
+		"area": 0,
+		"countType": 0,
+		"orderId": 0,
+		"qty": 0,
+		"remark": ""
+	};
+	var formData = $('form').serializeObject();
+	var resNum = 0;
+    var data = loadCategory(2,0);//项目类型
+	for (var pi = 0; pi < data.length; pi++) {
+		for (var i = 0; i < $("[name='pro_"+pi+"_type']").length; i++) {
+			if($("[name='pro_"+pi+"_type']:eq("+i+")").prop("checked") == true) {
+				ProjectRequirement.orderId = orderId;
+				ProjectRequirement.categoryId0 = data[pi].id;
+				ProjectRequirement.categoryId = $("[name='pro_"+pi+"_type']:eq(" + i + ")").val();
+				ProjectRequirement.qty = $("[name='pro_"+pi+"_type" + i + "_qty']:eq(0)").val(); 
+				ProjectRequirement.area = $("[name='pro_"+pi+"_type" + i + "_area']:eq(0)").val();
+				if(projectRequirementSave(ProjectRequirement)){
+					resNum ++;
+				}
+					
+			}
+		}
+	}
+	if(resNum > 0)
+		res = true;
+	return res;
+	//内部通用方法
+	function projectRequirementSave(PRForm) {
+		var  res = false;
+		$.ajax({
+			type: "POST",
+			url: basePathAPI + 'projectRequirement/add',
+			beforeSend: function (XMLHttpRequest) {
+				XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+			},
+			async: false,
+			data: JSON.stringify(PRForm),
+			contentType: "application/json",
+			cache: false,
+			success: function (rs) {
+				var code = rs.code;
+				if (code === 200) {
+					res = true;
+				}
+				else {
+					alert("项目要求保存异常！错误代码：" + rs.code + " " + rs.msg);
+				}
+			},
+			error: function (rs) {
+				alert("项目要求保存异常！错误代码：" + rs.status + " " + rs.statusText);
+			}
+		});
+		return res;
+	}
+}
+
+function doAddSource(orderId){
+	var res = false;
+	//start 单个文件上传
+	var sourceFormData = new FormData();
+	sourceFormData.append('img', $('#sourceUploadPath')[0].files[0]); 
+	$.ajax({
+		url:basePathAPI +'upload/',														//后台接收数据地址
+		//headers:{'Content-Type':'multipart/form-data'},//加上这个报错
+		data:sourceFormData,
+		type: "POST",
+		dataType: "json",
+		cache: false,			//上传文件无需缓存
+		async: false,
+		processData: false,		//用于对data参数进行序列化处理 这里必须false
+		contentType: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				//文件上传成功后
+				$('source').val(rs.data.toString());
+				var formData = $('form').serializeObject();
+				//获取文件相关属性 start
+				var filePath = rs.data.toString();
+				var originalName = $('#sourceUploadPath')[0].files[0].name;
+				var format = originalName.substr(originalName.lastIndexOf(".")).toLowerCase();
+				var size = $('#sourceUploadPath')[0].files[0].size;
+				// end
+				var sourceData = new FormData();
+				sourceData.append('originalName', originalName);
+				sourceData.append('sourceName',filePath);
+				sourceData.append('format',format);
+				sourceData.append('size',size);
+				sourceData.append('orderId',orderId);
+				sourceData.append('remark','');
+				
+				var jsonData = {};
+				sourceData.forEach((value, key) => jsonData[key] = value);
+				
+				$.ajax({
+					type: "POST",
+					url: basePathAPI +'projectSource/add',
+					beforeSend: function(XMLHttpRequest) {
+						XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+					},
+					async: false,
+					data:JSON.stringify(jsonData), //必须用JSON.stringify()方法转。
+					contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+					cache: false,
+					success:function(rs) {
+						var code = rs.code;
+						if (code === 200) {
+							res = true;
+							//alert("项目资料保存成功！");
+						}else{
+							alert("项目资料保存异常！错误代码：" + rs.code + " " + rs.msg);
+						}
+					},
+					error:function(rs){
+						alert("项目资料保存异常！错误代码：" + rs.status + " " + rs.statusText);
+					}
+				});
+			}else{
+				alert("文件上传失败！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			alert("文件上传失败！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
+	return res;
+	//end
+}
+
+
 function doAddProject(){
-	doAddCategory();
-    $(this).attr({"value":"提交中,请稍等"});
-    //1、先提交附件
-	var formData = new FormData();
-	formData.append('img', $('#sourceUploadPath')[0].files[0]); // 固定格式
-	//formData.append('token',$.cookie("token"));
-	// $.ajax({
-	// 	url:basePath +'upload/',														//后台接收数据地址
-	// 	//headers:{'Content-Type':'multipart/form-data'},//加上这个报错
-	// 	data:formData,
-	// 	type: "POST",
-	// 	dataType: "json",
-	// 	cache: false,			//上传文件无需缓存
-	// 	processData: false,		//用于对data参数进行序列化处理 这里必须false
-	// 	contentType: false,
-	// 	success:function(res) {
-	// 		var code = res.code;
-	// 		if (code === 200) {
-	// 			//alert("form=" + JSON.stringify($('form').serializeObject()));
-	// 			//2、提交注册form表单
-	// 			$.ajax({
-	// 				type: "POST",
-	// 				url: basePath +'projectOrder/add',
-	// 				async: false,
-	// 				data:JSON.stringify($('form').serializeObject()), //不上传文件
-	// 				contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-	// 				cache: false,
-	// 				success: function(result) {
-	// 					console.log(result);
-	// 					if(result.code === 200) {
-	// 						alert("注册成功！");
-	// 						window.location.href=basePath+'cregister.html';
-	// 					}else{
-	// 						alert("注册失败! 错误代码：" + result.code + " " + result.msg);
-	// 					}
-	// 				}
-	// 			});
-	// 		} else {
-	// 			alert("图片上传失败，注册未完成！");
-	// 		}
-	// 	}
-	// });
+	//1、提交form表单
+    projectOrder={
+		"useType":0,
+		"categoryId": 0,
+  		"checkTime": "",
+  		"createTime": "",
+  		"endTime": "",
+  		"examineTime": "",
+  		"intro": "",
+  		"major": "",
+		"payTime": "",
+		"amount":0,
+  		"period": 0,
+  		"pickTime": "",
+		"province": "",
+		"city": "",
+		"zone":"",
+  		"remark": "",
+  		"softName": "",
+  		"softSupplier": "",
+  		"state": 0,
+  		"userId": 0
+	}
+	var formData = $('form').serializeObject();
+
+	projectOrder.useType = formData.needType;
+	projectOrder.categoryId = formData.childType;
+	projectOrder.endTime = formData.endTime;
+	projectOrder.intro = formData.intro;
+	//项目专业
+	var _major = '';
+	for(var pi=0;pi<5;pi++){//默认5个专业
+		for (var i = 0; i < $("[name='major_"+pi+"_type']").length; i++) {
+			if($("[name='major_"+pi+"_type']:eq("+i+")").prop("checked") == true) {
+				switch(pi){
+					case 0:
+						_major += "土建：" + $("[name='major_"+pi+"_type']:eq(" + i + ")").val() + "|";
+						break;
+					case 1:
+						_major += "钢构：" + $("[name='major_"+pi+"_type']:eq(" + i + ")").val() + "|";
+						break;
+					case 2:
+						_major += "外墙装修：" + $("[name='major_"+pi+"_type']:eq(" + i + ")").val() + "|";
+						break;
+					case 3:
+						_major += "室内装修：" + $("[name='major_"+pi+"_type']:eq(" + i + ")").val() + "|";
+						break;
+					case 4:
+						_major += "钢筋：" + $("[name='major_"+pi+"_type']:eq(" + i + ")").val() + "|";
+						break;
+				}	
+			}
+		}
+	}
+	projectOrder.major = _major;
+
+	projectOrder.amount = formData.amount;
+	projectOrder.period = formData.period;
+	projectOrder.province = formData.province;
+	projectOrder.city = formData.city;
+	projectOrder.zone = formData.zone;//地区，数据库暂无该字段。
+	projectOrder.remark = "";
+	projectOrder.softName = formData.softName;
+	projectOrder.softSupplier = formData.softSupplier;
+	projectOrder.state = 0;
+	projectOrder.userId = $.cookie("userId");
+	
+	$.ajax({
+		type: "POST",
+		url: basePathAPI +'projectOrder/insert',
+		beforeSend: function(XMLHttpRequest) {
+			XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+		},
+		async: false,
+		data:JSON.stringify(projectOrder), //必须用JSON.stringify()方法转。
+		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				res = rs.data.toString();//返回orderId
+				var dPJRRes = doAddProjectRequirement(res);
+				var ASRes = doAddSource(res);
+				if(ASRes && dPJRRes)
+					alert("项目发布保存成功，请等待后台审核后，再对外发布！");
+				else
+					alert("项目发布保存成功。但，附件上传失败！");
+			}else{
+				alert("项目发布保存异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			alert("项目发布保存异常！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
 }
