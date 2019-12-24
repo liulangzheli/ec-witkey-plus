@@ -6,6 +6,7 @@
 function getBasePath() {
     var url = window.document.location;
 	return url.protocol + "//"+url.host+"/";
+	//return "http://localhost:8888/"   // 临时调试用的 by zhangzy 20191215
 	
 /*	var curWwwPath = window.document.location.href;
 	var pathName = window.document.location.pathname;

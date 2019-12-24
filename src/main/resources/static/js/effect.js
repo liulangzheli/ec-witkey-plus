@@ -157,7 +157,7 @@ function tab(wrapper,allTabs,tabMenu){//切换效果
 function bidding(id,user){//竞标
    		$.ajax({
             type: "POST",
-            url:basePath + "orderBidding/add",
+            url:basePathAPI + "orderBidding/add",
             contentType: false,
 			processData:false,
             data: {'order_id':id,'user_id':user},
@@ -171,7 +171,7 @@ function bidding(id,user){//竞标
 function ineedu(id,user){//选标
    		$.ajax({
             type: "POST",
-            url:basePath + "order.action",
+            url:basePathAPI + "order.action",
             contentType: false,
 			processData:false,
             data: {'order_id':id,'user_id':user},
@@ -185,7 +185,7 @@ function ineedu(id,user){//选标
 function acceptPro(id,choice){//服务商应邀项目
  	$.ajax({
             type: "POST",
-            url:basePath + "order.action",
+            url:basePathAPI + "order.action",
             contentType: false,
 			processData:false,
             data: {'order_id':id,'pageid':'acceptting','isAccept':choice},
@@ -205,7 +205,7 @@ function progressCommit(){//进度提交
 	formdata.append("source", $('#file')[0]);
 	$.ajax({
             type: "POST",
-            url:basePath + "order.action",
+            url:basePathAPI + "order.action",
             contentType: false,
 			processData:false,
             data: formdata,
@@ -221,7 +221,7 @@ function confirm(id,tag){//项目验收
   if(tag==1){//验收通过
 		$.ajax({
             type: "POST",
-            url:basePath + "order.action",
+            url:basePathAPI + "order.action",
             contentType: false,
 			processData:false,
             data: {'pageid':'checksource','check_id':id,'state':1},
@@ -236,7 +236,7 @@ function confirm(id,tag){//项目验收
   }else if(tag==2){//驳回
 		$.ajax({
             type: "POST",
-            url:basePath + "order.action",
+            url:basePathAPI + "order.action",
             contentType: false,
 			processData:false,
             data: {'pageid':'checksource','check_id':id,'state':2},
@@ -397,7 +397,7 @@ $(document).ready(function() {
                 formData.append('img', $('#licensePicUpload')[0].files[0]); // 固定格式
                 //formData.append('token',$.cookie("token"));
 				$.ajax({
-                    url:basePath +'upload/',														//后台接收数据地址
+                    url:basePathAPI +'upload/',														//后台接收数据地址
                     //headers:{'Content-Type':'multipart/form-data'},//加上这个报错
                     data:formData,
                     type: "POST",
@@ -414,7 +414,7 @@ $(document).ready(function() {
 							//2、提交注册form表单
 							$.ajax({
 								type: "POST",
-								url: basePath +'sysUser/register/company',
+								url: basePathAPI +'sysUser/register/company',
 								async: false,
 								data:JSON.stringify($('form').serializeObject()), //不上传文件
 								contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
@@ -557,7 +557,7 @@ $(document).ready(function() {
                     formData.append('img', $('#idBackUploadPath')[0].files[0]); // 固定格式
                     //formData.append('token',$.cookie("token"));
                     $.ajax({
-                        url:basePath +'upload/uploadFiles',														//后台接收数据地址
+                        url:basePathAPI +'upload/uploadFiles',														//后台接收数据地址
                         //headers:{'Content-Type':'multipart/form-data'},//加上这个报错
                         data:formData,
                         type: "POST",
@@ -576,7 +576,7 @@ $(document).ready(function() {
                                 //2、提交注册form表单
                                 $.ajax({
                                     type: "POST",
-                                    url: basePath +'sysUser/register/personal',
+                                    url: basePathAPI +'sysUser/register/personal',
                                     async: false,
                                     data:JSON.stringify($('form').serializeObject()), //不上传文件
                                     contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
@@ -719,7 +719,7 @@ $(document).ready(function() {
 					else
 					$.ajax({
 						type: "POST",
-						url:basePath + "verifyCode",
+						url:basePathAPI + "verifyCode",
 						contentType: false,
 						processData:false,
 						data: {'email':email,'user_id':user},
@@ -738,7 +738,7 @@ $(document).ready(function() {
 				   var code=$('input[name="code"]').val();	
 			  		$.ajax({
 						type: "POST",
-						url:basePath + "verifyCode",
+						url:basePathAPI + "verifyCode",
 						contentType: false,
 						processData:false,
 						data: {'email':email,'user_id':user,'code':code},
@@ -762,7 +762,7 @@ $(document).ready(function() {
 				   var code=$('input[name="code"]').val();	
 			  		$.ajax({
 						type: "POST",
-						url:basePath + "setPwd",
+						url:basePathAPI + "setPwd",
 						contentType: false,
 						processData:false,
 						data: {'user_id':user,'pwd':pwd},

@@ -1,233 +1,255 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>企业账号注册</title>
-<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" href="css/common.css" type="text/css" />
-<link rel="stylesheet" href="css/style.css" type="text/css" />
-<link rel="stylesheet" href="css/bootstrap.min.css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>企业账号注册</title>
+  <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
 
 </head>
+
 <body data-page="cRegister">
-<div class="floor bdB bgE">
-  <div class="floorZone txAR top"> <a href="login.html" title="" id="topUser">登录</a>|<a href="register.html" title=""id="topLog">注册</a>|<a href="javascript:void(0);" onclick="SetHome(this,'http://www.ztjzj.com');">设为首页</a>|<a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏本站</a>|<a href="article.html">常见问题</a>|<a href="article.html">使用帮助</a> </div>
-  <!--end floorZone--> 
-  
-</div>
-<!--end floor-->
+  <div class="floor bdB bgE">
+    <div class="floorZone txAR top"> <a href="login.html" title="" id="topUser">登录</a>|<a href="register.html" title=""
+        id="topLog">注册</a>|<a href="javascript:void(0);" onclick="SetHome(this,'http://www.ztjzj.com');">设为首页</a>|<a
+        href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏本站</a>|<a href="article.html">常见问题</a>|<a
+        href="article.html">使用帮助</a> </div>
+    <!--end floorZone-->
 
-<div class="floor">
-  <div class="floorZone searchZone">
-    <div class="logo fl"><a href="#" title="造价威客网">造价威客</a></div>
-    <!--end logo-->
-    
-    <div class="search fl">
-      <div class="searchTab dd10 fl">
-        <div class="active">项目</div>
-        <div>服务商</div>
+  </div>
+  <!--end floor-->
+
+  <div class="floor">
+    <div class="floorZone searchZone">
+      <div class="logo fl"><a href="#" title="造价威客网">造价威客</a></div>
+      <!--end logo-->
+
+      <div class="search fl">
+        <div class="searchTab dd10 fl">
+          <div class="active">项目</div>
+          <div>服务商</div>
+        </div>
+        <!--end searchTab-->
+
+        <div class=" dd10 fl">
+          <input type="text" class="searchIpt" id="searchText" placeholder="请输入..." /><a class="darkBlueBtn searchSbt"
+            href="javascript:void(0)" onclick="transToSearchUrl()">搜索</a></div>
       </div>
-      <!--end searchTab-->
-      
-      <div class=" dd10 fl">
-        <input type="text" class="searchIpt" id ="searchText" placeholder="请输入..." /><a class="darkBlueBtn searchSbt" href="javascript:void(0)" onclick="transToSearchUrl()">搜索</a></div>
+      <!--end search-->
+
+      <div class="user fl txAR">
+        <div>联系客服</div>
+        <div>公众号</div>
+      </div>
+      <!--end user-->
+
     </div>
-    <!--end search-->
-    
-    <div class="user fl txAR">
-      <div>联系客服</div>
-      <div>公众号</div>
-    </div>
-    <!--end user--> 
-    
+    <!--end floorZone-->
+
   </div>
-  <!--end floorZone--> 
-  
-</div>
-<!--end floor-->
+  <!--end floor-->
 
-<div class="floor menuZone">
-  <div class="floorZone ">
-    <div class="menuLink"> <a href="index.html" class="active">首页</a> <a href="newProd.html">发布项目</a> <a href="findProd.html">找项目</a> <a href="findCompany.html">找企业/团队</a> <a href="findPerson.html">找个人</a> </div>
-    <!--end menuLink--> 
-    
-    <a class="fr" href="newProd.html">发布需求</a> </div>
-  <!--end menuLine--> 
-  
-</div>
-<!--end menuZone-->
+  <div class="floor menuZone">
+    <div class="floorZone ">
+      <div class="menuLink"> <a href="index.html" class="active">首页</a> <a href="newProd.html">发布项目</a> <a href="findProd.html">找项目</a>
+        <a href="findCompany.html">找企业/团队</a> <a href="findPerson.html">找个人</a> </div>
+      <!--end menuLink-->
 
-<div class="floor registerBox">
-  <div class="floorZone pdTB">
-    <div class="dd10 marA pdTB" style="float:none;">
-      <!--end title-->
-      <div class="content pdTB  marA r1">
-        <h2 class="txAC marB pdTB bdB">企业注册</h2>
-			<form id="companyForm" method="post" class="form-horizontal" enctype="multipart/form-data" action="">
-                <div style="height:0px;width:0px;display:none">
-                <input type="hidden" class="form-control" id="userType" name="userType" value="1" />
-                <input type="hidden" class="form-control" id="isService" name="isService" value="0" />
-                <input type="hidden" class="form-control" id="departmentId" name="departmentId" value="1" />
-                <input type="hidden" class="form-control" id="roleId" name="roleId" value="1" />
+      <a class="fr" href="newProd.html">发布需求</a>
+    </div>
+    <!--end menuLine-->
+
+  </div>
+  <!--end menuZone-->
+
+  <div class="floor registerBox">
+    <div class="floorZone pdTB">
+      <div class="dd10 marA pdTB" style="float:none;">
+        <!--end title-->
+        <div class="content pdTB  marA r1">
+          <h2 class="txAC marB pdTB bdB">企业注册</h2>
+          <form id="companyForm" method="post" class="form-horizontal" enctype="multipart/form-data" action="">
+            <div style="height:0px;width:0px;display:none">
+              <input type="hidden" class="form-control" id="userType" name="userType" value="1" />
+              <input type="hidden" class="form-control" id="isService" name="isService" value="0" />
+              <input type="hidden" class="form-control" id="departmentId" name="departmentId" value="1" />
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="roleId"><b>*</b>账号角色</label>
+              <div class="col-sm-5">
+                <select id="roleId" name="roleId">
+                    <option value="2">雇主</option>
+                    <option value="3">服务商</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="username"><b>*</b>账号</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" id="username" name="username" placeholder="账号" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="password"><b>*</b>密码</label>
+              <div class="col-sm-5">
+                <input type="password" class="form-control" id="password" name="password" placeholder="密码" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="confirm_password"><b>*</b>确认密码</label>
+              <div class="col-sm-5">
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="确认密码" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="phone"><b>*</b>联系电话</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="手机号" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="email"><b>*</b>邮箱</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" id="email" name="email" placeholder="邮箱" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="companyname"><b>*</b>公司名称</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" id="companyname" name="companyname" placeholder="公司名称" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="licenseId"><b>*</b>组织机构代码</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" id="licenseId" name="licenseId" placeholder="组织机构代码" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="province1">所在地</label>
+              <div class="col-sm-5">
+                <div class="form-inline">
+                  <div id="distpicker" style="width:500px;">
+                    <div class="form-group" style="width:auto;margin:0;">
+                      <select class="form-control" id="province1" name="province">
+                      </select>
+                    </div>
+                    <div class="form-group" style="width:auto;margin:0;">
+                      <select class="form-control" id="city1" name="city">
+                      </select>
+                    </div>
+                    <div class="form-group" style="width:auto;margin:0;">
+                      <select class="form-control" id="district1" name="zone">
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                            <div class="form-group">
-								<label class="col-sm-4 control-label" for="username"><b>*</b>账号</label>
-								<div class="col-sm-5">
-									<input type="text" class="form-control" id="username" name="username" placeholder="账号" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="password"><b>*</b>密码</label>
-								<div class="col-sm-5">
-									<input type="password" class="form-control" id="password" name="password" placeholder="密码" />
-								</div>
-							</div>
+              </div>
+            </div>
 
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="confirm_password"><b>*</b>确认密码</label>
-								<div class="col-sm-5">
-									<input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="确认密码" />
-								</div>
-							</div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="licensePic"><b>*</b>营业执照</label>
+              <div class="col-sm-5">
+                <input type="file" class="form-control" id="licensePicUpload" name="licensePicUpload" style="border:none;"
+                  accept="image/*" />
+                <input type="hidden" class="form-control" id="licensePic" name="licensePic" style="border:none;" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-5 col-sm-offset-4">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" id="agree" name="agree" value="同意" checked="checked" />《网站协议》
+                  </label>
+                </div>
+              </div>
+            </div>
 
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="phone"><b>*</b>联系电话</label>
-								<div class="col-sm-5">
-									<input type="text" class="form-control" id="phone" name="phone" placeholder="手机号" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="email"><b>*</b>邮箱</label>
-								<div class="col-sm-5">
-									<input type="text" class="form-control" id="email" name="email" placeholder="邮箱" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="companyname"><b>*</b>公司名称</label>
-								<div class="col-sm-5">
-									<input type="text" class="form-control" id="companyname" name="companyname" placeholder="公司名称" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="licenseId"><b>*</b>组织机构代码</label>
-								<div class="col-sm-5">
-									<input type="text" class="form-control" id="licenseId" name="licenseId" placeholder="组织机构代码" />
-								</div>
-							</div>   
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="province1">所在地</label>
-								<div class="col-sm-5">
-                                    <div class="form-inline">
-                                      <div id="distpicker" style="width:500px;">
-                                        <div class="form-group" style="width:auto;margin:0;">
-                                          <select class="form-control" id="province1" name="province">
-                                          </select>
-                                        </div>
-                                        <div class="form-group" style="width:auto;margin:0;">
-                                          <select class="form-control" id="city1" name="city">
-                                          </select>
-                                        </div>
-                                        <div class="form-group" style="width:auto;margin:0;">
-                                          <select class="form-control" id="district1" name="zone">
-                                          </select>
-                                        </div>
-                                      </div>								
-                                  </div>
-								</div>  
-                            </div>
+            <div class="form-group">
+              <div class="col-sm-9 col-sm-offset-4">
+                <button type="submit" class="orangeButton dd2  marR" id="registersubmit" name="registersubmit" value="注册">注册</button>
+                <a href="javascript:history.go(-1)" class="greyButton dd1  marL">&nbsp;返&nbsp;回&nbsp;</a>
+              </div>
+            </div>
+          </form>
 
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="licensePic"><b>*</b>营业执照</label>
-								<div class="col-sm-5">
-									<input type="file" class="form-control" id="licensePicUpload" name="licensePicUpload" style="border:none;" accept="image/*"/>
-                                    <input type="hidden" class="form-control" id="licensePic" name="licensePic" style="border:none;"/>
-                                </div>
-							</div>
-                <div class="form-group">
-								<div class="col-sm-5 col-sm-offset-4">
-									<div class="checkbox">
-										<label>
-											<input type="checkbox" id="agree" name="agree" value="同意" checked="checked"/>《网站协议》
-										</label>
-									</div>
-								</div>
-							</div>
+        </div>
+        <!--end content-->
 
-							<div class="form-group">
-								<div class="col-sm-9 col-sm-offset-4">
-									<button type="submit" class="orangeButton dd2  marR" id="registersubmit" name="registersubmit" value="注册">注册</button>
-                                    <a href="javascript:history.go(-1)" class="greyButton dd1  marL">&nbsp;返&nbsp;回&nbsp;</a>
-								</div>
-							</div>
-						</form>        
 
-      </div><!--end content--> 
-      
-      
+      </div>
     </div>
+    <!--floorZone-->
+
   </div>
-  <!--floorZone--> 
-  
-</div>
-<!--end floor-->
+  <!--end floor-->
 
-<div class="floor footFloor pdTB">
-  <div class="floorZone fcW pdTB">
-    <div class="dd2 fl fLine">
-      <div class="logo2">造价威客LOGO</div>
+  <div class="floor footFloor pdTB">
+    <div class="floorZone fcW pdTB">
+      <div class="dd2 fl fLine">
+        <div class="logo2">造价威客LOGO</div>
+      </div>
+      <div class="dd1 fl txAL">
+        <div class="line"></div>
+        <h2>关于我们</h2>
+        <ul>
+          <li><a href="article.html">公司简介</a></li>
+          <li><a href="article.html">平台公告</a></li>
+          <li><a href="article.html">联系方式</a></li>
+        </ul>
+      </div>
+      <div class="dd1 fl txAL">
+        <div class="line"></div>
+        <h2>交易保障</h2>
+        <ul>
+          <li><a href="article.html">网站协议</a></li>
+          <li><a href="article.html">支付方式</a></li>
+          <li><a href="article.html">维权</a></li>
+          <li><a href="article.html">意见反馈</a></li>
+        </ul>
+      </div>
+      <div class="dd3 fl">
+        <div class="line"></div>
+        <h2>联系方式</h2>
+        <p>地　　址：厦门市湖里区火炬高薪岐山北二路8899号23楼</p>
+        <p>联系电话：0592-5138XXX　5138XXX</p>
+        <p>传　　真：0592-5138XXX 　邮 　编：361011</p>
+        <p>网　　址：www.ztjzj.com</p>
+        <p>邮　　件：service@witkey.com</p>
+      </div>
+      <div class="dd3 fl txAR pdT">
+        <div class="chat">微信公众号</div>
+      </div>
     </div>
-    <div class="dd1 fl txAL">
-    	<div class="line"></div>
-        	<h2>关于我们</h2>
-        	<ul>
-                <li><a href="article.html">公司简介</a></li>
-                <li><a href="article.html">平台公告</a></li>
-                <li><a href="article.html">联系方式</a></li>
-            </ul>
-   </div>
-   <div class="dd1 fl txAL">
-   	<div class="line"></div>
-        	<h2>交易保障</h2>
-        	<ul>
-                <li><a href="article.html">网站协议</a></li>
-                <li><a href="article.html">支付方式</a></li>
-                <li><a href="article.html">维权</a></li>
-                <li><a href="article.html">意见反馈</a></li>
-            </ul>
-   </div>
-    <div class="dd3 fl">
-      <div class="line"></div>
-      <h2>联系方式</h2>
-      <p>地　　址：厦门市湖里区火炬高薪岐山北二路8899号23楼</p>
-      <p>联系电话：0592-5138XXX　5138XXX</p>
-      <p>传　　真：0592-5138XXX 　邮 　编：361011</p>
-      <p>网　　址：www.ztjzj.com</p>
-      <p>邮　　件：service@witkey.com</p>
-    </div>
-    <div class="dd3 fl txAR pdT"> <div class="chat">微信公众号</div> </div>
+    <!--end floorZone-->
+
   </div>
-  <!--end floorZone--> 
-  
-</div>
-<!--end floor-->
+  <!--end floor-->
 
-<div class="floor footFloor txAC">
-  <p><a href="index.html">首页</a>|<a href="article.html">公司介绍</a>|<a href="article.html">公司新闻</a>|<a href="article.html">联系我们</a>|<a href="register.html">注册</a></p>
-</div>
-<!--end footFloor-->
+  <div class="floor footFloor txAC">
+    <p><a href="index.html">首页</a>|<a href="article.html">公司介绍</a>|<a href="article.html">公司新闻</a>|<a href="article.html">联系我们</a>|<a
+        href="register.html">注册</a></p>
+  </div>
+  <!--end footFloor-->
 
-<div class="floor footFloor txAC">
-  <p class="fc9">&copy;造价威客网 版权所有 闽ICP备19xxx001号    本网站中提供的信息仅用作信息参考</p>
-</div>
-<!--end footFloor-->
-<script src="js/jquery.min.js"></script>
-<script src="js/comm.js" type="text/javascript"></script>
-<script src="js/main.js"></script> 
-<script src="js/distpicker.data.js"></script> 
-<script src="js/distpicker.js"></script> 
-<script src="js/login.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/jquery.validate.js"></script>
-<script src="js/effect.js" type="text/javascript"></script>
+  <div class="floor footFloor txAC">
+    <p class="fc9">&copy;造价威客网 版权所有 闽ICP备19xxx001号 本网站中提供的信息仅用作信息参考</p>
+  </div>
+  <!--end footFloor-->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/comm.js" type="text/javascript"></script>
+  <script src="js/main.js"></script>
+  <script src="js/distpicker.data.js"></script>
+  <script src="js/distpicker.js"></script>
+  <script src="js/login.js" type="text/javascript"></script>
+  <script type="text/javascript" src="js/jquery.validate.js"></script>
+  <script src="js/effect.js" type="text/javascript"></script>
 </body>
+
 </html>

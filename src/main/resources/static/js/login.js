@@ -23,17 +23,19 @@
 			cache: false,
 			success: function(text) {
 				if(text.code===200){
-				$.cookie('userId', text.data.loginSysUserVo.id,{expires:7,path: '/'});
-				$.cookie('userName', text.data.loginSysUserVo.username,{expires:7,path: '/'});
-				$.cookie('roleName',text.data.loginSysUserVo.roleName,{expires:7,path: '/'});
-				$.cookie("ISLOGIN",true,{expires:7,path: '/'});
-				$.cookie("PermissionCodes", text.data.loginSysUserVo.permissionCodes,{expires:7,path: '/'});
-				$.cookie("token", text.data.token,{expires:7,path: '/'});
-				window.location.href=basePath+'index.html';
-				//if (window.lastAction != undefined || window.lastAction != null){
-//					doLastAction(window.lastAction);
-//					delete window.lastAction;
-//				}
+					if(text.data.loginSysUserVo.roleId == 1){
+						alert('登陆失败：请使用用户账号登陆'); 
+						//window.location.href = basePath+'login.html';
+					}else{
+						$.cookie('userId', text.data.loginSysUserVo.id,{expires:7,path: '/'});
+						$.cookie('userName', text.data.loginSysUserVo.username,{expires:7,path: '/'});
+						$.cookie('roleName',text.data.loginSysUserVo.roleName,{expires:7,path: '/'});
+						$.cookie("ISLOGIN",true,{expires:7,path: '/'});
+						$.cookie("PermissionCodes", text.data.loginSysUserVo.permissionCodes,{expires:7,path: '/'});
+						$.cookie("token", text.data.token,{expires:7,path: '/'});
+						window.location.href=basePath+'index.html';
+					}
+				
 				}else{
 				$(".error").text("用户名或者密码错误");
 				    $.cookie("ISLOGIN", false);

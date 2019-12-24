@@ -209,9 +209,9 @@ function showData(data,state){
 		}
 		_str += '<dl>'
 				+ '<dt class="dd101" txAC>选择</dt>' //1  5%
-				+ '<dt class="dd15">项目编号</dt>'//2  15%
-				+ '<dt class="dd35">项目名称</dt>'//3  35%
-		 		+ '<dt class="dd1">项目金额</dt>'//4  10%
+				+ '<dt class="dd15 txAC">项目编号</dt>'//2  15%
+				+ '<dt class="dd35 txAC">项目名称</dt>'//3  35%
+		 		+ '<dt class="dd1 txAC">项目金额</dt>'//4  10%
 				+ '<dt class="dd1 txAC">付款时间</dt>'//5   10%
 				+ '<dt class="dd1 txAC">付款状态</dt>'//6  10%
 		        + '<dt class="dd15 txAC">操作</dt>'//7 15%
@@ -224,13 +224,28 @@ function showData(data,state){
 				sourceName = sourseRecord.sourceName;
 				originalName = sourseRecord.originalName;
 			}
+			var amount = " - ";
+			if(data[i].amount != null){
+				var amount = data[i].amount + " 元";
+			}
+			var payTime = " - ";
+			if(data[i].payTime != null){
+				var payTime = data[i].payTime;
+			}
+			var payState = "";
+			if(data[i].payTime != null){
+				payState = "已付款";
+			}else{
+				payState = "<a href=\"javascript:void(0)\" class=\"greenButton pdLR\" onclick=\"confirmPay(this," + data[i].id +")\">请确认付款</a>";
+			}
+
 			_str += '<dl><dd class="dd101 txAC"><input type="checkbox"/></dd>'//1
 			+ '<dd class="dd15">'+ data[i].id +'</dd>'//2
 			+ '<dd class="dd35 pname"><a href="javascript:void(0)" onclick="showBox(\'m1111\',0)">'+loadCategory(data[i].useType).cateName+" "+loadCategory(data[i].categoryId).cateName+" "+data[i].softName+'</a></dd>'//3
-			+ '<dd class="dd1 txAR">'+(data[i].amount != null?"data[i].amount 元":" - ")+'</dd>'//4
-			+ '<dd class="dd1 time txAC">'+(data[i].payTime != null?"data[i].payTime":" - ")+'</dd>'//5
-			+ '<dd class="dd1 txAC">'+(data[i].payTime != null?"已付款":"<a href=\"javascript:void(0)\" class=\"greenButton pdLR\" onclick=\"confirmPay(this)\">确认付款</a>")+'</dd>'//6
-			+ '<dd class="dd15 txAC"><a href="editPro.html" class="greenButton pdLR marR">编辑</a><a href="javascript:void(0)" onclick="showBox(\'m1111\',0)" class="greenButton pdLR">审核</a></dd>'//7
+			+ '<dd class="dd1 txAR">'+ amount +'</dd>'//4
+			+ '<dd class="dd1 time txAC">'+payTime+'</dd>'//5
+			+ '<dd class="dd1 txAC">'+payState+'</dd>'//6
+			+ '<dd class="dd15 txAC"><a href="javascript:void(0)" onclick="showBox(\'m1111\',0)" class="greenButton pdLR">审核</a></dd>'//7
 			+ '<div class="modal-dialog-box m1111">'
 			+ '<div class="modal-dialog"><h3>项目信息</h3>'
 			+ '<p class="tip txAC fc9"> 项目编号：'+data[i].id+'   用户：'+getProjectUserByUserId(data[i].userId).username+'</p>'
@@ -249,23 +264,94 @@ function showData(data,state){
 			+ '<td>多层住宅（7层以下），独栋别墅</td>'  
 			+ '<td>土建-主体结构，钢构-挖土方</td>'  
 			+ '<td><span>'+data[i].province+'</span>-<span>'+data[i].city+'</span>-<span>'+data[i].zone+'</span></td>'  
-			+ '<td align="center"><span>'+data[i].amount+'</span>元</td>'  
+			+ '<td align="center"><span>'+amount+'</span></td>'  
 			+ '<td align="center"><span>'+data[i].period+'</span>天</td>'  
-			+ '<td><a href="'+sourceName+'">'+sourceName+'</a></td>'  
+			+ '<td><a href="'+sourceName+'">'+originalName+'</a></td>'  
 			+ '</tr><tr>'  
-			+ '<td>详细描述11</td>'  
-			+ '<td colspan="7">&nbsp;</td>'  
+			+ '<td>详细描述</td>'  
+			+ '<td colspan="7">' + data[i].intro + '</td>'  
 			+ '</tr></table></div>'     
 			+ '<div class="marA10 txAC">'
 			+ '<a href="javascript:void(0)" onclick="showBox(\'m1111\',1)" class="greyButton dd2 pdLR ">关闭</a>'
 			+ '<a href="javascript:void(0)" onclick="showBox(\'m1111\',1)" class="greenButton dd2 pdLR marL ">确认项目信息</a></div>'
 			+ '</div></div></dl>';
 		}
+		_str += '<dl><dd class="dd10"><label><input type="checkbox"/>全选</label>'
+		      + '&nbsp;<a href="">删除</a>&nbsp;<a href="">审核</a></dd></dl></div>';
+		_str += '<div id="pagination" class="pagination"></div></div>';
 		$('#rightSide').empty().append(_str);
 	}
 }
 
-function confirmPay(tag){//确认付款
-   $(tag).parent().empty().text('已付款');
+function getProjectOrderByOrderId(orderId){
+	var record = null;
+	$.ajax({
+		type: "GET",
+		url: basePathAPI +'projectOrder/info/' + orderId,
+		beforeSend: function(XMLHttpRequest) {
+            XMLHttpRequest.setRequestHeader("token", $.cookie("adminToken"));
+        },
+		async: false,
+		//data:JSON.stringify(QueryParam), //必须用JSON.stringify()方法转。
+		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				record = rs.data;
+			}else{
+				alert("项目资料查询异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			alert("项目资料查询异常！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
+	return record;
+}
+
+function updateProjectOrder(infoData){
+	var res = false;
+	var QueryParam = infoData;
+
+	queryParm.payTime = new Date();
+	
+	$.ajax({
+		type: "POST",
+		url: basePathAPI +'projectOrder/update/',
+		beforeSend: function(XMLHttpRequest) {
+            XMLHttpRequest.setRequestHeader("token", $.cookie("adminToken"));
+        },
+		async: false,
+		data:JSON.stringify(QueryParam), //必须用JSON.stringify()方法转。
+		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				res = true;
+			}else{
+				alert("项目资料查询异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			alert("项目资料查询异常！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
+	return res;
+}
+
+function confirmPay(tag,orderId){//确认付款
+	$(tag).parent().empty().text('已付款');
+//    var record = getProjectOrderByOrderId(orderId);
+//    if(record != null){
+// 		var res = updateProjectOrder(record);
+// 		if(res)
+// 			$(tag).parent().empty().text('已付款');
+// 		else
+// 			alert("确认付款失败！");
+//    }else
+//    alert("确认付款失败！");
+
 }
 
