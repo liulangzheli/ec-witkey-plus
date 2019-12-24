@@ -142,6 +142,7 @@ ec-witkey-plus:
     #/static/**=anon,/templates/**=anon
     filter-chain-definitions: |
       /=anon
+      /sys/**=anon
       /js/**=anon
       /css/**=anon
       /image/**=anon

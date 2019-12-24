@@ -22,9 +22,10 @@
             <if test="param.categoryType != null">
                 AND category_type=#{param.categoryType}
             </if>
-            <if test="param.categoryType != null">
-                AND category_type=#{param.categoryType}
+            <if test="param.cateParentId != null">
+                AND cate_parent_id=#{param.cateParentId}
             </if>
+            ORDER BY sort asc
         </where>
     </select>
 

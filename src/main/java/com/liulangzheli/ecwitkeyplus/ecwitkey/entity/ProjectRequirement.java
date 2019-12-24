@@ -31,7 +31,8 @@ private static final long serialVersionUID = 1L;
                             @ApiModelProperty(value = "主键")
                                             @TableId(value = "id", type = IdType.ID_WORKER)
                                         private Long id;
-    
+                        @ApiModelProperty(value = "项目类型ID0")
+                                                                private Long categoryId0;
                         @ApiModelProperty(value = "项目类型ID")
                                                                 private Long categoryId;
                         

@@ -77,6 +77,16 @@ private ProjectSourceService projectSourceService;
             }
 
     /**
+     * 根据项目订单id，获取项目资料
+     */
+    @GetMapping("/infoByOrderId/{orderId}")
+    @ApiOperation(value = "获取ProjectSource对象详情", notes = "查看项目资料", response = ProjectSourceQueryVo.class)
+    public ApiResult<ProjectSourceQueryVo> getProjectSourceByOrderId(@PathVariable("orderId") Long orderId) throws Exception {
+        ProjectSourceQueryVo projectSourceQueryVo = projectSourceService.getProjectSourceByOrderId(orderId);
+        return ApiResult.ok(projectSourceQueryVo);
+    }
+
+    /**
      * 项目资料分页列表
      */
     @PostMapping("/getPageList")

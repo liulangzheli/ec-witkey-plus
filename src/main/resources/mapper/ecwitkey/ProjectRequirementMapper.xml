@@ -4,7 +4,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, category_id, order_id, qty, count_type, area, amount, remark
+        id, category_id0, category_id, order_id, qty, count_type, area, amount, remark
     </sql>
 
     <select id="getProjectRequirementById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo">

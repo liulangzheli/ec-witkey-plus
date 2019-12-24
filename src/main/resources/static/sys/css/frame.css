@@ -1,5 +1,5 @@
 body { padding: 0; margin: 0; line-height: 18px; color: #666; font-weight: normal; font: 14px '黑体', '宋体', Arial, sans-serif; z-index:1;}
-a { color: #333; text-decoration: none; font-weight: normal; /* font-size: 1em; */ cursor: pointer; }
+a { color: rgb(44, 141, 6); text-decoration: none; font-weight: normal; /* font-size: 1em; */ cursor: pointer; }
 h1, h3, h5, h6, ul, li, p { list-style: none; margin: 0 auto; padding: 0; }
 a, button, input { outline: 0 none; text-decoration: none; }
 ul, li { margin: 0; padding: 0; display: block; }
@@ -96,8 +96,9 @@ dl.dt { border: none; }
 .dd2 { width: 20%; }
 .dd25 { width: 25%; }
 .dd3 { width: 30%; }
+.dd35 { width: 35%; }
 .dd33 { width: 33.3%; }
-.dd4 { width: 40%; }
+.dd4 { width: 30%; }
 .dd45 { width: 45%; }
 .dd5 { width: 50%; }
 .dd6 { width: 60%; }

@@ -52,16 +52,21 @@ import java.io.Serializable;
                 return super.removeById(id);
                 }
         
-            @Override
-            public ProjectSourceQueryVo getProjectSourceById(Serializable id) throws Exception {
-            return projectSourceMapper.getProjectSourceById(id);
-            }
+                @Override
+                public ProjectSourceQueryVo getProjectSourceById(Serializable id) throws Exception {
+                return projectSourceMapper.getProjectSourceById(id);
+                }
 
-            @Override
-            public Paging<ProjectSourceQueryVo> getProjectSourcePageList(ProjectSourceQueryParam projectSourceQueryParam) throws Exception {
-            Page page = setPageParam(projectSourceQueryParam, OrderItem.desc("create_time"));
-            IPage<ProjectSourceQueryVo> iPage = projectSourceMapper.getProjectSourcePageList(page, projectSourceQueryParam);
-            return new Paging(iPage);
-            }
+                @Override
+                public ProjectSourceQueryVo getProjectSourceByOrderId(Serializable orderId) throws Exception {
+                    return projectSourceMapper.getProjectSourceByOrderId(orderId);
+                }
+
+                @Override
+                public Paging<ProjectSourceQueryVo> getProjectSourcePageList(ProjectSourceQueryParam projectSourceQueryParam) throws Exception {
+                Page page = setPageParam(projectSourceQueryParam, OrderItem.desc("create_time"));
+                IPage<ProjectSourceQueryVo> iPage = projectSourceMapper.getProjectSourcePageList(page, projectSourceQueryParam);
+                return new Paging(iPage);
+                }
     
         }

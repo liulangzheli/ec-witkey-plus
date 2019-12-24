@@ -45,22 +45,31 @@ public interface ProjectSourceService extends BaseService<ProjectSource> {
                  */
                 boolean deleteProjectSource(Long id) throws Exception;
         
-            /**
-             * 根据ID获取查询对象
-             *
-             * @param id
-             * @return
-             * @throws Exception
-             */
-        ProjectSourceQueryVo getProjectSourceById(Serializable id) throws Exception;
+                /**
+                 * 根据ID获取查询对象
+                 *
+                 * @param id
+                 * @return
+                 * @throws Exception
+                 */
+                ProjectSourceQueryVo getProjectSourceById(Serializable id) throws Exception;
 
-            /**
-             * 获取分页对象
-             *
-             * @param projectSourceQueryParam
-             * @return
-             * @throws Exception
-             */
-            Paging<ProjectSourceQueryVo> getProjectSourcePageList(ProjectSourceQueryParam projectSourceQueryParam) throws Exception;
+                /**
+                 * 根据ID获取查询对象
+                 *
+                 * @param orderId
+                 * @return
+                 * @throws Exception
+                 */
+                ProjectSourceQueryVo getProjectSourceByOrderId(Serializable orderId) throws Exception;
+
+                /**
+                 * 获取分页对象
+                 *
+                 * @param projectSourceQueryParam
+                 * @return
+                 * @throws Exception
+                 */
+                Paging<ProjectSourceQueryVo> getProjectSourcePageList(ProjectSourceQueryParam projectSourceQueryParam) throws Exception;
     
         }

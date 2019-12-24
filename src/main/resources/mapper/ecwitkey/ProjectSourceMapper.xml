@@ -13,6 +13,12 @@
         from project_source where id = #{id}
     </select>
 
+    <select id="getProjectSourceByOrderId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectSourceQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from project_source where order_id = #{orderId}
+    </select>
+
     <select id="getProjectSourcePageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectSourceQueryVo">
         select
         <include refid="Base_Column_List"/>

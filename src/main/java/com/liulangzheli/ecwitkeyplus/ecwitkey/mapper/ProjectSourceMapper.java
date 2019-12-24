@@ -28,7 +28,15 @@ public interface ProjectSourceMapper extends BaseMapper<ProjectSource> {
              * @param id
              * @return
              */
-        ProjectSourceQueryVo getProjectSourceById(Serializable id);
+            ProjectSourceQueryVo getProjectSourceById(Serializable id);
+
+            /**
+             * 根据ID获取查询对象
+             *
+             * @param orderId
+             * @return
+             */
+            ProjectSourceQueryVo getProjectSourceByOrderId(Serializable orderId);
 
             /**
              * 获取分页对象
