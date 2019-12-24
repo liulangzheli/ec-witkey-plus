@@ -30,4 +30,4 @@ wget -O install-maven.sh  https://raw.githubusercontent.com/liulangzheli/ec-witk
 wget -O install-redis.sh  https://raw.githubusercontent.com/liulangzheli/ec-witkey-plus/master/docs/bin/install/install-redis.sh
 
 # 执行安装所有
-sh install-all.sh
+sh install-prod.sh
