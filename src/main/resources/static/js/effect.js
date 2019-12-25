@@ -881,7 +881,8 @@ function loadCategory(categoryType,cateParentId=null){
 	var records = null;
 	var queryParam = {
 		'categoryType':categoryType,
-		'cateParentId':cateParentId
+		'cateParentId':cateParentId,
+		"size": 50   //先按这个大小查。后续需新增不限size的接口
 	};
 	
 	$.ajax({
@@ -970,7 +971,7 @@ function showProjectType(data){
 	if(data!=null&&data!=undefined){
 		var _str = '';
 		for(var i=0;i<data.length;i++){
-			for(var j=5;j<=8;j++){ //目前，先根据category表来的。
+			for(var j=5;j<=22;j++){ //目前，先根据category表来的。
 				_str += showProjectRequirement(data[i].cateName,i,loadCategory(j,data[i].id));
 			}
 		}
@@ -1147,7 +1148,7 @@ function doAddProject(){
 	projectOrder.intro = formData.intro;
 	//项目专业
 	var _major = '';
-	for(var pi=0;pi<5;pi++){//默认5个专业
+	for(var pi=0;pi<8;pi++){//默认8个专业
 		for (var i = 0; i < $("[name='major_"+pi+"_type']").length; i++) {
 			if($("[name='major_"+pi+"_type']:eq("+i+")").prop("checked") == true) {
 				switch(pi){
@@ -1165,6 +1166,15 @@ function doAddProject(){
 						break;
 					case 4:
 						_major += "钢筋：" + $("[name='major_"+pi+"_type']:eq(" + i + ")").val() + "|";
+						break;
+					case 5:
+						_major += "给水排水：" + $("[name='major_"+pi+"_type']:eq(" + i + ")").val() + "|";
+						break;
+					case 6:
+						_major += "暖通燃气：" + $("[name='major_"+pi+"_type']:eq(" + i + ")").val() + "|";
+						break;
+					case 7:
+						_major += "电气消防：" + $("[name='major_"+pi+"_type']:eq(" + i + ")").val() + "|";
 						break;
 				}	
 			}

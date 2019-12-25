@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 24/12/2019 23:59:16
+ Date: 25/12/2019 18:08:20
 */
 
 SET NAMES utf8mb4;
@@ -99,6 +99,61 @@ INSERT INTO `category` VALUES (46, 1, '建模', 25, 8, '建模', '2019-12-18 21:
 INSERT INTO `category` VALUES (47, 1, '组价', 25, 1, '组价', '2019-12-19 23:08:16', NULL);
 INSERT INTO `category` VALUES (48, 1, '算量', 25, 2, '算量', '2019-12-19 23:10:23', NULL);
 INSERT INTO `category` VALUES (49, 1, '算量+编清单+组价', 25, 7, '算量+编清单+组价', '2019-12-19 23:11:12', NULL);
+INSERT INTO `category` VALUES (50, 2, '交通建筑', 0, 5, '交通建筑', '2019-12-25 10:56:18', NULL);
+INSERT INTO `category` VALUES (51, 2, '宾馆酒店', 0, 6, '宾馆酒店', '2019-12-25 10:56:44', NULL);
+INSERT INTO `category` VALUES (52, 2, '商业建筑', 0, 7, '商业建筑', '2019-12-25 10:57:11', NULL);
+INSERT INTO `category` VALUES (53, 2, '地下部分', 0, 8, '地下部分', '2019-12-25 11:02:35', NULL);
+INSERT INTO `category` VALUES (54, 2, '工业建筑', 0, 9, '工业建筑', '2019-12-25 11:02:55', NULL);
+INSERT INTO `category` VALUES (55, 2, '卫生建筑', 0, 10, '卫生建筑', '2019-12-25 11:03:14', NULL);
+INSERT INTO `category` VALUES (56, 2, '教育建筑', 0, 11, '教育建筑', '2019-12-25 11:04:00', NULL);
+INSERT INTO `category` VALUES (57, 2, '文体建筑', 0, 12, '文体建筑', '2019-12-25 11:04:21', NULL);
+INSERT INTO `category` VALUES (58, 2, '工业配套', 0, 13, '工业配套', '2019-12-25 11:04:41', NULL);
+INSERT INTO `category` VALUES (59, 2, '公共绿化', 0, 14, '公共绿化', '2019-12-25 11:05:08', NULL);
+INSERT INTO `category` VALUES (60, 2, '市政交通', 0, 15, '市政交通', '2019-12-25 11:05:38', NULL);
+INSERT INTO `category` VALUES (61, 2, '市政工程', 0, 16, '市政工程', '2019-12-25 11:06:12', NULL);
+INSERT INTO `category` VALUES (62, 2, '特殊行业', 0, 17, '特殊行业', '2019-12-25 11:54:43', NULL);
+INSERT INTO `category` VALUES (63, 2, '其他', 0, 18, '其他', '2019-12-25 11:55:10', NULL);
+INSERT INTO `category` VALUES (64, 9, '机场建筑', 50, 1, '机场建筑', '2019-12-25 12:29:53', NULL);
+INSERT INTO `category` VALUES (65, 9, '铁路客运站', 50, 2, '铁路客运站', '2019-12-25 12:31:27', NULL);
+INSERT INTO `category` VALUES (66, 9, '地铁/轨道交通站', 50, 3, '地铁/轨道交通站', '2019-12-25 12:42:27', NULL);
+INSERT INTO `category` VALUES (67, 9, '航运楼/码头', 50, 4, '航运楼/码头', '2019-12-25 12:42:56', NULL);
+INSERT INTO `category` VALUES (68, 10, '三星级酒店', 51, 1, '三星级酒店', '2019-12-25 12:43:25', NULL);
+INSERT INTO `category` VALUES (69, 10, '经济型/快捷酒店', 51, 2, '经济型/快捷酒店', '2019-12-25 12:43:58', NULL);
+INSERT INTO `category` VALUES (70, 10, '饭店', 51, 3, '饭店', '2019-12-25 12:44:16', NULL);
+INSERT INTO `category` VALUES (71, 11, '大型购物中心', 52, 1, '大型购物中心', '2019-12-25 12:44:37', NULL);
+INSERT INTO `category` VALUES (72, 11, '大小型百货', 52, 2, '大小型百货', '2019-12-25 12:45:13', NULL);
+INSERT INTO `category` VALUES (73, 12, '车库', 53, 1, '车库', '2019-12-25 12:49:00', NULL);
+INSERT INTO `category` VALUES (74, 13, '厂房', 54, 1, '厂房', '2019-12-25 12:49:28', NULL);
+INSERT INTO `category` VALUES (75, 13, '物流仓库', 54, 2, '物流仓库', '2019-12-25 14:39:04', NULL);
+INSERT INTO `category` VALUES (76, 14, '门急诊/医技/综合楼', 55, 1, '门急诊/医技/综合楼', '2019-12-25 14:43:05', NULL);
+INSERT INTO `category` VALUES (77, 14, '病房楼', 55, 2, '病房楼', '2019-12-25 14:43:26', NULL);
+INSERT INTO `category` VALUES (78, 14, '社区医疗', 55, 3, '社区医疗', '2019-12-25 14:43:43', NULL);
+INSERT INTO `category` VALUES (79, 15, '大学/职业学校教学楼群', 56, 1, '大学/职业学校教学楼群', '2019-12-25 14:44:33', NULL);
+INSERT INTO `category` VALUES (80, 15, '中小学教学楼', 56, 2, '中小学教学楼', '2019-12-25 14:45:00', NULL);
+INSERT INTO `category` VALUES (81, 15, '食堂', 56, 3, '食堂', '2019-12-25 14:45:19', NULL);
+INSERT INTO `category` VALUES (82, 15, '操场/网球场/篮球场', 56, 4, '操场/网球场/篮球场', '2019-12-25 14:47:11', NULL);
+INSERT INTO `category` VALUES (83, 15, '幼儿园/托儿所', 56, 5, '幼儿园/托儿所', '2019-12-25 14:47:43', NULL);
+INSERT INTO `category` VALUES (84, 16, '博物馆', 57, 1, '博物馆', '2019-12-25 14:48:30', NULL);
+INSERT INTO `category` VALUES (85, 16, '图书馆', 57, 2, '图书馆', '2019-12-25 14:48:49', NULL);
+INSERT INTO `category` VALUES (86, 16, '电影院', 57, 3, '电影院', '2019-12-25 14:49:06', NULL);
+INSERT INTO `category` VALUES (87, 16, '体育场', 57, 4, '体育场', '2019-12-25 14:49:45', NULL);
+INSERT INTO `category` VALUES (88, 17, '锅炉房/汞房', 58, 1, '锅炉房/汞房', '2019-12-25 14:57:06', NULL);
+INSERT INTO `category` VALUES (89, 17, '变电站', 58, 2, '变电站', '2019-12-25 14:57:42', NULL);
+INSERT INTO `category` VALUES (90, 17, '加油/加气站', 58, 3, '加油/加气站', '2019-12-25 14:58:40', NULL);
+INSERT INTO `category` VALUES (91, 17, '垃圾站', 58, 4, '垃圾站', '2019-12-25 14:59:00', NULL);
+INSERT INTO `category` VALUES (92, 17, '污水处理厂', 58, 5, '污水处理厂', '2019-12-25 14:59:20', NULL);
+INSERT INTO `category` VALUES (93, 18, '配套绿化', 59, 1, '配套绿化', '2019-12-25 15:00:14', NULL);
+INSERT INTO `category` VALUES (94, 18, '道路、市政公共绿化', 59, 2, '道路、市政公共绿化', '2019-12-25 15:00:37', NULL);
+INSERT INTO `category` VALUES (95, 18, '防护绿化', 59, 3, '防护绿化', '2019-12-25 15:01:36', NULL);
+INSERT INTO `category` VALUES (96, 18, '景观绿化', 59, 4, '景观绿化', '2019-12-25 15:02:11', NULL);
+INSERT INTO `category` VALUES (97, 19, '公路', 60, 1, '公路', '2019-12-25 15:03:06', NULL);
+INSERT INTO `category` VALUES (98, 19, '铁路', 60, 2, '铁路', '2019-12-25 15:03:33', NULL);
+INSERT INTO `category` VALUES (99, 19, '桥梁', 60, 3, '桥梁', '2019-12-25 15:03:55', NULL);
+INSERT INTO `category` VALUES (100, 19, '隧道', 60, 4, '隧道', '2019-12-25 15:04:13', NULL);
+INSERT INTO `category` VALUES (101, 20, '市政管网', 61, 1, '市政管网', '2019-12-25 15:04:39', NULL);
+INSERT INTO `category` VALUES (102, 21, '水利水电石油电力等', 62, 1, '水利水电石油电力等', '2019-12-25 15:05:18', NULL);
+INSERT INTO `category` VALUES (103, 22, '公共厕所', 63, 1, '公共厕所', '2019-12-25 15:05:47', NULL);
+INSERT INTO `category` VALUES (104, 22, '其他', 63, 2, '其他', '2019-12-25 15:06:06', NULL);
 
 -- ----------------------------
 -- Table structure for collect
@@ -291,7 +346,7 @@ CREATE TABLE `project_order`  (
   `check_time` datetime(0) NULL DEFAULT NULL COMMENT '验收完成时间',
   `use_type` bigint(20) NULL DEFAULT NULL COMMENT '项目用途',
   `category_id` bigint(20) NULL DEFAULT NULL COMMENT '分类id',
-  `major` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '专业要求,用|隔开',
+  `major` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '专业要求,用|隔开',
   `province` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '项目所在地（省）',
   `city` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '项目所在地（市）',
   `zone` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '项目所在地（区）',
@@ -316,6 +371,7 @@ INSERT INTO `project_order` VALUES (1208593082602283010, 1204778363118428162, '2
 INSERT INTO `project_order` VALUES (1208593539768836097, 1204778363118428162, '2019-12-22 11:42:09', '2019-12-22 11:48:27', NULL, NULL, NULL, 22, 5, '土建：主体结构|土建：边坡支护|土建：回填土|外墙装修：外墙面装修|室内装修：精装（做到面层）|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '海沧区', NULL, 0, 3, '软件供应商', '', '', 0, '');
 INSERT INTO `project_order` VALUES (1208594230834946049, 1204778363118428162, '2019-12-22 11:44:53', NULL, NULL, NULL, NULL, 22, 5, '土建：主体结构|土建：边坡支护|土建：回填土|外墙装修：外墙面装修|室内装修：精装（做到面层）|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '同安区', NULL, 0, 3, '软件供应商', '', '', 0, '');
 INSERT INTO `project_order` VALUES (1208595126922829825, 1204778363118428162, '2019-12-22 11:48:27', '2019-12-22 11:48:27', NULL, NULL, NULL, 25, 49, '土建：主体结构|土建：回填土|钢构：挖土方|外墙装修：外墙面装修|室内装修：初装（做到基层）|室内装修：精装（做到面层）|钢筋：预算钢筋#主体结构钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '翔安区', '2019-12-28 00:00:00', 0, 3, '软件供应商', '软件名称6', '详细描述6', 1, '');
+INSERT INTO `project_order` VALUES (1209769125379883009, 1204778363118428162, '2019-12-25 17:33:30', NULL, NULL, NULL, NULL, 21, 2, '土建：主体结构|土建：砌体结构|土建：防水工程|土建：边坡支护|土建：挖土方|土建：回填土|钢构：挖土方|外墙装修：外墙保湿|外墙装修：外墙面装修|室内装修：初装（做到基层）|室内装修：精装（做到面层）|钢筋：预算钢筋#主体结构钢筋|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#主体结构钢筋|钢筋：下料钢筋#砌体钢筋|给水排水：给水|管线预留预埋|给水排水：给水|终端安装|给水排水：排水|管线预留预埋|给水排水：排水|终端安装|暖通燃气：采暖系统|管线预留预埋|暖通燃气：采暖系统|终端安装|暖通燃气：通风系统|管线预留预埋|暖通燃气：通风系统|终端安装|暖通燃气：空调水|管线预留预埋|暖通燃气：空调水|终端安装|暖通燃气：空调电|管线预留预埋|暖通燃气：空调电|终端安装|暖通燃气：燃气系统|管线预留预埋|暖通燃气：燃气系统|终端安装|电气消防：强电系统|管线预留预埋|电气消防：强电系统|终端安装|电气消防：弱电系统|管线预留预埋|电气消防：弱电系统|终端安装|电气消防：消防水|管线预留预埋|电气消防：消防水|终端安装|电气消防：消防电|管线预留预埋|电气消防：消防电|终端安装|', '福建省', '厦门市', '思明区', '2019-12-27 00:00:00', 200, 3, '软件供应商', '软件名称1', '详细描述1', 0, '');
 
 -- ----------------------------
 -- Table structure for project_requirement
@@ -362,6 +418,10 @@ INSERT INTO `project_requirement` VALUES (1208594709870600194, 12, 27, 120859423
 INSERT INTO `project_requirement` VALUES (1208595177732628481, 12, 28, 1208595126922829825, 1, 0, 12, 0, '');
 INSERT INTO `project_requirement` VALUES (1208595178416300034, 13, 31, 1208595126922829825, 1, 0, 21, 0, '');
 INSERT INTO `project_requirement` VALUES (1208595178646986754, 13, 33, 1208595126922829825, 1, 0, 23, 0, '');
+INSERT INTO `project_requirement` VALUES (1209769126252298242, 12, 28, 1209769125379883009, 1, 0, 12, 0, '');
+INSERT INTO `project_requirement` VALUES (1209769126495567873, 12, 30, 1209769125379883009, 1, 0, 14, 0, '');
+INSERT INTO `project_requirement` VALUES (1209769126734643202, 58, 90, 1209769125379883009, 1, 0, 131, 0, '');
+INSERT INTO `project_requirement` VALUES (1209769126914998274, 63, 103, 1209769125379883009, 1, 0, 181, 0, '');
 
 -- ----------------------------
 -- Table structure for project_source
@@ -389,6 +449,7 @@ INSERT INTO `project_source` VALUES (1208592372175265793, 'form.2.zip', 'http://
 INSERT INTO `project_source` VALUES (1208593355164934145, 'form.2.zip', 'http://localhost:8888//resource/201912221141065.zip', '.zip', 748, 1208593082602283010, '');
 INSERT INTO `project_source` VALUES (1208593858426888193, 'form.2.zip', 'http://localhost:8888//resource/201912221143039.zip', '.zip', 748, 1208593539768836097, '');
 INSERT INTO `project_source` VALUES (1208595252122804225, '智慧城市建设参考模型.jpg', 'http://localhost:8888//resource/201912221148573.jpg', '.jpg', 29938, 1208595126922829825, '');
+INSERT INTO `project_source` VALUES (1209769128949235713, 'B栋.jpg', 'http://localhost:8888//resource/201912251733312.jpg', '.jpg', 127222, 1209769125379883009, '');
 
 -- ----------------------------
 -- Table structure for sys_department
