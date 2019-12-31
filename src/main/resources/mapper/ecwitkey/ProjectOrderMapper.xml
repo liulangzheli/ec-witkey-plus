@@ -9,7 +9,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="User_And_Base_Column_List">
-        id, user_id, create_time, pay_time, examine_time, pick_time, check_time, use_type, category_id, major, province, city, zone, end_time, amount, period, soft_supplier, soft_name, intro, state, remark, nickname, user_type, company_name, licence_id, id_num
+        m.id, m.user_id, m.create_time, m.pay_time, m.examine_time, m.pick_time, m.check_time, m.use_type, m.category_id, m.major, m.province, m.city, m.zone, m.end_time, m.amount, m.period, m.soft_supplier, m.soft_name, m.intro, m.state, m.remark, s.nickname, s.user_type, s.company_name, s.license_id, s.id_num
     </sql>
 
     <select id="getProjectOrderById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
@@ -24,10 +24,10 @@
         from project_order where user_id = #{userId}
     </select>
 
-    <select id="getProjectOrderUserById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
+    <select id="getProjectOrderUserById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderUserQueryVo">
         select
         <include refid="User_And_Base_Column_List"/>
-        from project_order m,sys_user s where m.user_id=s.id and id = #{id}
+        from project_order m,sys_user s where m.user_id=s.id and s.id = #{id}
     </select>
 
     <select id="getProjectOrderPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
