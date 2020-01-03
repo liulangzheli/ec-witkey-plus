@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <pre>
@@ -41,10 +42,11 @@ public interface ProjectOrderMapper extends BaseMapper<ProjectOrder> {
     /**
      * 根据USER_ID获取查询对象
      *
-     * @param userId
+     * @param page
+     * @param projectOrderQueryParam
      * @return
      */
-    ProjectOrderQueryVo getProjectOrderByUserId(Serializable userId);
+    IPage<ProjectOrderUserQueryVo> getProjectOrderByUserId(@Param("page") Page page, @Param("param") ProjectOrderQueryParam projectOrderQueryParam);
 
     /**
      * 根据ID获取查询对象
@@ -62,5 +64,14 @@ public interface ProjectOrderMapper extends BaseMapper<ProjectOrder> {
      * @return
      */
     IPage<ProjectOrderQueryVo> getProjectOrderPageList(@Param("page") Page page, @Param("param") ProjectOrderQueryParam projectOrderQueryParam);
+
+    /**
+     * 获取对象个数
+     *
+     * @param page
+     * @param projectOrderQueryParam
+     * @return
+     */
+    int getProjectOrderPageListCount(@Param("page") Page page, @Param("param") ProjectOrderQueryParam projectOrderQueryParam);
 
 }

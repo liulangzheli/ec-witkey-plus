@@ -24,16 +24,18 @@
 			success: function(text) {
 				if(text.code===200){
 					if(text.data.loginSysUserVo.roleId == 1){
-						alert('登陆失败：请使用用户账号登陆'); 
+						alert('登陆失败：请使用用户账号登陆');
+						tagTransition('#btnLogin','登录',false); 
 						//window.location.href = basePath+'login.html';
 					}else{
 						$.cookie('userId', text.data.loginSysUserVo.id,{expires:7,path: '/'});
 						$.cookie('userName', text.data.loginSysUserVo.username,{expires:7,path: '/'});
 						$.cookie('roleName',text.data.loginSysUserVo.roleName,{expires:7,path: '/'});
+						$.cookie('roleId',text.data.loginSysUserVo.roleId,{expires:7,path: '/'});
 						$.cookie("ISLOGIN",true,{expires:7,path: '/'});
 						$.cookie("PermissionCodes", text.data.loginSysUserVo.permissionCodes,{expires:7,path: '/'});
 						$.cookie("token", text.data.token,{expires:7,path: '/'});
-						window.location.href=basePath+'index.html';
+						window.location.href=basePath+'myInfo.html';
 					}
 				
 				}else{
@@ -70,27 +72,41 @@ function firstLogin(args){
 }
 // JavaScript Document
 function doLoginOut() {//退出
-	$.ajax({
-		url : basePathAPI + "logout",
-		type : "POST",
-		cache : false,
-		success : function(data) {
-			$.cookie("ISLOGIN", null);
-			//$.cookie("USERINFO", null);
-            $.cookie('userId', null);
-            $.cookie('userName', null);
-            $.cookie('roleName',null);
-			$.cookie('token',null);
-			// $("#topUser").text('登录');
-			// $("#topUser").attr('href','login.html');
-			// $("#topLog").text('注册');
-			// $("#topLog").attr('href','register.html');
-			window.location.href=basePath+'login.html';
-		},
-		error : function(text) {
-			 alert(text);
-		}
-	});
+	$.cookie("ISLOGIN", null);
+	//$.cookie("USERINFO", null);
+	$.cookie('userId', null);
+	$.cookie('userName', null);
+	$.cookie('roleName',null);
+	$.cookie('roleId',null);
+	$.cookie('token',null);
+	window.location.href=basePath+'login.html';
+	// $.ajax({
+	// 	url : basePathAPI + "logout",
+	// beforeSend: function(XMLHttpRequest) {
+	// 	XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+	// },
+	// 	type : "POST",
+	// async : false, // true:异步 false：同步
+	// contentType:"application/json",
+	// 	cache : false,
+	// 	success : function(rs) {
+	// 		$.cookie("ISLOGIN", null);
+	// 		//$.cookie("USERINFO", null);
+    //         $.cookie('userId', null);
+    //         $.cookie('userName', null);
+	// 		$.cookie('roleName',null);
+	// 		$.cookie('roleId',null);
+	// 		$.cookie('token',null);
+	// 		// $("#topUser").text('登录');
+	// 		// $("#topUser").attr('href','login.html');
+	// 		// $("#topLog").text('注册');
+	// 		// $("#topLog").attr('href','register.html');
+	// 		window.location.href=basePath+'login.html';
+	// 	},
+	// 	error : function(text) {
+	// 		 alert(text);
+	// 	}
+	// });
 }
 function getKeepInfo(data,args){//获取keepId://{"keepId":"4fc831b080a84c259ff1c0f63d620a0a"}
 

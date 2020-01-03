@@ -33,7 +33,7 @@ function Page(_ref) {
     this.getPage = getPage;
     this.showPageTotalFlag = showPageTotalFlag || false; //是否显示数据统计
     this.showSkipInputFlag = showSkipInputFlag || false; //是否支持跳转
-    if(dataTotal >0 &&pageTotal>0){
+    if(dataTotal >=0 &&pageTotal>=0){
         this.init();
     }else{
         console.error("总页数或者总数据参数不对")

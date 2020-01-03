@@ -90,10 +90,12 @@ dt { font-weight: bold; font-size: 16px; line-height: 55px; }
 dl.dt { border: none; }
 .dd101 { width: 5%; }
 .dd1 { width: 10%; }
+.dd15 { width: 15%; }
 .dd2 { width: 20%; }
 .dd25 { width: 25%; }
 .dd3 { width: 30%; }
 .dd33 { width: 33.3%; }
+.dd35 { width: 35%; }
 .dd4 { width: 40%; }
 .dd45 { width: 45%; }
 .dd5 { width: 50%; }
@@ -124,8 +126,11 @@ dl.dt { border: none; }
 .footFloor { line-height: 30px; background: #3D3D3D; }
 .footFloor .floorZone>div a { color: #fff; }
 .footFloor .fline { border: 1px #33C solid; }
-.footFloor .logo2 { background: #efefef; width: 230px; height: 131px; margin-top: 20px; color: #666; line-height: 131px; text-align: center; }
-.footFloor .chat { display: block; width: 80px; height: 80px; background: #efefef; color: #666; line-height: 73px; text-align: center; float: right; margin-top: 30px; }
+/*.footFloor .logo2 { background: #efefef; width: 230px; height: 131px; margin-top: 20px; color: #666; line-height: 131px; text-align: center; }*/
+.footFloor .logo2 { background:url(../image/logo.png) no-repeat center top #efefef; width: 230px; height: 131px; margin-top: 20px; color: #666; line-height: 131px; text-align: center; }
+.footFloor .chat { display: block; width: 80px; height: 80px; background:url(../image/wx.png) no-repeat center top #efefef; color: #666; line-height: 73px; text-align: center; float: right; margin-top: 30px; }
+.user .chat { display: block; width: 80px; height: 80px; background:url(../image/wx.png) no-repeat center top #efefef; color: #666; line-height: 73px; text-align: center; float: right; margin-top: 0px; }
+.head { display: block; width: 80px; height: 80px; background:no-repeat center top #efefef; color: #666; line-height: 73px; text-align: center; float: right; margin-top: 0px; }
 .footFloor>p { background: #323232; padding: 10px 0; color: #fff; }
 .footFloor>p.fc9 { background: #212121; }
 .footFloor a { padding: 0 20px; color: #fff; }

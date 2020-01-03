@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -71,8 +72,10 @@ public class ProjectOrderServiceImpl extends BaseServiceImpl<ProjectOrderMapper,
     }
 
     @Override
-    public ProjectOrderQueryVo getProjectOrderByUserId(Serializable userId) throws Exception {
-        return projectOrderMapper.getProjectOrderByUserId(userId);
+    public Paging<ProjectOrderUserQueryVo> getProjectOrderByUserId(ProjectOrderQueryParam projectOrderQueryParam) throws Exception {
+        Page page = setPageParam(projectOrderQueryParam, OrderItem.desc("create_time"));
+        IPage<ProjectOrderUserQueryVo> iPage = projectOrderMapper.getProjectOrderByUserId(page, projectOrderQueryParam);
+        return new Paging(iPage);
     }
 
     @Override
@@ -80,6 +83,13 @@ public class ProjectOrderServiceImpl extends BaseServiceImpl<ProjectOrderMapper,
         Page page = setPageParam(projectOrderQueryParam, OrderItem.desc("create_time"));
         IPage<ProjectOrderQueryVo> iPage = projectOrderMapper.getProjectOrderPageList(page, projectOrderQueryParam);
         return new Paging(iPage);
+    }
+
+    @Override
+    public int getProjectOrderPageListCount(ProjectOrderQueryParam projectOrderQueryParam) throws Exception {
+        Page page = setPageParam(projectOrderQueryParam, OrderItem.desc("create_time"));
+        int count = projectOrderMapper.getProjectOrderPageListCount(page, projectOrderQueryParam);
+        return count;
     }
 
 }

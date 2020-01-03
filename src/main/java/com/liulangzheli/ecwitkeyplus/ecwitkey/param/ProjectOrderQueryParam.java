@@ -23,6 +23,12 @@ import com.liulangzheli.ecwitkeyplus.common.param.OrderQueryParam;
         public class ProjectOrderQueryParam extends OrderQueryParam {
         private static final long serialVersionUID = 1L;
 
+        @ApiModelProperty(value = "用户id")
+        private Long userId;
+
         @ApiModelProperty(value = "状态")
         private int state;
+
+        @ApiModelProperty(value = "项目专业")
+        private String major;
 }

@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <pre>
@@ -37,7 +38,7 @@ public interface OrderBiddingMapper extends BaseMapper<OrderBidding> {
      * @param orderId
      * @return
      */
-    OrderBiddingInfoQueryVo getOrderBiddingByOrderId(Serializable orderId);
+    List<OrderBiddingInfoQueryVo> getOrderBiddingByOrderId(Serializable orderId);
 
     /**
      * 获取分页对象
@@ -47,5 +48,14 @@ public interface OrderBiddingMapper extends BaseMapper<OrderBidding> {
      * @return
      */
     IPage<OrderBiddingQueryVo> getOrderBiddingPageList(@Param("page") Page page, @Param("param") OrderBiddingQueryParam orderBiddingQueryParam);
+
+    /**
+     * 获取对象记录
+     *
+     * @param page
+     * @param orderBiddingQueryParam
+     * @return
+     */
+    IPage<OrderBiddingInfoQueryVo> getOrderBiddingListByUserIdAndOrderId(@Param("page") Page page, @Param("param") OrderBiddingQueryParam orderBiddingQueryParam);
 
 }

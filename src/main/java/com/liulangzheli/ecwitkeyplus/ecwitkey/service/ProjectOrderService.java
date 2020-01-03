@@ -8,6 +8,7 @@ import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderUserQueryVo;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <pre>
@@ -67,11 +68,11 @@ public interface ProjectOrderService extends BaseService<ProjectOrder> {
     /**
      * 根据USERID获取查询对象
      *
-     * @param userId
+     * @param projectOrderQueryParam
      * @return
      * @throws Exception
      */
-    ProjectOrderQueryVo getProjectOrderByUserId(Serializable userId) throws Exception;
+    Paging<ProjectOrderUserQueryVo> getProjectOrderByUserId(ProjectOrderQueryParam projectOrderQueryParam) throws Exception;
 
     /**
      * 根据ID获取查询对象
@@ -90,5 +91,14 @@ public interface ProjectOrderService extends BaseService<ProjectOrder> {
      * @throws Exception
      */
     Paging<ProjectOrderQueryVo> getProjectOrderPageList(ProjectOrderQueryParam projectOrderQueryParam) throws Exception;
+
+    /**
+     * 获取对象记录个数
+     *
+     * @param projectOrderQueryParam
+     * @return
+     * @throws Exception
+     */
+    int getProjectOrderPageListCount(ProjectOrderQueryParam projectOrderQueryParam) throws Exception;
 
 }

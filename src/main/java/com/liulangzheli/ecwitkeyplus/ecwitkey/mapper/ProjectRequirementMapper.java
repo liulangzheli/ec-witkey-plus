@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.entity.ProjectRequirement;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.param.ProjectRequirementQueryParam;
+import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementCategoryQueryVo;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <pre>
@@ -31,6 +33,14 @@ public interface ProjectRequirementMapper extends BaseMapper<ProjectRequirement>
         ProjectRequirementQueryVo getProjectRequirementById(Serializable id);
 
             /**
+             * 根据ID获取查询对象
+             *
+             * @param orderId
+             * @return
+             */
+            List<ProjectRequirementQueryVo> getProjectRequirementsByOrderId(Serializable orderId);
+
+            /**
              * 获取分页对象
              *
              * @param page
@@ -39,4 +49,14 @@ public interface ProjectRequirementMapper extends BaseMapper<ProjectRequirement>
              */
             IPage<ProjectRequirementQueryVo> getProjectRequirementPageList(@Param("page") Page page, @Param("param") ProjectRequirementQueryParam projectRequirementQueryParam);
     
-        }
+
+
+        /**
+         * 根据orderId获取不分页对象
+         *
+         * @param orderId
+         * @return
+         */
+        IPage<ProjectRequirementCategoryQueryVo> getProjectRequirementPageListByOrderId(Serializable orderId);
+
+}

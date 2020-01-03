@@ -4,9 +4,11 @@ import com.liulangzheli.ecwitkeyplus.ecwitkey.entity.ProjectRequirement;
 import com.liulangzheli.ecwitkeyplus.common.service.BaseService;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.param.ProjectRequirementQueryParam;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo;
+import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementCategoryQueryVo;
 import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <pre>
@@ -52,7 +54,16 @@ public interface ProjectRequirementService extends BaseService<ProjectRequiremen
              * @return
              * @throws Exception
              */
-        ProjectRequirementQueryVo getProjectRequirementById(Serializable id) throws Exception;
+            ProjectRequirementQueryVo getProjectRequirementById(Serializable id) throws Exception;
+
+            /**
+             * 根据orderId获取查询对象记录
+             *
+             * @param orderId
+             * @return
+             * @throws Exception
+             */
+            List<ProjectRequirementQueryVo> getProjectRequirementsByOrderId(Serializable orderId) throws Exception;
 
             /**
              * 获取分页对象
@@ -62,5 +73,14 @@ public interface ProjectRequirementService extends BaseService<ProjectRequiremen
              * @throws Exception
              */
             Paging<ProjectRequirementQueryVo> getProjectRequirementPageList(ProjectRequirementQueryParam projectRequirementQueryParam) throws Exception;
-    
-        }
+
+            /**
+             * 根据orderId获取查询对象
+             *
+             * @param orderId
+             * @return
+             * @throws Exception
+             */
+            Paging<ProjectRequirementCategoryQueryVo> getProjectRequirementPageListByOrderId(Serializable orderId) throws Exception;
+
+}

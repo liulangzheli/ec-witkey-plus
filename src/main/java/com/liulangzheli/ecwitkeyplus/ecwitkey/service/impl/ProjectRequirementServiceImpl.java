@@ -4,6 +4,7 @@ import com.liulangzheli.ecwitkeyplus.ecwitkey.entity.ProjectRequirement;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.mapper.ProjectRequirementMapper;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.service.ProjectRequirementService;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.param.ProjectRequirementQueryParam;
+import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementCategoryQueryVo;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo;
 import com.liulangzheli.ecwitkeyplus.common.service.impl.BaseServiceImpl;
 import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
@@ -17,6 +18,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -58,10 +60,22 @@ import java.io.Serializable;
             }
 
             @Override
+            public List<ProjectRequirementQueryVo> getProjectRequirementsByOrderId(Serializable orderId) throws Exception {
+                List<ProjectRequirementQueryVo> list = projectRequirementMapper.getProjectRequirementsByOrderId(orderId);
+                    return list;
+            }
+
+            @Override
             public Paging<ProjectRequirementQueryVo> getProjectRequirementPageList(ProjectRequirementQueryParam projectRequirementQueryParam) throws Exception {
             Page page = setPageParam(projectRequirementQueryParam, OrderItem.desc("create_time"));
             IPage<ProjectRequirementQueryVo> iPage = projectRequirementMapper.getProjectRequirementPageList(page, projectRequirementQueryParam);
             return new Paging(iPage);
+            }
+
+            @Override
+            public Paging<ProjectRequirementCategoryQueryVo> getProjectRequirementPageListByOrderId(Serializable orderId) throws Exception {
+                IPage<ProjectRequirementCategoryQueryVo> iPage = projectRequirementMapper.getProjectRequirementPageListByOrderId(orderId);
+                return new Paging(iPage);
             }
     
         }

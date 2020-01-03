@@ -44,13 +44,39 @@ public class OrderBiddingInfoQueryVo implements Serializable {
     private String remark;
 
     @ApiModelProperty(value = "项目发布者")
-    private String ownerId;
+    private Long ownerId;
+
+    @ApiModelProperty(value = "项目发布者名称")
+    private String ownerName;
+
 
     @ApiModelProperty(value = "订单状态")
-    private String orderState;
+    private Integer orderState;
+
+    @ApiModelProperty(value = "项目类型名称")
+    private String projTypeName;
+
+    @ApiModelProperty(value = "项目类别名称")
+    private String cateName;
+
+    @ApiModelProperty(value = "软件提供商")
+    private String soft_supplier;
+
+    @ApiModelProperty(value = "软件名称")
+    private String soft_name;
+
 
     @ApiModelProperty(value = "昵称")
     private String nickname;
+
+    @ApiModelProperty(value = "账号")
+    private String username;
+
+    @ApiModelProperty(value = "城市")
+    private String city;
+
+    @ApiModelProperty(value = "介绍")
+    private String intro;
 
     @ApiModelProperty(value = "头像")
     private String head;

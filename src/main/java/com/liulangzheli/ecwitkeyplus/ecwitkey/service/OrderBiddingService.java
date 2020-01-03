@@ -8,6 +8,7 @@ import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingQueryVo;
 import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <pre>
@@ -62,7 +63,16 @@ public interface OrderBiddingService extends BaseService<OrderBidding> {
      * @return
      * @throws Exception
      */
-    OrderBiddingInfoQueryVo getOrderBiddingByOrderId(Serializable orderId) throws Exception;
+    List<OrderBiddingInfoQueryVo> getOrderBiddingByOrderId(Serializable orderId) throws Exception;
+
+    /**
+     * 根据orderid和userid获取对象记录
+     *
+     * @param orderBiddingQueryParam
+     * @return
+     * @throws Exception
+     */
+    Paging<OrderBiddingInfoQueryVo> getOrderBiddingListByUserIdAndOrderId(OrderBiddingQueryParam orderBiddingQueryParam) throws Exception;
 
     /**
      * 获取分页对象

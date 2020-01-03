@@ -3,6 +3,7 @@ package com.liulangzheli.ecwitkeyplus.ecwitkey.controller;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.entity.ProjectRequirement;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.service.ProjectRequirementService;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.param.ProjectRequirementQueryParam;
+import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementCategoryQueryVo;
 import com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo;
 import com.liulangzheli.ecwitkeyplus.common.api.ApiResult;
         import com.liulangzheli.ecwitkeyplus.common.controller.BaseController;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
     
 import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import com.liulangzheli.ecwitkeyplus.common.param.IdParam;
+
+import java.util.List;
 
 /**
  * <pre>
@@ -75,16 +78,33 @@ private ProjectRequirementService projectRequirementService;
         ProjectRequirementQueryVo projectRequirementQueryVo = projectRequirementService.getProjectRequirementById(id);
             return ApiResult.ok(projectRequirementQueryVo);
             }
-
+    /**
+     * 根据orderId,获取项目类型记录
+     */
+    @GetMapping("/infos/{orderId}")
+    @ApiOperation(value = "获取ProjectRequirement对象记录", notes = "查看项目类型要求", response = ProjectRequirementQueryVo.class)
+    public ApiResult<List<ProjectRequirementQueryVo>> getProjectRequirements(@PathVariable("orderId") Long orderId) throws Exception {
+        List<ProjectRequirementQueryVo> projectRequirementQueryVos = projectRequirementService.getProjectRequirementsByOrderId(orderId);
+        return ApiResult.ok(projectRequirementQueryVos);
+    }
     /**
      * 项目类型要求分页列表
      */
     @PostMapping("/getPageList")
-            @ApiOperation(value = "获取ProjectRequirement分页列表", notes = "项目类型要求分页列表", response = ProjectRequirementQueryVo.class)
+    @ApiOperation(value = "获取ProjectRequirement分页列表", notes = "项目类型要求分页列表", response = ProjectRequirementQueryVo.class)
     public ApiResult<Paging<ProjectRequirementQueryVo>> getProjectRequirementPageList(@Valid @RequestBody ProjectRequirementQueryParam projectRequirementQueryParam) throws Exception {
             Paging<ProjectRequirementQueryVo> paging = projectRequirementService.getProjectRequirementPageList(projectRequirementQueryParam);
             return ApiResult.ok(paging);
-            }
-    
-        }
+    }
 
+    /**
+     * 根据orderId，获取项目类型要求列表
+     */
+    @PostMapping("/getPageListByOrderId/{orderId}")
+    @ApiOperation(value = "获取ProjectRequirement列表", notes = "项目类型要求列表", response = ProjectRequirementCategoryQueryVo.class)
+    public ApiResult<Paging<ProjectRequirementCategoryQueryVo>> getProjectRequirementPageListByOrderId(@PathVariable("orderId") Long orderId) throws Exception {
+        Paging<ProjectRequirementCategoryQueryVo> paging = projectRequirementService.getProjectRequirementPageListByOrderId(orderId);
+        return ApiResult.ok(paging);
+    }
+
+    }

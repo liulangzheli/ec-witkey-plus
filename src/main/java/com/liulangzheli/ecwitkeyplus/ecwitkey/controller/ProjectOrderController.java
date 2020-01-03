@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
     
 import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 
+import java.util.List;
+
 /**
  * <pre>
  * 项目订单 前端控制器
@@ -88,15 +90,15 @@ public class ProjectOrderController extends BaseController {
     /**
      * 获取userId对应的项目订单
      */
-    @GetMapping("/infoByUserId/{userId}")
-    @ApiOperation(value = "获取ProjectOrder对象详情", notes = "查看userId项目订单", response = ProjectOrderQueryVo.class)
-    public ApiResult<ProjectOrderQueryVo> getProjectOrderByUserId(@PathVariable("userId") Long userId) throws Exception {
-        ProjectOrderQueryVo projectOrderQueryVo = projectOrderService.getProjectOrderByUserId(userId);
-        return ApiResult.ok(projectOrderQueryVo);
+    @PostMapping("/infoByUserId")
+    @ApiOperation(value = "获取ProjectOrder对象详情", notes = "查看userId项目订单", response = ProjectOrderUserQueryVo.class)
+    public ApiResult<List<ProjectOrderUserQueryVo>> getProjectOrderByUserId(@Valid @RequestBody ProjectOrderQueryParam projectOrderQueryParam) throws Exception {
+        Paging<ProjectOrderUserQueryVo> paging = projectOrderService.getProjectOrderByUserId(projectOrderQueryParam);
+        return ApiResult.ok(paging);
     }
 
     /**
-     * 获取userId对应的项目订单
+     * 获取orderId对应的 项目-用户 订单
      */
     @GetMapping("/orderUser/{id}")
     @ApiOperation(value = "获取ProjectOrderUser对象详情", notes = "查看user项目订单", response = ProjectOrderUserQueryVo.class)
@@ -115,5 +117,14 @@ public class ProjectOrderController extends BaseController {
         return ApiResult.ok(paging);
     }
 
+    /**
+     * 项目订单分页列表
+     */
+    @PostMapping("/getPageListCount")
+    @ApiOperation(value = "获取ProjectOrder分页列表记录数", notes = "项目订单分页列表记录总数", response = ProjectOrderQueryVo.class)
+    public ApiResult<Paging<ProjectOrderQueryVo>> getProjectOrderPageListCount(@Valid @RequestBody ProjectOrderQueryParam projectOrderQueryParam) throws Exception {
+        int count = projectOrderService.getProjectOrderPageListCount(projectOrderQueryParam);
+        return ApiResult.ok(count);
+    }
 }
 

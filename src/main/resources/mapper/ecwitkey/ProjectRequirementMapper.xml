@@ -7,10 +7,20 @@
         id, category_id0, category_id, order_id, qty, count_type, area, amount, remark
     </sql>
 
+    <sql id="Base_Column_And_Category_List">
+        id, category_id0, category_id, order_id, qty, count_type, area, amount, remark,(select cate_name from category where id = a.category_id0) as projTypeName,(select cate_name from category where id = a.category_id) as cateName
+    </sql>
+
     <select id="getProjectRequirementById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo">
         select
         <include refid="Base_Column_List"/>
         from project_requirement where id = #{id}
+    </select>
+
+    <select id="getProjectRequirementsByOrderId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo">
+        select
+        <include refid="Base_Column_List"/>
+        from project_requirement where order_id = #{orderId}
     </select>
 
     <select id="getProjectRequirementPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementQueryVo">
@@ -19,4 +29,14 @@
         from project_requirement
     </select>
 
+    <select id="getProjectRequirementPageListByOrderId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectRequirementCategoryQueryVo">
+        <!--select a.*,(select cate_name from category where id = a.category_id0) as projTypeName,(select cate_name from category where id = a.category_id) as cateName -->
+        select
+        <include refid="Base_Column_And_Category_List"/>
+        from project_requirement a
+        where 1=1
+        <if test="param.orderId!=null">
+            and order_id = #{param.orderId}
+        </if>
+    </select>
 </mapper>

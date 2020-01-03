@@ -11,12 +11,16 @@
 
 </head>
 
-<body data-page="projectList">
+<body data-page="findProject">
 <div class="floor bdB bgE">
-  <div class="floorZone txAR top"> <a href="login.html" title="" id="topUser">登录</a>|<a href="register.html" title=""id="topLog">注册</a>|<a href="javascript:void(0);" onclick="SetHome(this,'http://www.ztjzj.com');">设为首页</a>|<a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏本站</a>|<a href="article.html">常见问题</a>|<a href="article.html">使用帮助</a> </div>
-  
+  <div class="floorZone txAR top"> 
+    <a href="login.html" title="" id="topUser">登录</a>|
+    <a href="register.html" title=""id="topLog">注册</a>|
+    <a href="javascript:void(0);" onclick="SetHome(this,'http://www.ecwitkey.com');">设为首页</a>|
+    <a href="javascript:void(0);" onclick="AddFavorite('我的网站',location.href)">收藏本站</a>
+
+  </div>
   <!--end floorZone--> 
-  
 </div>
 
 <!--end floor-->
@@ -37,149 +41,51 @@
       
       <div class=" dd10 fl">
         <input type="text" class="searchIpt" id ="searchText" placeholder="请输入..." /><a class="darkBlueBtn searchSbt" href="javascript:void(0)" onclick="transToSearchUrl()">搜索</a></div>
-    </div>
-    
+    </div>   
     <!--end search-->
-    
     <div class="user fl txAR">
-      <div><a title="点击这里给我发消息" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2427113280&amp;site=qq&amp;menu=yes" target="_blank">联系客服</a></div>
-      <div>公众号</div>
+      <div><a title="点击这里给我发消息" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2052954963&amp;site=qq&amp;menu=yes" target="_blank">联系客服</a></div>
+      <div class="chat"></div>
     </div>
-    
-    <!--end user--> 
-    
+    <!--end user-->  
   </div>
-  
   <!--end floorZone--> 
-  
 </div>
 
 <!--end floor-->
 
 <div class="floor menuZone">
   <div class="floorZone ">
-    <div class="menuLink"> <a href="index.html" >首页</a> <a href="newProd.html" class="active">发布项目</a> <a href="findProd.html">找项目</a> <a href="findCompany.html">找企业/团队</a> <a href="findPerson.html">找个人</a> </div>
-    
+    <div class="menuLink" id="menuLink"> 
+      <a href="myInfo.html" >首页</a> 
+      <a href="newProd.html" >发布项目</a> 
+      <a href="findProd.html" class="active">找项目</a> 
+      <a href="findCompany.html">找企业/团队</a> 
+      <a href="findPerson.html">找个人</a> 
+    </div>
     <!--end menuLink--> 
-    
-    <a class="fr" href="newProd.html">发布需求</a> </div>
-  
+  </div> 
   <!--end menuLine--> 
-  
 </div>
-
 <!--end menuZone-->
-
 <div class="floor">
   <div class="floorZone filter">
     <div class="bdA pdA ofHide marT filter">
       <div>
         <div class="dd1 fl txAR"><b>专&emsp;业：</b></div>
-        <div class="dd9 fl txAL" id="marjorList"><a href="javascript:void(0);" class="active">不限</a><a href="javascript:void(0);" >土建</a><a href="javascript:void(0);">钢构</a><a href="javascript:void(0);">钢筋</a><a href="javascript:void(0);">给水排水</a> <a href="javascript:void(0);">暖通</a><a href="javascript:void(0);">燃气</a><a href="javascript:void(0);">电气</a><a href="javascript:void(0);">消防</a><a href="javascript:void(0);">室内装修</a><a href="javascript:void(0);">外墙装修</a><a href="javascript:void(0);">其他市政</a></div>
+        <div class="dd9 fl txAL" id="marjorList"></div>
       </div>
       <div>
         <div class="dd1 fl txAR"><b>搜&emsp;索：</b></div>
-        <input type="search" placeholder="请输入..."/>
-        <button class="blueButton" style="height:35px;line-height:35px;">搜索</button>
+        <input type="search" id ="searchProjText" placeholder="请输入..."/>
+        <button class="blueButton" style="height:35px;line-height:35px;" onclick="transToSearchUrl(0)">搜索</button>
       </div>
-      <!--end div--> 
-      
     </div>
-    <!--end div--> 
-    
   </div>
-  <!--end floorZone-->
-  
   <div class="floorZone">
-    <div class="leftSide contentBox">
-      <div class="li pdTB  clear ofHide ">
-        <div class="dd9 fl">
-          <p><a href="pinfo.html">[基坑支护工程量计算控制价编制]北京北京|仿古房</a>
-            <label class="pdLR fc9">三明</label>
-          </p>
-          <p class="lifo"><span class="price">￥790</span>预计交付时间：<span class="time">2019-11-10</span></p>
-        </div>
-        <div class="dd1 fl">
-          <p><span  class="orangeButton dd8">3人已报名</span></p>
-          <p class="fc9"><span>56</span>人已看</p>
-        </div>
-      </div>
-      <!--end li-->
-      
-      <div class="li pdTB  clear ofHide ">
-        <div class="dd9 fl">
-          <p><a href="pinfo.html">两栋住宅楼，土建及钢筋广联达建模，提交规范模型</a>
-            <label class="pdLR fc9">三明</label>
-          </p>
-          <p class="lifo"><span class="price">￥2000</span>预计交付时间：<span class="time">2019-11-10</span></p>
-        </div>
-        <div class="dd1 fl">
-          <p><span  class="orangeButton dd8">10人已报名</span></p>
-          <p class="fc9"><span>56</span>人已看</p>
-        </div>
-      </div>
-      <!--end li-->
-      
-      <div class="li pdTB  clear ofHide ">
-        <div class="dd9 fl">
-          <p><a href="pinfo.html">广东广州|园林给水 及电气|算量+编清单+组价|广联达</a>
-            <label class="pdLR fc9">三明</label>
-          </p>
-          <p class="lifo"><span class="price">￥200</span>预计交付时间：<span class="time">2019-11-10</span></p>
-        </div>
-        <div class="dd1 fl">
-          <p><span  class="orangeButton dd8">5人已报名</span></p>
-          <p class="fc9"><span>56</span>人已看</p>
-        </div>
-      </div>
-      <!--end li-->
-      
-      <div class="li pdTB  clear ofHide ">
-        <div class="dd9 fl">
-          <p><a href="pinfo.html">湖北黄石|高层住宅|安装|算量+编清单+组价|广联达</a>
-            <label class="pdLR fc9">三明</label>
-          </p>
-          <p class="lifo"><span class="price">￥1600</span>预计交付时间：<span class="time">2019-11-10</span></p>
-        </div>
-        <div class="dd1 fl">
-          <p><span  class="orangeButton dd8">3人已报名</span></p>
-          <p class="fc9"><span>56</span>人已看</p>
-        </div>
-      </div>
-      <!--end li-->
-      
-      <div class="li pdTB  clear ofHide ">
-        <div class="dd9 fl">
-          <p><a href="pinfo.html">湖北黄石|高层住宅|安装|算量+编清单+组价|广联达</a>
-            <label class="pdLR fc9">三明</label>
-          </p>
-          <p class="lifo"><span class="price">￥1600</span>预计交付时间：<span class="time">2019-11-10</span></p>
-        </div>
-        <div class="dd1 fl">
-          <p><span  class="orangeButton dd8">3人已报名</span></p>
-          <p class="fc9"><span>56</span>人已看</p>
-        </div>
-      </div>
-      <!--end li-->
-      
-      <div class="li pdTB  clear ofHide ">
-        <div class="dd9 fl">
-          <p><a href="pinfo.html">湖北黄石|高层住宅|安装|算量+编清单+组价|广联达</a>
-            <label class="pdLR fc9">三明</label>
-          </p>
-          <p class="lifo"><span class="price">￥1600</span>预计交付时间：<span class="time">2019-11-10</span></p>
-        </div>
-        <div class="dd1 fl">
-          <p><span  class="orangeButton dd8">3人已报名</span></p>
-          <p class="fc9"><span>56</span>人已看</p>
-        </div>
-      </div>
-      <!--end li-->
-      
-      <div id="pagination" class="pagination"></div>
+    <div class="leftSide contentBox" id="proList">
     </div>
-    <!--end leftSide-->
-    
+    <!--end leftSide-->  
     <div class="rightSide">
       <div class="tab-wrapper">
         <ul class="tab-menu">
@@ -326,39 +232,36 @@
 <div class="floor footFloor pdTB">
   <div class="floorZone fcW pdTB">
     <div class="dd2 fl fLine">
-      <div class="logo2">造价威客LOGO</div>
+      <div class="logo2"></div>
     </div>
     <div class="dd1 fl txAL">
       <div class="line"></div>
-      <h2>关于我们</h2>
+      <!-- <h2>关于我们</h2>
       <ul>
         <li><a href="article.html">公司简介</a></li>
         <li><a href="article.html">平台公告</a></li>
         <li><a href="article.html">联系方式</a></li>
-      </ul>
+      </ul> -->
     </div>
     <div class="dd1 fl txAL">
       <div class="line"></div>
-      <h2>交易保障</h2>
+      <!-- <h2>交易保障</h2>
       <ul>
         <li><a href="article.html">网站协议</a></li>
         <li><a href="article.html">支付方式</a></li>
         <li><a href="article.html">维权</a></li>
         <li><a href="article.html">意见反馈</a></li>
-      </ul>
+      </ul> -->
     </div>
     <div class="dd3 fl">
       <div class="line"></div>
       <h2>联系方式</h2>
-      <p>地　　址：厦门市湖里区火炬高薪岐山北二路8899号23楼</p>
-      <p>联系电话：0592-5138XXX　5138XXX</p>
-      <p>传　　真：0592-5138XXX 　邮 　编：361011</p>
-      <p>网　　址：www.ztjzj.com</p>
-      <p>邮　　件：service@witkey.com</p>
+      <p>地　　址：厦门自贸区兴隆路27号15楼b单元之三</p>
+      <p>联系电话：0592-5126679</p>
+      <p>传　　真：0592-5133677 　邮 　编：361011</p>
+      <p>网　　址：www.ecwitkey.com</p>
     </div>
-    <div class="dd3 fl txAR pdT">
-      <div class="chat">微信公众号</div>
-    </div>
+    <div class="dd3 fl txAR pdT"> <div class="chat"></div> </div>
   </div>
   
   <!--end floorZone--> 
@@ -368,13 +271,13 @@
 <!--end floor-->
 
 <div class="floor footFloor txAC">
-  <p><a href="index.html">首页</a>|<a href="article.html">公司介绍</a>|<a href="article.html">公司新闻</a>|<a href="article.html">联系我们</a>|<a href="register.html">注册</a></p>
+  <!-- <p><a href="index.html">首页</a>|<a href="article.html">公司介绍</a>|<a href="article.html">公司新闻</a>|<a href="article.html">联系我们</a>|<a href="register.html">注册</a></p> -->
 </div>
 
 <!--end footFloor-->
 
 <div class="floor footFloor txAC">
-  <p class="fc9">&copy;造价威客网 版权所有 闽ICP备19xxx001号    本网站中提供的信息仅用作信息参考</p>
+  <!-- <p class="fc9">&copy;造价威客网 版权所有 闽ICP备19xxx001号    本网站中提供的信息仅用作信息参考</p> -->
 </div>
 
 <!--end footFloor--> 

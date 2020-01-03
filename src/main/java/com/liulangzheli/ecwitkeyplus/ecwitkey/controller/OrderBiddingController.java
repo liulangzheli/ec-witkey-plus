@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import com.liulangzheli.ecwitkeyplus.common.param.IdParam;
 
+import java.util.List;
+
 /**
  * <pre>
  * 订单竞标信息 前端控制器
@@ -82,9 +84,19 @@ public class OrderBiddingController extends BaseController {
      */
     @GetMapping("/infoOrder/{orderId}")
     @ApiOperation(value = "获取OrderBidding对象详情", notes = "项目竞标信息", response = OrderBiddingInfoQueryVo.class)
-    public ApiResult<OrderBiddingInfoQueryVo> getOrderBiddingByOrderId(@PathVariable("orderId") Long orderId) throws Exception {
-        OrderBiddingInfoQueryVo orderBiddingInfoQueryVo = orderBiddingService.getOrderBiddingByOrderId(orderId);
-        return ApiResult.ok(orderBiddingInfoQueryVo);
+    public ApiResult<List<OrderBiddingInfoQueryVo>> getOrderBiddingByOrderId(@PathVariable("orderId") Long orderId) throws Exception {
+        List<OrderBiddingInfoQueryVo> orderBiddingInfoQueryVos = orderBiddingService.getOrderBiddingByOrderId(orderId);
+        return ApiResult.ok(orderBiddingInfoQueryVos);
+    }
+
+    /**
+     * 获取订单竞标信息
+     */
+    @PostMapping("/getPageListByUserIdAndOrderId")
+    @ApiOperation(value = "获取OrderBidding对象记录", notes = "项目竞标信息记录", response = OrderBiddingInfoQueryVo.class)
+    public ApiResult<Paging<OrderBiddingInfoQueryVo>> getOrderBiddingListByUserIdAndOrderId(@Valid @RequestBody OrderBiddingQueryParam orderBiddingQueryParam) throws Exception {
+        Paging<OrderBiddingInfoQueryVo> paging = orderBiddingService.getOrderBiddingListByUserIdAndOrderId(orderBiddingQueryParam);
+        return ApiResult.ok(paging);
     }
 
     /**

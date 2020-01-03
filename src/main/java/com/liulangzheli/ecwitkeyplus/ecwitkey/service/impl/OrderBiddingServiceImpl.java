@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -59,7 +60,7 @@ public class OrderBiddingServiceImpl extends BaseServiceImpl<OrderBiddingMapper,
     }
 
     @Override
-    public OrderBiddingInfoQueryVo getOrderBiddingByOrderId(Serializable orderId) throws Exception {
+    public List<OrderBiddingInfoQueryVo> getOrderBiddingByOrderId(Serializable orderId) throws Exception {
         return orderBiddingMapper.getOrderBiddingByOrderId(orderId);
     }
 
@@ -67,6 +68,13 @@ public class OrderBiddingServiceImpl extends BaseServiceImpl<OrderBiddingMapper,
     public Paging<OrderBiddingQueryVo> getOrderBiddingPageList(OrderBiddingQueryParam orderBiddingQueryParam) throws Exception {
         Page page = setPageParam(orderBiddingQueryParam, OrderItem.desc("create_time"));
         IPage<OrderBiddingQueryVo> iPage = orderBiddingMapper.getOrderBiddingPageList(page, orderBiddingQueryParam);
+        return new Paging(iPage);
+    }
+
+    @Override
+    public Paging<OrderBiddingInfoQueryVo> getOrderBiddingListByUserIdAndOrderId(OrderBiddingQueryParam orderBiddingQueryParam) throws Exception {
+        Page page = setPageParam(orderBiddingQueryParam, OrderItem.desc("create_time"));
+        IPage<OrderBiddingInfoQueryVo> iPage = orderBiddingMapper.getOrderBiddingListByUserIdAndOrderId(page, orderBiddingQueryParam);
         return new Paging(iPage);
     }
 

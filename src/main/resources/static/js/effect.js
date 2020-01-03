@@ -16,6 +16,13 @@ function SetHome(obj,url){
         }
     }
 }
+
+//跳转到其他页面
+function gotoOtherPage(htmlPage){
+	window.location.href=basePath+htmlPage;
+	var _str = "";
+	$('#rightSide').empty().append(_str);
+}
 //收藏本站
 function AddFavorite(title, url) {
     try {
@@ -153,34 +160,121 @@ function tab(wrapper,allTabs,tabMenu){//切换效果
     $getWrapper.find($allTabs).filter('[data-tab='+dataTab+']').show();
   });
 }
-
-function bidding(id,user){//竞标
-   		$.ajax({
-            type: "POST",
-            url:basePathAPI + "orderBidding/add",
-            contentType: false,
-			processData:false,
-            data: {'order_id':id,'user_id':user},
-            success: function(result) {
-					alert('竞标成功')			
-            },
-            error:function(){
-			}
-        });
+Date.prototype.pattern = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
 }
-function ineedu(id,user){//选标
-   		$.ajax({
-            type: "POST",
-            url:basePathAPI + "order.action",
-            contentType: false,
-			processData:false,
-            data: {'order_id':id,'user_id':user},
-            success: function(result) {
-					alert('已选标，请等待服务商确认');			
-            },
-            error:function(){
+
+function doBidding(orderId) {//竞标
+	let isSucess = false;
+	let orderBidding = {
+		"createTime": new Date().pattern("yyyy-MM-dd hh:mm:ss"),
+		"message": "",
+		"orderId": orderId,
+		"remark": "",
+		"state": 0,
+		"userId": $.cookie("userId")
+	}
+	$.ajax({
+		type: "POST",
+		url: basePathAPI + "orderBidding/add",
+		beforeSend: function (XMLHttpRequest) {
+			XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+		},
+		async: false,
+		data: JSON.stringify(orderBidding), //必须用JSON.stringify()方法转。
+		contentType: "application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success: function (rs) {
+			var code = rs.code;
+			if (code === 200) {
+				alert('竞标成功');
+				isSucess = true;
+			} else {
+				if(code ===401){
+					alert("登陆信息已过期，请重新登陆！");
+					window.location.href=basePath+'login.html';
+				}else
+					alert("操作异常！错误代码：" + rs.code + " " + rs.msg);
 			}
-        });
+		},
+		error: function (rs) {
+			alert("操作异常！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
+	return isSucess;
+}
+
+function selectedBidding(bidId,orderId,state){//定标
+	// /info/{id}
+	let queryParam={
+		'type':'GET'
+	}
+	let bidInfo = null;
+	
+	loadData('orderBidding/info/'+bidId,queryParam,biddingInfo,null,false);
+	function biddingInfo(action,conditions,rs){
+		bidInfo = rs.data;
+	};
+	// /update   bidInfo
+	if(bidInfo != null&&bidInfo != undefined){
+		let updateParam=bidInfo;
+		updateParam.state = state;
+		Object.assign(updateParam,{'type':'POST'});
+		loadData('orderBidding/update',updateParam,bidRes,null,false);
+		function bidRes(action,conditions,rs){
+			if(rs!=null&& rs.code == 200){
+				//todo 更新project_order表的state为2
+				updateProjOrder(orderId,2);
+				//alert('定标操作完成！');
+			}else{
+				alert('定标操作异常！异常信息：执行更新异常。');
+			}
+		}
+    }else{
+		alert('定标操作异常！异常信息：获取不到投标记录。');
+	}
+}
+//更新订单状态
+function updateProjOrder(orderId,state){//
+	// /info/{id}
+	let queryParam={
+		'type':'GET'
+	}
+	let bidInfo = null;
+	
+	loadData('projectOrder/info/'+orderId,queryParam,biddingInfo,null,false);
+	function biddingInfo(action,conditions,rs){
+		bidInfo = rs.data;
+	};
+	// /update   bidInfo
+	if(bidInfo != null&&bidInfo != undefined){
+		let updateParam=bidInfo;
+		updateParam.state = state;
+		Object.assign(updateParam,{'type':'POST'});
+		loadData('projectOrder/update',updateParam,bidRes,null,false);
+		function bidRes(action,conditions,rs){
+			if(rs!=null&& rs.code == 200){
+				alert('定标操作完成！');
+				window.location.href=basePath+'pinfo.html?id='+orderId;
+			}else{
+				alert('定标操作异常！异常信息：执行更新异常。');
+			}
+		}
+    }else{
+		alert('定标操作异常！异常信息：获取不到投标记录。');
+	}
 }
 function acceptPro(id,choice){//服务商应邀项目
  	$.ajax({
@@ -265,7 +359,6 @@ $.fn.serializeObject = function() {
 	return o;
 };
 $(document).ready(function() {
-
  //搜索框效果
   $('.searchTab>div').click(function(){
       $('.searchTab>div').removeClass('active');
@@ -275,118 +368,154 @@ $(document).ready(function() {
 	  else
 	        $('.search .searchSbt').attr('onclick','transToSearchUrl(1)');
   });
-  var params=getParamValue('id')||'',searchkey=getParamValue('key')||'',page=$('body').attr('data-page');
+  
+  var id=getParamValue('id')||'',params=getParamValue('searchProjText')||'',searchkey=getParamValue('key')||'',page=$('body').attr('data-page');
+  var conditions = getParamValue('conditions');
+  var skey = '';
+  let orderQuery={
+	'current':'1',
+	'size':"10",
+	'state':"1",
+	'type':"POST",
+	'major': skey,
+	'keyword':params
+  }
+  let current = getParamValue('current');
+
+    //设置菜单权限
+	if($.cookie('roleId') != null){
+		let _menuLink = '';
+		switch($.cookie('roleId')){
+			//1:管理员 2：雇主 3：服务商
+			case '1':
+				_menuLink ='<a href="myInfo.html" '+((page=='mpInfo' || page == 'mOrder')?'class="active"':'')+'>首页</a>'
+				+'<a href="newProd.html" '+(page=='addProject'?'class="active"':'')+'>发布项目</a>'
+				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>找项目</a>'
+				+'<a href="findCompany.html" '+(page=='findCompany'?'class="active"':'')+'>找企业/团队</a>'
+				+'<a href="findPerson.html" '+(page=='findPerson'?'class="active"':'')+'>找个人</a>';
+				break;
+			case '2':
+				_menuLink ='<a href="myInfo.html" '+((page=='mpInfo' || page == 'mOrder')?'class="active"':'')+'>首页</a>'
+				+'<a href="newProd.html" '+(page=='addProject'?'class="active"':'')+'>发布项目</a>'
+				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>找项目</a>'
+				+'<a href="findCompany.html" '+(page=='findCompany'?'class="active"':'')+'>找企业/团队</a>'
+				+'<a href="findPerson.html" '+(page=='findPerson'?'class="active"':'')+'>找个人</a>';
+				break;
+			case '3':
+				_menuLink ='<a href="myInfo.html" '+((page=='mpInfo' || page == 'mOrder')?'class="active"':'')+'>首页</a>'
+				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>找项目</a>';
+				break;
+		}
+		$('#menuLink').empty().append(_menuLink);
+	}
+
   if(page=="mCenter"||page=="mInfo"||page=="mCrop"||page=="modifyPwd"||
   page=="mOrder"||page=="mCollect"||page=="mTeam"||page=="mTransaction"
   ||page=="mWithdraw"){//会员中心左侧数据加载
- 	   $('#beserver').click(function(){//申请为服务商
-          showDalog('提示','请确认将该账号申请为服务商账号','备注：服务商账号仅允许在线承接项目，若需发布项目需求，需重新申请账号');
- 	   });  
+ 	//    $('#beserver').click(function(){//申请为服务商
+    //       showDalog('提示','请确认将该账号申请为服务商账号','备注：服务商账号仅允许在线承接项目，若需发布项目需求，需重新申请账号');
+ 	//    });  
 	   //会员信息
-       loadData('sysUser/info/'+$.cookie('uid'),{'user_id':$.cookie('uid')}, getUserInfo, null, false);
+	   let  _str="";
+			_str ='<p><a href="javascript:void(0)">'+$.cookie('userName')+'</a></p>'
+				 +'<p>工号：'+$.cookie('userId')+'</p>'
+				 +'<p><a href="javascript:void(0)" id="beserver">角色：'+$.cookie('roleName')+'</a> </p>';
+			$('#userMessage').empty().append(_str);
+       //loadData('sysUser/info/'+$.cookie('uid'),{'user_id':$.cookie('uid')}, getUserInfo, null, false);
   }
 	if(page=='login'||page=='pRegister'||page=='cRegister')
 		checkLogin();
   switch(page) {
      	case "home"://首页
+			 break;
+		case "mpInfo"://会员个人首页
+			//todo
+			let  _str="";
+			_str ='<p><a href="javascript:void(0)">'+$.cookie('userName')+'</a></p>'
+				 +'<p>工号：'+$.cookie('userId')+'</p>'
+				 +'<p><a href="javascript:void(0)" id="beserver">角色：'+$.cookie('roleName')+'</a> </p>';
+			$('#userMessage').empty().append(_str);
+			
+			// if(conditions != null&&conditions!="unknow"&&conditions!="undefined"){
+			// 	orderQuery.current=conditions.current;
+			// 	orderQuery.size = conditions.size;
+			// 	orderQuery.userId = $.cookie('userId');
+			// }else
+			// if(current!=null&&current!="unknow"&&current!="undefined"){
+			// 	orderQuery.current = current;
+			// }
+			//loadData('projectOrder/getPageListByUserIdAndOrderId',orderQuery, getProdListByUserId, null, false);
 	         break;
 		case "addProject"://发布项目
 			showNeedType(loadCategory(0,0));
 			showProjectType(loadCategory(2,0));
-			//alert("发布项目");
-			// CategoryQueryParam={
-			// 	"current": 1,
-			// 	"keyword": "0",
-			// 	"orders": [
-			// 	  {
-			// 		"asc": true,
-			// 		"column": "createTime"
-			// 	  }
-			// 	],
-			// 	"size": 10
-			// }
-				
-			// 	$.ajax({
-			// 		type: "POST",
-			// 		url: basePathAPI +'category/getPageList',
-			// 		beforeSend: function(XMLHttpRequest) {
-			// 			XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
-			// 		},
-			// 		async: false,
-			// 		data:JSON.stringify({
-			// 			"current": 1,
-			// 			"keyword": "0", //查 categoryType = 0
-			// 			"orders": [
-			// 			  {
-			// 				"asc": true,
-			// 				"column": "createTime"
-			// 			  }
-			// 			],
-			// 			"size": 10
-			// 		}),//JSON.stringify(jsonData), //必须用JSON.stringify()方法转。
-			// 		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-			// 		cache: false,
-			// 		success:function(rs) {
-			// 			var code = rs.code;
-			// 			if (code === 200) {
-			// 				res = true;
-			// 				alert("类别名称查询成功！");
-			// 			}else{
-			// 				alert("类别名称查询异常！错误代码：" + rs.code + " " + rs.msg);
-			// 			}
-			// 		},
-			// 		error:function(rs){
-			// 			alert("类别名称查询异常！错误代码：" + rs.status + " " + rs.statusText);
-			// 		}
-			// 	});
 			break;
 		case "pay"://付款
 
-		    loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+		    //loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
 		    break;				 
-		case "projectList"://找项目
-			//selectInt();pageid：PROJECT
-
-			loadData('action',{'pageid':'PROJECT','type':"major"}, getMajor, null, false);
-			loadData('projectOrder/getPageList',{'pageid':'PROJECT','major': "",'searchkey':params}, getProdList, null, false);
-			loadData('sysUser/getPageList',{'pageid':'LIST','type':"topcompany"}, getRankList, null, false);
-			loadData('sysUser/getPageList',{'pageid':'LIST','type':"topPerson"}, getRankList, null, false);
+		case "findProject"://找项目
+			
+			if(conditions != null&&conditions!="unknow"&&conditions!="undefined"){
+				orderQuery.current=conditions.current;
+				orderQuery.size = conditions.size;
+			}else
+			if(current!=null&&current!="unknow"&&current!="undefined"){
+				orderQuery.current = current;
+			}
+			if($.cookie('roleId') == 2){//雇主
+				orderQuery.state = -1;	
+			}
+			loadData('category/getPageList',{type:'POST','current':'1','size':"50",'categoryType':"3",'cateParentId':"0"}, getMajorList, null, false);
 			$('.filter a').click(function(){
-			      $(this).removeClass('active');
-				  $(this).siblings().removeClass('active');
-				  $(this).addClass('active');
-				  var skey=$(this).text();
-				  loadData('sysUser/getPageList',{'pageid':'LIST','searchkey':skey}, getProdList, null, false);
-			});
+				$(this).removeClass('active');
+				$(this).siblings().removeClass('active');
+				$(this).addClass('active');
+				skey=$(this).text();//搜索项目
+				loadData('projectOrder/getPageList',orderQuery, getProdList, null, false);
+			});	
+			
+			loadData('projectOrder/getPageList',orderQuery, getProdList, null, false);
+			// loadData('sysUser/getPageList',{'pageid':'LIST','type':"topcompany"}, getRankList, null, false);
+			// loadData('sysUser/getPageList',{'pageid':'LIST','type':"topPerson"}, getRankList, null, false);
+			
 		    break;
 		case "projectInfo"://项目详情
 			  //项目信息
-			  loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			//   orderQuery.current = $('#pagination').curPage;
+			//   orderQuery.size = $('#pagination').pageSize;
+			//   alert("orderQuery="+orderQuery);
+			  orderQuery.type = 'GET';
+			  orderQuery.current = current;
+			  if($.cookie('roleId') == 2){//雇主
+				 orderQuery.state = -1;	
+			  }
+			  loadData('projectOrder/info/'+id,orderQuery, getProInfo, null, false);
 			  //服务商竞标信息
-			  loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getBiddingInfo, null, false);
-			  //
+			  //loadData('uiAct/listAll.action',{'pageid':'DETAIL','order_id':params}, getBiddingInfo, null, false);
+			 
 		    break;
 		case "receipt"://应邀项目
-			  loadData('orderBidding/update',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
-			  loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getEmployer, null, false);
+			  //loadData('orderBidding/update',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			  //loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getEmployer, null, false);
 		      break;
 		case "working"://提交项目成果
-			 loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
-			 loadData('uiAct/listAll.action',{'pageid':'progress','order_id':params}, getProgress, null, false);
+			 //loadData('projectOrder/orderUser',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			 //loadData('uiAct/listAll.action',{'pageid':'progress','order_id':params}, getProgress, null, false);
 		    break;			
 		case "check"://验收
-			 loadData('action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
-			 loadData('orderCheck/infoByOrderId',{'pageid':'progress','order_id':params}, getProgress, null, false);
+			 //loadData('action',{'pageid':'DETAIL','order_id':params}, getProInfo, null, false);
+			 //loadData('orderCheck/infoByOrderId',{'pageid':'progress','order_id':params}, getProgress, null, false);
 		    break;						
-		case "companyList"://找企业project_type
-			selectInt();
-			loadData('sysUser/getPageList',{'pageid':'CSERVICE','major':'','province':'','city':'','searchkey':params}, getCompanyList, null, false);
+		case "findCompany"://找企业project_type
+			//selectInt();
+			//loadData('sysUser/getPageList',{'pageid':'CSERVICE','major':'','province':'','city':'','searchkey':params}, getCompanyList, null, false);
 		    break;
-		case "personList"://找个人
-			loadData('sysUser/getPageList',{'pageid':'PSERVICE','major':'','province':'','city':'','searchkey':params}, getPersonList, null, false);
+		case "findPerson"://找个人
+			//loadData('sysUser/getPageList',{'pageid':'PSERVICE','major':'','province':'','city':'','searchkey':params}, getPersonList, null, false);
 		    break;
 		case "userHome"://用户介绍主页
-			loadData('sysUser/getPageList',{'pageid':'SUPPLIERINFO','user_id':params}, getUserInfo, null, false);
+			//loadData('sysUser/getPageList',{'pageid':'SUPPLIERINFO','user_id':params}, getUserInfo, null, false);
 		    break;
 		case "cRegister"://企业会员注册
 		$.validator.setDefaults({
@@ -423,7 +552,7 @@ $(document).ready(function() {
 									console.log(result);
 									if(result.code === 200) {
 										alert("注册成功！");
-										firstLogin();
+										//firstLogin();
 										window.location.href=basePath+'cregister.html';
 									}else{
 										alert("注册失败! 错误代码：" + result.code + " " + result.msg);
@@ -585,7 +714,7 @@ $(document).ready(function() {
                                         console.log(result);
                                         if(result.code === 200) {
                                             alert("注册成功！");
-                                            firstLogin();
+                                            //firstLogin();
                                             window.location.href=basePath+'pregister.html';
                                         }else{
                                             alert("注册失败! 错误代码：" + result.code + "(" + result.msg + ")");
@@ -789,6 +918,20 @@ $(document).ready(function() {
 		
 		    break;		
 		case "mOrder"://我的订单
+			if($.cookie('roleId') == 2){//雇主
+				orderQuery.type = 'POST';
+				orderQuery.state = null;
+				orderQuery.userId = $.cookie('userId');
+				orderQuery.isFromProjOrderTable = true;
+				loadData('projectOrder/infoByUserId',orderQuery, getMyOrderList, null, false);
+			}else
+			if($.cookie('roleId') == 3){ //服务商
+				orderQuery.type = 'POST';
+				orderQuery.state = null;
+				orderQuery.userId = $.cookie('userId');
+				orderQuery.orderStates = "1,2,3,4";
+				loadData('orderBidding/getPageListByUserIdAndOrderId',orderQuery, getMyOrderList, null, false);
+			}
 		    break;		  		
 		case "mCollect"://服务商收藏
 		    break;		  			
@@ -876,6 +1019,34 @@ function doAddCategory(){
 	return res;
 	//end
 }
+//根据cateId，查找类别信息
+function getCategory(cateId){
+	var records = null;	
+	$.ajax({
+		type: "GET",
+		url: basePathAPI +'category/info/'+cateId,
+		beforeSend: function(XMLHttpRequest) {
+            XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+        },
+		async: false,
+		//data:JSON.stringify(queryParam), //必须用JSON.stringify()方法转。
+		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				records = rs.data;
+				//alert("类别管理查询成功！" + rs.data.records);
+			}else{
+				alert("类别管理查询异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			alert("类别管理查询异常！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
+	return records;
+}
 
 function loadCategory(categoryType,cateParentId=null){
 	var records = null;
@@ -903,7 +1074,11 @@ function loadCategory(categoryType,cateParentId=null){
 				// }
 				records = rs.data.records;
 				//alert("类别管理查询成功！");
-			}else{
+			}else
+			if(code === 401){
+				alert("登陆信息已失效，请重新登陆！");
+				window.location.href=basePath+'login.html';
+			}else{	
 				alert("类别管理查询异常！错误代码：" + rs.code + " " + rs.msg);
 			}
 		},
@@ -955,8 +1130,8 @@ function showProjectRequirement(projectTypeName,indexId,data){
                  + '<td><input type="number" name="pro_'+indexId+'_type' + j + '_area"/>平米</td></tr>'
                  + '<tr><td colspan="2" align="left">说明：</td></tr>'
                  + '<tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>'
-                 + '<tr><td align="center"><a href="javascript:void(0)" onclick="showBox(\'modal-dialog-box\',\'pro_'+indexId+'_type' + j + '\',1)"class="greyButton pdLR ">关闭</a></td>'
-                 + '<td align="center"><a href="javascript:void(0)" onclick="showBox(\'modal-dialog-box\',\'pro_'+indexId+'_type' + j + '\',1)"class="orangeButton pdLR">确认</a></td>'
+                 + '<tr><td align="center"><a href="javascript:void(0)" onclick="showBox(\'modal-dialog-box\',\'pro_'+indexId+'_type' + j + '\',1)" class="greyButton pdLR ">关闭</a></td>'
+                 + '<td align="center"><a href="javascript:void(0)" onclick="showBox(\'modal-dialog-box\',\'pro_'+indexId+'_type' + j + '\',1)" class="orangeButton pdLR">确认</a></td>'
 				 + '</tr></table></div></div></div>';
 		}
 		_str += '</div>';
@@ -1222,3 +1397,68 @@ function doAddProject(){
 		}
 	});
 }
+
+function checkBidding(userId,orderId){
+		let hasRecords = false;
+		let queryParam = {
+			'userId':userId,
+			'orderId':orderId,
+			'curPage':1,
+			'pageSize':2 //只需要至少查出1条记录，即可判断了。
+		};
+		$.ajax({
+			type: "POST",
+			url: basePathAPI +'orderBidding/getPageListByUserIdAndOrderId',
+			beforeSend: function(XMLHttpRequest) {
+				XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+			},
+			async: false,
+			data:JSON.stringify(queryParam), //必须用JSON.stringify()方法转。
+			contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+			cache: false,
+			success:function(rs) {
+				var code = rs.code;
+				if (code === 200) {
+					if(rs.data!=null && rs.data.total>0){
+						hasRecords = true;
+					}
+					//alert("查询成功！");
+				}else{
+					alert("查询异常！错误代码：" + rs.code + " " + rs.msg);
+				}
+			},
+			error:function(rs){
+				alert("查询异常！错误代码：" + rs.status + " " + rs.statusText);
+			}
+		});
+		return hasRecords;
+}
+
+function getBiddingCount(orderId){
+	let records = 0;
+	$.ajax({
+		type: "GET",
+		url: basePathAPI +'orderBidding/infoOrder/'+orderId,
+		beforeSend: function(XMLHttpRequest) {
+			XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+		},
+		async: false,
+		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				if(rs.data!=null){
+					records = rs.data.length;
+				}
+			}else{
+				alert("查询异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			alert("查询异常！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
+	return records;
+}
+

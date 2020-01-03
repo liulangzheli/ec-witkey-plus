@@ -9,7 +9,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="User_And_Base_Column_List">
-        m.id, m.user_id, m.create_time, m.pay_time, m.examine_time, m.pick_time, m.check_time, m.use_type, m.category_id, m.major, m.province, m.city, m.zone, m.end_time, m.amount, m.period, m.soft_supplier, m.soft_name, m.intro, m.state, m.remark, s.nickname, s.user_type, s.company_name, s.license_id, s.id_num
+        m.id, m.user_id, m.create_time, m.pay_time, m.examine_time, m.pick_time, m.check_time, m.use_type,(select cate_name from category where id=m.use_type) as projTypeName, m.category_id,(select cate_name from category where id=m.category_id) as cateName, m.major, m.province, m.city, m.zone, m.end_time, m.amount, m.period, m.soft_supplier, m.soft_name, m.intro, m.state, m.remark, s.nickname,s.username, s.user_type, s.company_name, s.license_id, s.id_num
     </sql>
 
     <select id="getProjectOrderById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
@@ -20,19 +20,42 @@
 
     <select id="getProjectOrderByUserId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderUserQueryVo">
         select
-        <include refid="Base_Column_List"/>
-        from project_order where user_id = #{userId}
+        <include refid="User_And_Base_Column_List"/>
+        from project_order m,sys_user s where m.user_id=s.id
+        <if test="param.state != null">
+            AND m.user_id = #{param.userId}
+        </if>
+        ORDER BY create_time asc
     </select>
 
     <select id="getProjectOrderUserById" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderUserQueryVo">
         select
         <include refid="User_And_Base_Column_List"/>
-        from project_order m,sys_user s where m.user_id=s.id and s.id = #{id}
+        from project_order m,sys_user s where m.user_id=s.id and m.id = #{id}
     </select>
 
     <select id="getProjectOrderPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
         select
         <include refid="Base_Column_List"/>
+        from project_order
+        <where><!-- 某些为空时用来组装语句 -->
+            1 = 1
+            <if test="param.state >= 0">
+                AND state=#{param.state}
+            </if>
+            <if test="param.major != null">
+                AND major like concat('%',#{param.major},'：%')
+            </if>
+            <if test="param.keyword != null">
+                AND major like concat('%',#{param.keyword},'%')
+            </if>
+            ORDER BY create_time ASC
+        </where>
+    </select>
+
+    <select id="getProjectOrderPageListCount" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.ProjectOrderQueryVo">
+        select
+        count(id)
         from project_order
         <where><!-- 某些为空时用来组装语句 -->
             1 = 1

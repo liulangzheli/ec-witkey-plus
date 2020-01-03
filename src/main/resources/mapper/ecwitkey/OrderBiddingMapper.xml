@@ -15,8 +15,31 @@
 
     <select id="getOrderBiddingByOrderId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingInfoQueryVo">
         select
-        ob.id, ob.order_id, ob.user_id, ob.create_time, ob.state, ob.message, ob.remark,po.user_id owner_id,po.state order_state,su.nickname,su.head,su.state user_state
-        from order_bidding ob,sys_user su,project_order po where ob.user_id=su.id and ob.order_id=po.id and ob.order_id = #{orderId}
+        ob.id, ob.order_id, ob.user_id, ob.create_time, ob.state, ob.message, ob.remark,po.user_id owner_id,po.state orderState,su.nickname,su.username,su.city,su.intro,su.head,su.state userState
+        from order_bidding ob,sys_user su,project_order po
+        where ob.user_id=su.id and ob.order_id=po.id and ob.order_id = #{orderId}
+    </select>
+
+    <select id="getOrderBiddingListByUserIdAndOrderId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingInfoQueryVo">
+        select
+        ob.id, ob.order_id, ob.user_id, ob.create_time, ob.state, ob.message, ob.remark,po.user_id owner_id,(select username from sys_user where id=po.user_id) ownerName,po.state orderState,(select cate_name from category where id =po.use_type) projTypeName,(select cate_name from category where id =po.category_id) cateName,po.soft_supplier,po.soft_name,su.nickname,su.username,su.city,su.intro,su.head,su.state userState
+        from order_bidding ob,sys_user su,project_order po
+        where ob.user_id=su.id and ob.order_id=po.id
+        <if test="param.orderId!=null">
+            and ob.order_id = #{param.orderId}
+        </if>
+        <if test="param.userId!=null">
+            and ob.user_id = #{param.userId}
+        </if>
+        <if test="param.ownerId!=null">
+            and po.user_id = #{param.ownerId}
+        </if>
+        <if test="param.orderState!=null">
+            and po.state = #{param.orderState}
+        </if>
+        <if test="param.orderStates!=null">
+            and po.state in (#{param.orderStates})
+        </if>
     </select>
 
     <select id="getOrderBiddingPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingQueryVo">

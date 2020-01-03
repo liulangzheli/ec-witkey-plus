@@ -49,6 +49,12 @@ public class ProjectOrderUserQueryVo implements Serializable {
     @ApiModelProperty(value = "分类id")
     private Long categoryId;
 
+    @ApiModelProperty(value = "项目类型名称")
+    private String projTypeName;
+
+    @ApiModelProperty(value = "项目类别名称")
+    private String cateName;
+
     @ApiModelProperty(value = "专业要求,用|隔开")
     private String major;
 
@@ -81,6 +87,9 @@ public class ProjectOrderUserQueryVo implements Serializable {
 
     @ApiModelProperty(value = "昵称")
     private String nickname;
+
+    @ApiModelProperty(value = "昵称")
+    private String username;
 
     @ApiModelProperty(value = "用户类型，0：个人/团队，1：企业")
     private Integer userType;

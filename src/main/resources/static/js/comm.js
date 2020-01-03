@@ -6,7 +6,6 @@
 function getBasePath() {
     var url = window.document.location;
 	return url.protocol + "//"+url.host+"/";
-	//return "http://localhost:8888/"   // 临时调试用的 by zhangzy 20191215
 	
 /*	var curWwwPath = window.document.location.href;
 	var pathName = window.document.location.pathname;
@@ -94,23 +93,66 @@ function saveUInfotoCookie(args) {
 	}
 	return $.cookie("USERINFO");
 }
+
 function loadData(action,conditions, callback, args, async) {//数据加载
-	$.ajax({
-		type: "get",
-		url : basePath + action,
-		async : async, // true:异动 false：同步
-		data : conditions,
-		cache : false,
-		success : function(text) {
-			if (args == null || args == undefined)
-				args = new Object();
-			args.text = text;
-			return callback(text, args);
-		},
-		error : function(text) {
-			alert('加载异常错误：'+text.code)
-		}
-	});
+	var type = 'GET';//默认为GET
+	if(conditions.type != null)
+		type = conditions.type;
+	if(type == 'GET'){
+		$.ajax({
+			type: type, //GET
+			url : basePathAPI + action,
+			beforeSend: function(XMLHttpRequest) {
+				XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+			},
+			async : async, // true:异步 false：同步
+			contentType:"application/json",
+			cache : false,
+			success : function(rs) {
+				var code = rs.code;
+				if (code === 200) {
+					return callback(action,conditions,rs);
+				}else
+				if(code === 401){
+					alert("登陆信息已失效，请重新登陆！");
+					window.location.href=basePath+'login.html';
+				}
+			},
+			error : function(rs) {
+				if(rs.status === 401){
+					alert("登陆信息已失效，请重新登陆！");
+					window.location.href=basePath+'login.html';
+				}else
+					alert("加载异常：错误代码：" + rs.status + " " + rs.statusText);
+			}
+		});
+	}else
+	if(type == 'POST'){
+		$.ajax({
+			type: type, //POST
+			url : basePathAPI + action,
+			beforeSend: function(XMLHttpRequest) {
+				XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+			},
+			async : async, // true:异动 false：同步
+			data : JSON.stringify(conditions),
+			contentType:"application/json",
+			cache : false,
+			success : function(rs) {
+				var code = rs.code;
+				if (code === 200) {
+					return callback(action,conditions,rs);
+				}
+			},
+			error : function(rs) {
+				if(rs.status === 401){
+					alert("登陆信息已失效，请重新登陆！");
+					window.location.href=basePath+'login.html';
+				}else
+					alert("加载异常：错误代码：" + rs.status + " " + rs.statusText);
+			}
+		});
+	}
 }
 function loadByActionEx(action, callback, args, async) {
 	$.ajax({
@@ -439,4 +481,29 @@ function formatDateString(value) {
         
     };
 })();
+
+/**
+    * 判断 token 是否有效  该方法待验证 by zhangzy 2020-01-03
+*/
+function checkTokenActive(token){
+	let aliveModel = null;
+    // 先判断 key 是否存在
+    let tokenIsExist = stringRedisTemplate.boundHashOps("roulette_alive").hasKey(token);
+    //如果 key  存在 检查是否过期
+    if(tokenIsExist){
+ 		//检查当前key 有效时间
+            let jsonActive = stringRedisTemplate.opsForHash().get("roulette_alive", token);
+            aliveModel = JSON.parseObject(jsonActive, AliveModel.class);
+
+            let time = aliveModel.getTime();
+            let aliveTime =  (new Date().getTime() - time.getTime())/1000;
+            //超时时间
+            if(aliveTime>15000){
+             	stringRedisTemplate.opsForHash().delete("roulette_alive",token);//超时删除redis
+                return null;
+            }
+    }
+	return aliveModel;
+}
+
 
