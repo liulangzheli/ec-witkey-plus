@@ -99,7 +99,7 @@ public class ProjectOrderController extends BaseController {
      * 获取userId对应的项目订单
      */
     @GetMapping("/orderUser/{id}")
-    @ApiOperation(value = "获取ProjectOrderUser对象详情", notes = "查看user项目订单", response = ProjectOrderQueryVo.class)
+    @ApiOperation(value = "获取ProjectOrderUser对象详情", notes = "查看user项目订单", response = ProjectOrderUserQueryVo.class)
     public ApiResult<ProjectOrderUserQueryVo> getProjectOrderUserById(@PathVariable("id") Long id) throws Exception {
         ProjectOrderUserQueryVo projectOrderUserQueryVo = projectOrderService.getProjectOrderUserById(id);
         return ApiResult.ok(projectOrderUserQueryVo);
