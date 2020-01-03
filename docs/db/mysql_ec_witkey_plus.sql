@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 25/12/2019 18:08:20
+ Date: 04/01/2020 02:51:28
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `article`  (
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category`  (
   `id` bigint(20) NOT NULL COMMENT '主键',
-  `category_type` int(11) NULL DEFAULT NULL COMMENT '类别性质 0：需求分类 1：项目类型 2：项目专业 3：文章分类',
+  `category_type` int(11) NULL DEFAULT NULL COMMENT '类别性质 0：项目用途 1：需求分类 2：项目类型 3：项目专业 4：文章分类',
   `cate_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
   `cate_parent_id` bigint(20) NULL DEFAULT NULL COMMENT '父级分类ID',
   `sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
@@ -67,9 +67,9 @@ INSERT INTO `category` VALUES (14, 2, '别墅', 0, 3, '别墅', '2019-12-18 21:1
 INSERT INTO `category` VALUES (15, 2, '办公建筑', 0, 4, '办公建筑', '2019-12-18 21:19:38', NULL);
 INSERT INTO `category` VALUES (16, 3, '土建', 0, 1, '土建', '2019-12-18 21:20:15', NULL);
 INSERT INTO `category` VALUES (17, 3, '钢构', 0, 2, '钢构', '2019-12-18 21:20:30', NULL);
-INSERT INTO `category` VALUES (18, 3, '外墙装修', 0, 1, '外墙装修', '2019-12-18 21:20:50', NULL);
-INSERT INTO `category` VALUES (19, 3, '室内装修', 0, 2, '室内装修', '2019-12-18 21:21:10', NULL);
-INSERT INTO `category` VALUES (20, 3, '钢筋', 0, 3, '钢筋', '2019-12-18 21:21:23', NULL);
+INSERT INTO `category` VALUES (18, 3, '外墙装修', 0, 3, '外墙装修', '2019-12-18 21:20:50', NULL);
+INSERT INTO `category` VALUES (19, 3, '室内装修', 0, 4, '室内装修', '2019-12-18 21:21:10', NULL);
+INSERT INTO `category` VALUES (20, 3, '钢筋', 0, 5, '钢筋', '2019-12-18 21:21:23', NULL);
 INSERT INTO `category` VALUES (21, 0, '做算/预算', 0, 1, '做算/预算', '2019-12-18 21:28:13', NULL);
 INSERT INTO `category` VALUES (22, 0, '标度', 0, 2, '标度', '2019-12-18 21:30:46', NULL);
 INSERT INTO `category` VALUES (23, 0, '投标', 0, 3, '投标', '2019-12-18 21:32:08', NULL);
@@ -154,6 +154,9 @@ INSERT INTO `category` VALUES (101, 20, '市政管网', 61, 1, '市政管网', '
 INSERT INTO `category` VALUES (102, 21, '水利水电石油电力等', 62, 1, '水利水电石油电力等', '2019-12-25 15:05:18', NULL);
 INSERT INTO `category` VALUES (103, 22, '公共厕所', 63, 1, '公共厕所', '2019-12-25 15:05:47', NULL);
 INSERT INTO `category` VALUES (104, 22, '其他', 63, 2, '其他', '2019-12-25 15:06:06', NULL);
+INSERT INTO `category` VALUES (105, 3, '给水排水', 0, 6, '给水排水', '2019-12-28 23:09:54', NULL);
+INSERT INTO `category` VALUES (106, 3, '暖通燃气', 0, 7, '暖通燃气', '2019-12-28 23:10:19', NULL);
+INSERT INTO `category` VALUES (107, 3, '电气消防', 0, 8, '电气消防', '2019-12-28 23:10:53', NULL);
 
 -- ----------------------------
 -- Table structure for collect
@@ -221,6 +224,14 @@ CREATE TABLE `order_bidding`  (
   `remark` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单竞标信息' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of order_bidding
+-- ----------------------------
+INSERT INTO `order_bidding` VALUES (1211686585054035970, 1208593539768836097, 1209370776210362370, '2019-12-31 00:32:47', 2, '', '');
+INSERT INTO `order_bidding` VALUES (1211687515191279617, 1208594230834946049, 1209370776210362370, '2019-12-31 00:36:30', 0, '', '');
+INSERT INTO `order_bidding` VALUES (1212770938714607617, 1208595126922829825, 1209370776210362370, '2020-01-03 00:21:38', 0, '', '');
+INSERT INTO `order_bidding` VALUES (1213167568479604738, 1212938102897729537, 1209370776210362370, '2020-01-04 02:37:42', 2, '', '');
 
 -- ----------------------------
 -- Table structure for order_check
@@ -356,7 +367,7 @@ CREATE TABLE `project_order`  (
   `soft_supplier` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '软件供应商',
   `soft_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '软件名称',
   `intro` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细描述',
-  `state` int(11) NULL DEFAULT NULL COMMENT '订单状态 0：发布 1：进行中 2:  完成 3、关闭',
+  `state` int(11) NULL DEFAULT NULL COMMENT '订单状态 0：待审核  1：发布 2：进行中 3：完成 4：关闭',
   `remark` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '项目订单' ROW_FORMAT = Dynamic;
@@ -366,12 +377,13 @@ CREATE TABLE `project_order`  (
 -- ----------------------------
 INSERT INTO `project_order` VALUES (1208578902834864129, 1204778363118428162, '2019-12-22 10:43:59', NULL, NULL, NULL, NULL, 22, 5, '土建：砌体结构|土建：挖土方|钢构：挖土方|外墙装修：外墙保湿|外墙装修：外墙面装修|室内装修：初装（做到基层）|室内装修：精装（做到面层）|钢筋：预算钢筋#主体结构钢筋|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#主体结构钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '福州市', '鼓楼区', '2019-12-27 00:00:00', 0, 5, '软件供应商', '软件名称5', '详细描述5', 0, '');
 INSERT INTO `project_order` VALUES (1208589532056838146, 1204778363118428162, '2019-12-22 11:26:13', NULL, NULL, NULL, NULL, 24, 7, '土建：主体结构|土建：砌体结构|土建：边坡支护|土建：挖土方|土建：回填土|钢构：挖土方|外墙装修：外墙保湿|外墙装修：外墙面装修|室内装修：初装（做到基层）|室内装修：精装（做到面层）|钢筋：预算钢筋#主体结构钢筋|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#主体结构钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '思明区', '2019-12-27 00:00:00', 0, 3, '软件供应商', '软件名称5', '详细描述5', 0, '');
-INSERT INTO `project_order` VALUES (1208592128247128065, 1204778363118428162, '2019-12-22 11:36:32', '2019-12-22 11:48:27', NULL, NULL, NULL, 22, 5, '土建：主体结构|土建：边坡支护|土建：回填土|外墙装修：外墙面装修|室内装修：精装（做到面层）|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '湖里区', NULL, 1200, 3, '软件供应商', '', '', 0, '');
+INSERT INTO `project_order` VALUES (1208592128247128065, 1204778363118428162, '2019-12-22 11:36:32', NULL, NULL, NULL, NULL, 22, 5, '土建：主体结构|土建：边坡支护|土建：回填土|外墙装修：外墙面装修|室内装修：精装（做到面层）|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '湖里区', NULL, 1200, 3, '软件供应商', '', '', 0, '');
 INSERT INTO `project_order` VALUES (1208593082602283010, 1204778363118428162, '2019-12-22 11:40:20', NULL, NULL, NULL, NULL, 22, 5, '土建：主体结构|土建：边坡支护|土建：回填土|外墙装修：外墙面装修|室内装修：精装（做到面层）|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '集美区', NULL, 0, 3, '软件供应商', '', '', 0, '');
-INSERT INTO `project_order` VALUES (1208593539768836097, 1204778363118428162, '2019-12-22 11:42:09', '2019-12-22 11:48:27', NULL, NULL, NULL, 22, 5, '土建：主体结构|土建：边坡支护|土建：回填土|外墙装修：外墙面装修|室内装修：精装（做到面层）|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '海沧区', NULL, 0, 3, '软件供应商', '', '', 0, '');
-INSERT INTO `project_order` VALUES (1208594230834946049, 1204778363118428162, '2019-12-22 11:44:53', NULL, NULL, NULL, NULL, 22, 5, '土建：主体结构|土建：边坡支护|土建：回填土|外墙装修：外墙面装修|室内装修：精装（做到面层）|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '同安区', NULL, 0, 3, '软件供应商', '', '', 0, '');
-INSERT INTO `project_order` VALUES (1208595126922829825, 1204778363118428162, '2019-12-22 11:48:27', '2019-12-22 11:48:27', NULL, NULL, NULL, 25, 49, '土建：主体结构|土建：回填土|钢构：挖土方|外墙装修：外墙面装修|室内装修：初装（做到基层）|室内装修：精装（做到面层）|钢筋：预算钢筋#主体结构钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '翔安区', '2019-12-28 00:00:00', 0, 3, '软件供应商', '软件名称6', '详细描述6', 1, '');
-INSERT INTO `project_order` VALUES (1209769125379883009, 1204778363118428162, '2019-12-25 17:33:30', NULL, NULL, NULL, NULL, 21, 2, '土建：主体结构|土建：砌体结构|土建：防水工程|土建：边坡支护|土建：挖土方|土建：回填土|钢构：挖土方|外墙装修：外墙保湿|外墙装修：外墙面装修|室内装修：初装（做到基层）|室内装修：精装（做到面层）|钢筋：预算钢筋#主体结构钢筋|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#主体结构钢筋|钢筋：下料钢筋#砌体钢筋|给水排水：给水|管线预留预埋|给水排水：给水|终端安装|给水排水：排水|管线预留预埋|给水排水：排水|终端安装|暖通燃气：采暖系统|管线预留预埋|暖通燃气：采暖系统|终端安装|暖通燃气：通风系统|管线预留预埋|暖通燃气：通风系统|终端安装|暖通燃气：空调水|管线预留预埋|暖通燃气：空调水|终端安装|暖通燃气：空调电|管线预留预埋|暖通燃气：空调电|终端安装|暖通燃气：燃气系统|管线预留预埋|暖通燃气：燃气系统|终端安装|电气消防：强电系统|管线预留预埋|电气消防：强电系统|终端安装|电气消防：弱电系统|管线预留预埋|电气消防：弱电系统|终端安装|电气消防：消防水|管线预留预埋|电气消防：消防水|终端安装|电气消防：消防电|管线预留预埋|电气消防：消防电|终端安装|', '福建省', '厦门市', '思明区', '2019-12-27 00:00:00', 200, 3, '软件供应商', '软件名称1', '详细描述1', 0, '');
+INSERT INTO `project_order` VALUES (1208593539768836097, 1204778363118428162, '2019-12-22 11:42:09', '2019-12-29 14:13:56', NULL, NULL, NULL, 22, 5, '土建：主体结构|土建：边坡支护|土建：回填土|外墙装修：外墙面装修|室内装修：精装（做到面层）|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '海沧区', NULL, 0, 3, '软件供应商', '', '', 2, '');
+INSERT INTO `project_order` VALUES (1208594230834946049, 1204778363118428162, '2019-12-22 11:44:53', NULL, NULL, NULL, NULL, 22, 5, '土建：主体结构|土建：边坡支护|土建：回填土|外墙装修：外墙面装修|室内装修：精装（做到面层）|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '同安区', NULL, 0, 3, '软件供应商', '', '', 2, '');
+INSERT INTO `project_order` VALUES (1208595126922829825, 1204778363118428162, '2019-12-22 11:48:27', NULL, NULL, NULL, NULL, 25, 49, '土建：主体结构|土建：回填土|钢构：挖土方|外墙装修：外墙面装修|室内装修：初装（做到基层）|室内装修：精装（做到面层）|钢筋：预算钢筋#主体结构钢筋|钢筋：下料钢筋#砌体钢筋|', '福建省', '厦门市', '翔安区', '2019-12-28 00:00:00', 0, 3, '软件供应商', '软件名称6', '详细描述6', 2, '');
+INSERT INTO `project_order` VALUES (1209769125379883009, 1204778363118428162, '2019-12-25 17:33:30', '2019-12-27 14:59:59', NULL, NULL, NULL, 21, 2, '土建：主体结构|土建：砌体结构|土建：防水工程|土建：边坡支护|土建：挖土方|土建：回填土|钢构：挖土方|外墙装修：外墙保湿|外墙装修：外墙面装修|室内装修：初装（做到基层）|室内装修：精装（做到面层）|钢筋：预算钢筋#主体结构钢筋|钢筋：预算钢筋#砌体钢筋|钢筋：下料钢筋#主体结构钢筋|钢筋：下料钢筋#砌体钢筋|给水排水：给水|管线预留预埋|给水排水：给水|终端安装|给水排水：排水|管线预留预埋|给水排水：排水|终端安装|暖通燃气：采暖系统|管线预留预埋|暖通燃气：采暖系统|终端安装|暖通燃气：通风系统|管线预留预埋|暖通燃气：通风系统|终端安装|暖通燃气：空调水|管线预留预埋|暖通燃气：空调水|终端安装|暖通燃气：空调电|管线预留预埋|暖通燃气：空调电|终端安装|暖通燃气：燃气系统|管线预留预埋|暖通燃气：燃气系统|终端安装|电气消防：强电系统|管线预留预埋|电气消防：强电系统|终端安装|电气消防：弱电系统|管线预留预埋|电气消防：弱电系统|终端安装|电气消防：消防水|管线预留预埋|电气消防：消防水|终端安装|电气消防：消防电|管线预留预埋|电气消防：消防电|终端安装|', '福建省', '厦门市', '思明区', '2019-12-27 00:00:00', 200, 3, '软件供应商', '软件名称1', '详细描述1', 4, '');
+INSERT INTO `project_order` VALUES (1212938102897729537, 1204778363118428162, '2020-01-03 11:25:53', '2020-01-03 11:26:41', NULL, NULL, NULL, 24, 7, '土建：砌体结构|土建：边坡支护|钢构：挖土方|外墙装修：外墙保湿|外墙装修：外墙面装修|钢筋：预算钢筋#主体结构钢筋|钢筋：下料钢筋#砌体钢筋|给水排水：给水|终端安装|给水排水：排水|管线预留预埋|暖通燃气：通风系统|管线预留预埋|暖通燃气：空调电|终端安装|暖通燃气：燃气系统|终端安装|电气消防：强电系统|管线预留预埋|电气消防：弱电系统|管线预留预埋|电气消防：消防水|终端安装|电气消防：消防电|管线预留预埋|', '福建省', '厦门市', '思明区', '2020-01-31 00:00:00', 3000, 4, '软件供应商', '海迈计价软件', '1、本工程为民用住宅计划投资金额为20万（不含基础。\r\n 2、-层层高为3300，二层层高3000，三层3000（均含板厚），板厚120（可调整）\r\n 3、使用斜屋面，露合部分考虑使用透明玻璃 需要考虑防水做法防止平层漏水）\r\n 4、一层考虑使用24墙二层考虑使用18墙，三层考虑12墙。\r\n 5、注意楼梯位置，考虑使用直角楼梯此位置需要通透。\r\n 6、房屋朝向为正东方向。\r\n 7、正北方邻邻居住房间距为500.\r\n 8、二层、三层地面考虑使用瓷砖块料。一层不做考虑\r\n 需要出：结构图', 2, '');
 
 -- ----------------------------
 -- Table structure for project_requirement
@@ -422,6 +434,8 @@ INSERT INTO `project_requirement` VALUES (1209769126252298242, 12, 28, 120976912
 INSERT INTO `project_requirement` VALUES (1209769126495567873, 12, 30, 1209769125379883009, 1, 0, 14, 0, '');
 INSERT INTO `project_requirement` VALUES (1209769126734643202, 58, 90, 1209769125379883009, 1, 0, 131, 0, '');
 INSERT INTO `project_requirement` VALUES (1209769126914998274, 63, 103, 1209769125379883009, 1, 0, 181, 0, '');
+INSERT INTO `project_requirement` VALUES (1212938106521608194, 12, 28, 1212938102897729537, 1, 0, 12, 0, '');
+INSERT INTO `project_requirement` VALUES (1212938106962010114, 14, 35, 1212938102897729537, 1, 0, 32, 0, '');
 
 -- ----------------------------
 -- Table structure for project_source
@@ -450,6 +464,7 @@ INSERT INTO `project_source` VALUES (1208593355164934145, 'form.2.zip', 'http://
 INSERT INTO `project_source` VALUES (1208593858426888193, 'form.2.zip', 'http://localhost:8888//resource/201912221143039.zip', '.zip', 748, 1208593539768836097, '');
 INSERT INTO `project_source` VALUES (1208595252122804225, '智慧城市建设参考模型.jpg', 'http://localhost:8888//resource/201912221148573.jpg', '.jpg', 29938, 1208595126922829825, '');
 INSERT INTO `project_source` VALUES (1209769128949235713, 'B栋.jpg', 'http://localhost:8888//resource/201912251733312.jpg', '.jpg', 127222, 1209769125379883009, '');
+INSERT INTO `project_source` VALUES (1212938112259416065, 'B栋.jpg', 'http://localhost:8888//resource/202001031125554.jpg', '.jpg', 127222, 1212938102897729537, '');
 
 -- ----------------------------
 -- Table structure for sys_department
@@ -694,7 +709,7 @@ CREATE TABLE `sys_user`  (
   `gender` int(11) NULL DEFAULT 1 COMMENT '性别，0：女，1：男，默认1',
   `head` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
   `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'remark',
-  `state` int(11) NOT NULL DEFAULT 1 COMMENT '状态，0：禁用，1：启用，2：锁定',
+  `state` int(11) NOT NULL DEFAULT 0 COMMENT '状态，0：禁用，1：启用，2：锁定',
   `department_id` bigint(20) NULL DEFAULT NULL COMMENT '部门id',
   `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色id',
   `deleted` int(11) NOT NULL DEFAULT 0 COMMENT '逻辑删除，0：未删除，1：已删除',
@@ -745,9 +760,10 @@ INSERT INTO `sys_user` VALUES (1204686952079663105, 'test6', NULL, 'fba44665f916
 INSERT INTO `sys_user` VALUES (1204778363118428162, 'c-test1', NULL, 'd6a7f5ff5dacdd34eb56fa85fc5cb5ad97a94fb14ec0f517a4647ad6919fdb03', '1c7ea89b9ab9c8dd340522392cadbad8', '15343434343', 1, NULL, NULL, 1, 1, 2, 0, 0, '2019-12-11 23:02:00', NULL, 1, 0, '福建省', '厦门市', '湖里区', NULL, '122622537@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '123213213232323232', 'http://localhost:8888//resource/201912112301596.jpg', NULL, NULL, NULL);
 INSERT INTO `sys_user` VALUES (1204778824307318785, 'p-test1', NULL, '7a89653f3df03e321a11ab05ec4c1e5ac1b5196da3eedb3426433c13102009c7', '74571b9d7a51934daeb67f331b8ed9de', '15343434343', 1, NULL, NULL, 1, 1, 3, 0, 0, '2019-12-11 23:03:50', NULL, 0, 1, '福建省', '福州市', '鼓楼区', NULL, '122622537@qq.com', NULL, NULL, NULL, 'wx12', NULL, '350345454656565656', 'http://localhost:8888//resource/201912112303500d28e3ceb-771d-4880-8c62-08cbf07471f1.jpg', 'http://localhost:8888//resource/201912112303500a193b711-6cf6-40da-ade6-fe065086ab16.jpg', NULL, '2019-12-20', '天蝎座', NULL, '一起努力队', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_user` VALUES (1205491868817760258, 'c-test2', NULL, '45d3fcbf7552e94d796fd933eaacf8aa2d9f00e9435d8b653e795e927f875f10', '69d482c5e6023a7ca8debc5fa574fbc0', '15343434343', 1, NULL, NULL, 1, 1, 2, 0, 0, '2019-12-13 22:17:13', NULL, 1, 0, '福建省', '三明市', '梅列区', NULL, '122622537@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '123213213232323232', 'http://localhost:8888//resource/201912132217119.jpg', NULL, NULL, NULL);
-INSERT INTO `sys_user` VALUES (1205492195604373505, 'p-test2', NULL, 'eedcc5e68e67bea591f1ec5afdab5c2d5c41ddb49041be4d674b7c3dddf2fcd1', '44700d3ee99b2b819c500fe4da980b4e', '15343434343', 1, NULL, NULL, 1, 1, 3, 0, 0, '2019-12-13 22:18:31', NULL, 0, 1, '福建省', '三明市', '泰宁县', NULL, '122622537@qq.com', NULL, NULL, NULL, 'wx1', NULL, '350345454656565656', 'http://localhost:8888//resource/2019121322183090dff4ce9-4853-46e4-97d7-25c3fe6705f7.jpg', 'http://localhost:8888//resource/2019121322183105d046e8d-3a3c-4ffe-8154-f8a470cf8ccf.jpg', NULL, '', '天蝎座', NULL, '一起努力队', NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `sys_user` VALUES (1209370478100205570, 'G-test1', NULL, '778d58218662bcaa96b5f96c5f776941dbb175b57cfd3e6aed315df553a77c53', '18273e34ce8ff79c935e84ca96a86a30', '15343434343', 1, NULL, NULL, 1, 1, 2, 0, 0, '2019-12-24 15:09:25', NULL, 1, 0, '福建省', '厦门市', '思明区', NULL, '122622537@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '123213213232323232', 'http://localhost:8888//resource/201912241509144.jpg', NULL, NULL, NULL);
-INSERT INTO `sys_user` VALUES (1209370776210362370, 'f-test1', NULL, '20c0f710d5d50d1a9272d59b7ac6f76de93351ffb8e35893c625656a53090bb8', 'fb583bd2575f196db85ec6740443813f', '15343434343', 1, NULL, NULL, 1, 1, 3, 0, 0, '2019-12-24 15:10:36', NULL, 0, 1, '福建省', '厦门市', '海沧区', NULL, '122622537@qq.com', NULL, NULL, NULL, 'wx1', NULL, '350345454656565657', 'http://localhost:8888//resource/20191224151036499906545-f5b1-49c4-a9f9-4ba826d4e364.jpg', 'http://localhost:8888//resource/201912241510365736f411e-572e-46bf-a09d-171982c55e3d.jpg', NULL, '2019-12-27', '', NULL, '一起努力队', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_user` VALUES (1205492195604373505, 'p-test2', NULL, 'eedcc5e68e67bea591f1ec5afdab5c2d5c41ddb49041be4d674b7c3dddf2fcd1', '44700d3ee99b2b819c500fe4da980b4e', '15343434343', 1, NULL, NULL, 0, 1, 3, 0, 0, '2019-12-13 22:18:31', NULL, 0, 1, '福建省', '三明市', '泰宁县', NULL, '122622537@qq.com', NULL, NULL, NULL, 'wx1', NULL, '350345454656565656', 'http://localhost:8888//resource/2019121322183090dff4ce9-4853-46e4-97d7-25c3fe6705f7.jpg', 'http://localhost:8888//resource/2019121322183105d046e8d-3a3c-4ffe-8154-f8a470cf8ccf.jpg', NULL, '', '天蝎座', NULL, '一起努力队', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_user` VALUES (1209370478100205570, 'G-test1', NULL, '778d58218662bcaa96b5f96c5f776941dbb175b57cfd3e6aed315df553a77c53', '18273e34ce8ff79c935e84ca96a86a30', '15343434343', 1, NULL, NULL, 0, 1, 2, 0, 0, '2019-12-24 15:09:25', NULL, 1, 0, '福建省', '厦门市', '思明区', NULL, '122622537@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '123213213232323232', 'http://localhost:8888//resource/201912241509144.jpg', NULL, NULL, NULL);
+INSERT INTO `sys_user` VALUES (1209370776210362370, 'f-test1', NULL, '20c0f710d5d50d1a9272d59b7ac6f76de93351ffb8e35893c625656a53090bb8', 'fb583bd2575f196db85ec6740443813f', '15343434343', 1, NULL, NULL, 1, 1, 3, 0, 0, '2019-12-24 15:10:36', '2019-12-27 17:16:10', 0, 1, '福建省', '厦门市', '海沧区', NULL, '122622537@qq.com', NULL, NULL, NULL, 'wx1', NULL, '350345454656565657', 'http://localhost:8888//resource/20191224151036499906545-f5b1-49c4-a9f9-4ba826d4e364.jpg', 'http://localhost:8888//resource/201912241510365736f411e-572e-46bf-a09d-171982c55e3d.jpg', NULL, '2019-12-27', '', NULL, '一起努力队', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_user` VALUES (1210492597647204353, 'p-test3', NULL, '17effde9055b3eaee35892d670d577321fdd0f412bcda55878077717ac0af586', '7b90ee848a550f5dad441bf6fce6c433', '15343434343', 1, NULL, NULL, 0, 1, 2, 0, 0, '2019-12-27 17:28:20', NULL, 0, 1, '福建省', '厦门市', '思明区', NULL, '122622537@qq.com', NULL, NULL, NULL, '', NULL, '350345454656565657', 'http://localhost:8888//resource/201912271726069781268e7-569d-4d12-a9cd-e086afabd9a5.jpg', 'http://localhost:8888//resource/2019122717260701416d460-b8d0-473a-9f9f-a900a1bd9d9b.jpg', NULL, '', '', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for team
