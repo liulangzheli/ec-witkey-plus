@@ -77,6 +77,10 @@ public class ApiResult<T> implements Serializable {
         return ok(id);
     }
 
+    public static ApiResult result(int count){
+        return ok(count);
+    }
+
     public static ApiResult result(boolean flag){
         if (flag){
             return ok();
