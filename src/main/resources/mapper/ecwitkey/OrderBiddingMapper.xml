@@ -38,14 +38,18 @@
             and po.state = #{param.orderState}
         </if>
         <if test="param.orderStates!=null">
-            and po.state in (#{param.orderStates})
+
+            and po.state <![CDATA[<>]]> #{param.orderStates}
+
         </if>
+        ORDER by ob.create_time DESC
     </select>
 
     <select id="getOrderBiddingPageList" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingQueryVo">
         select
         <include refid="Base_Column_List"/>
         from order_bidding
+        ORDER by create_time DESC
     </select>
 
 </mapper>

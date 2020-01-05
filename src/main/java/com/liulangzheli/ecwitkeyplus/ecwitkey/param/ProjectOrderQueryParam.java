@@ -29,6 +29,12 @@ import com.liulangzheli.ecwitkeyplus.common.param.OrderQueryParam;
         @ApiModelProperty(value = "状态")
         private int state;
 
+        @ApiModelProperty(value = "状态List")
+        private String states;
+
+        @ApiModelProperty(value = "状态List")
+        private String[] stateList;
+
         @ApiModelProperty(value = "项目专业")
         private String major;
 }
