@@ -115,11 +115,25 @@ function loadCategory(cateId){
 	return records;
 }
 
-function loadProjectOrderData(state,curPage=1,pageSize=10){
+function loadProjectOrderData(states,curPage=1,pageSize=10){
 	var records = null;
+	let stateList = null;
+	let state = -1;//-1:表示不用这个字段过滤
+	let statesLength = 0;
+	let newStates = null;
+	statesLength = (new String(states)).length;
+	if(statesLength == 1){
+		state = states;
+	}else{
+		let statesArray = (new String(states)).split("-");
+		newStates = statesArray[1];
+	}
+	//stateList = (new String(states)).split(",");
 	var projectOrderQueryParam = {
 		"current": curPage,
 		"state": state,
+		"states": newStates,//目前，后台采用!=,而不是in方式
+		//"stateList": stateList,
 		"size": pageSize
 	};
 	
@@ -137,14 +151,27 @@ function loadProjectOrderData(state,curPage=1,pageSize=10){
 			var code = rs.code;
 			if (code === 200) {
 				records = rs.data.records;
-				showData(records,state);
-				loadProjectsPage(curPage,state,rs.data.total);
-			}else{
+				showData(records,states);
+				loadProjectsPage(curPage,states,rs.data.total);
+			}else
+			if(code === 401){
+				alert("登陆信息已失效，请重新登陆！");
+				window.location.href=basePath+'sys/login.html';
+			}
+			else{
 				alert("项目订单查询异常！错误代码：" + rs.code + " " + rs.msg);
+
 			}
 		},
 		error:function(rs){
-			alert("项目订单查询异常！错误代码：" + rs.status + " " + rs.statusText);
+			if(rs.status === 401){
+				alert("登陆信息已失效，请重新登陆！");
+				window.location.href=basePath+'sys/login.html';
+			}
+			else{
+				alert("项目订单查询异常！错误代码：" + rs.status + " " + rs.statusText);
+			}
+			
 		}
 	});
 	return records;
@@ -208,18 +235,15 @@ function getProjectSourceByOrderId(orderId){
 	return records;
 }
 
-function showData(data,state){
+function showData(data,states){
    if(data!=null&&data!=undefined){
 		var _str='';
-		if(state == 0){
+		if(states == 0){
 			_str += '<div class="dataList dd9 marA10 bdA">'
 			+ '<dl><h2 class="pdL">待审核项目</h2></dl>';
-		}else if(state === 1){
-			_str += '<div class="dataList dd9 marA10 bdA">'
-			+ '<dl><h2 class="pdL">已审核项目</h2></dl>';
 		}else{
 			_str += '<div class="dataList dd9 marA10 bdA">'
-			+ '<dl><h2 class="pdL">未知项目</h2></dl>';
+			+ '<dl><h2 class="pdL">已审核项目</h2></dl>';
 		}
 		_str += '<dl>'
 				+ '<dt class="dd101" txAC>选择</dt>' //1  5%
@@ -250,7 +274,7 @@ function showData(data,state){
 			if(data[i].payTime != null){
 				payState = "已付款";
 			}else{
-				payState = "<a href=\"javascript:void(0)\" class=\"greenButton pdLR\" onclick=\"confirmPay(this,\'" + data[i].id +"\',"+state+")\">请确认付款</a>";
+				payState = "<a href=\"javascript:void(0)\" class=\"greenButton pdLR\" onclick=\"confirmPay(this,\'" + data[i].id +"\',"+states+")\">请确认付款</a>";
 			}
 
 			var proStateStr = "-";
@@ -303,20 +327,20 @@ function showData(data,state){
 }
 
 //项目审核分页功能
-function loadProjectsPage(curPage,proState,records=0) {
+function loadProjectsPage(curPage,proStates,records=0) {
 	var pageSize = 10;
 	// var pageAmount = 3;
 	var pageTotal = 0;
 	var dataTotal = 0;
 	var pState = 0;
-	if(proState!=null&&proState!=undefined){
+	if(proStates!=null&&proStates!=undefined){
 		if(records!=null&&records!=undefined){
 			dataTotal = records;//总记录数
 			pageTotal = Math.ceil(dataTotal/pageSize);
 			if(pageTotal === 0)
 			 	pageTotal = 1;
 		}
-		pState = proState;
+		pState = proStates;
 	}
 	 new Page({
 		 id: 'pagination',
@@ -459,7 +483,7 @@ function confirmProject(tag,state,orderId){
 				 case 0:
 					user_type = "个人/团队";
 					sourceName = "<a href=\""+data[i].idFront+"\"><img alt=\"身份证正面\" height=\"40\" width=\"40\" src=\""+data[i].idFront+"\"/></a>"
-			 + "&nbsp;&nbsp;<a href=\""+data[i].idBack+"\"><img alt=\"身份证反面\" height=\"40\" width=\"40\" src=\""+data[i].idBack+"\"/></a>";
+			        + "&nbsp;&nbsp;<a href=\""+data[i].idBack+"\"><img alt=\"身份证反面\" height=\"40\" width=\"40\" src=\""+data[i].idBack+"\"/></a>";
 					userInfo = "<p>联系电话：<span class=\"marR\">"+data[i].phone+"</span>&nbsp;所在地：<span>"+data[i].province+data[i].city+data[i].zone+"</span></p>"
 					+ "<p>公司/团队名称：<span>"+teamName+"</span></p>"
 					+ "<p>身份证：<span>"+data[i].idNum+"</span></p>";

@@ -294,7 +294,7 @@ function getProInfo(action,conditions,rs){//获取项目信息
 			let userQueryParam={
 				'current':'1',
 				'size':"50",//最多50个投标人
-				'orderStates':"1,2,3,4",
+				'orderStates':"0-0",//'orderStates':"1,2,3,4",
 				'type':"POST",
 				'major': '',
 				'keyword':'',
@@ -633,18 +633,18 @@ function getOrderBiddingList(action,conditions,rs){//获取已投标算客列表
 				}
 			}
 		       
-		   _str+='<dl><dd class="dd2 txAC"><div class="marT30 bdA txAC"><img class="head" alt="头像" height=50px width=50px src="'+_headPicSrc+'"/></div></dd>'
+		   _str+='<dl><dd class="dd2 txAC"><img class="head" alt="头像" height=50px width=50px src="'+_headPicSrc+'"/></dd>'
 		   		+'<dd class="dd4 txAL">'+_userInfo+'</dd>'
 				+'<dd class="dd1 txAC">'+_bidState+'</dd>' 
 				+'<dd class="dd3 txAC">';
 			if(item.state != 2){
-				_str += '<div class="marT30 bdA txAC"><a href="javascript:void(0);" onclick="selectedBidding(\''+item.id+'\',\''+item.orderId+'\',\'2\')" class="orangeButton dd25 txAC">定 标&nbsp;</a></div>';  
+				_str += '<div class="marT30 txAC"><a href="javascript:void(0);" onclick="selectedBidding(\''+item.id+'\',\''+item.orderId+'\',\'2\')" class="orangeButton dd25 txAC">定 标&nbsp;</a></div>';  
 			}else{
-				_str += '<div class="marT30 bdA txAC"><a href="javascript:void(0);" onclick="selectedBidding(\''+item.id+'\',\''+item.orderId+'\',\'0\')" class="orangeButton dd25 txAC">取 消&nbsp;</a></div>'; 
+				_str += '<div class="marT30 txAC"><a href="javascript:void(0);" onclick="selectedBidding(\''+item.id+'\',\''+item.orderId+'\',\'0\')" class="orangeButton dd25 txAC">取 消&nbsp;</a></div>'; 
 			}
 			_str +='</dd></dl>'; 
 	   });
-	   _str += '</div><div id="pagination" class="pagination txAC"></div>';
+	   //_str += '</div><div id="pagination" class="pagination txAC"></div>';
 	   $('#bidding').empty().append(_str);
 	   loadPage(action,conditions,rs.data.total,getOrderBiddingList);	
 	}

@@ -78,344 +78,14 @@
 
   <div class="floorZone bdB proType">
       <h3>1、项目用途<span>(只可选一个)</span></h3>
-      <div id="needType">
-      </div>
-      <!-- <div><b>1111&nbsp;</b>
-      <label for="needType0">做算/预算<input type="radio" name="needType" id="needType0" value="21" onclick="setSelected(this,'radio',0)" /></label>
-      <label for="needType1">标度<input type="radio" name="needType" id="needType1" value="22" onclick="setSelected(this,'radio',1)"/></label>
-      <label for="needType2">投标<input type="radio" name="needType" id="needType2" value="23" onclick="setSelected(this,'radio',2)"/></label>
-      <label for="needType3">施工图预算<input type="radio" name="needType" id="needType3" value="24" onclick="setSelected(this,'radio',3)"/></label>
-      <label for="needType4">结算<input type="radio" name="needType" id="needType4" value="25" onclick="setSelected(this,'radio',3)"/></label>
-      </div> -->
+      <div id="needType"></div>
       <h3>2、需求分类<span>(只可选一个)</span></h3>
-      <div class="childBox childBox0" id="childBox">
-      </div>
-      <!-- <div class="childBox childBox0" id="childBox0">
-          <label for="childType0" class="c"><input type="radio" name="childType" id="childType0" value="1"/>按图算量组价</label>
-          <label for="childType1" class="c"><input type="radio" name="childType" id="childType1" value="2"/>简图模拟清单</label>
-          <label for="childType2" class="c"><input type="radio" name="childType" id="childType2" value="3"/>无图功能清单</label>
-      </div>
-      <div class="childBox childBox1 dsNone">
-          <label for="childType3" class="c"><input type="radio" name="childType" id="childType3" value="4"/>算量</label>
-          <label for="childType4" class="c"><input type="radio" name="childType" id="childType4" value="5"/>算量+编清单+组价</label>
-      </div>
-      <div class="childBox childBox2 dsNone">
-          <label for="childType5" class="c"><input type="radio" name="childType" id="childType5" value="6"/>组价</label>
-          <label for="childType6" class="c"><input type="radio" name="childType" id="childType6" value="7"/>算量+编清单+组价</label>
-      </div>
-      <div class="childBox childBox3 dsNone">
-          <label for="childType7" class="c"><input type="radio" name="childType" id="childType7" value="组价"/>组价</label>
-          <label for="childType8" class="c"><input type="radio" name="childType" id="childType8" value="算量"/>算量</label>
-          <label for="childType9" class="c"><input type="radio" name="childType" id="childType9" value="7"/>编清单</label>
-          <label for="childType10" class="c"><input type="radio" name="childType" id="childType10" value="算量+组价"/>算量+组价</label>
-          <label for="childType11" class="c"><input type="radio" name="childType" id="childType11" value="算量+编清单"/>算量+编清单</label>
-          <label for="childType12" class="c"><input type="radio" name="childType" id="childType12" value="编清单+组价"/>编清单+组价</label>
-          <label for="childType13" class="c"><input type="radio" name="childType" id="childType13" value="算量+编清单+组价"/>算量+编清单+组价</label>
-          <label for="childType14" class="c"><input type="radio" name="childType" id="childType14" value="建模"/>建模</label>
-      </div> -->
+      <div class="childBox childBox0" id="childBox"></div>
   </div>
   <div class="floorZone bdB proType"> 
       <h3>3、项目类型<span>(可多选)</span></h3>
       <div class="protypeline"></div>
-      <div id="projectType">
-          <!-- <div ><b id="12">住宅：</b>
-              <label>多层住宅（7层以下）<input type="checkbox" contype="0"name="pro_0_type"id="pro_0_type0" value="多层住宅（7层以下）" onclick="setSelected(this,'checkbox')"/>          
-              </label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>住宅</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text" name="pro_0_type0_qty" value="1" /></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_0_type0_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_0_type0',1)"class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_0_type0',1)"class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>                                        
-                   </div>
-                  </div>
-              <label>中层住宅（18层及以下）<input type="checkbox" contype="0"name="pro_0_type"id="pro_0_type1" value="中层住宅（18层及以下）" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>住宅</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_0_type1_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_0_type1_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_0_type1',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_0_type1',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div>  
-              <label>高层住宅<input type="checkbox" contype="0" name="pro_0_type"id="pro_0_type2" value="高层住宅" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>住宅</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_0_type2_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_0_type2_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_0_type2',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_0_type2',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div>        
-              <label>售楼中心<input type="checkbox" contype="0" name="pro_0_type"id="pro_0_type3" value="售楼中心" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>住宅</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_0_type3_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_0_type3_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_0_type3',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_0_type3',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div>         
-          </div>
-          <div ><b id="13">公寓：</b>
-              <label>多层住宅（7层以下）<input type="checkbox" contype="0" name="pro_1_type"id="pro_1_type0" value="多层住宅（7层以下）" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>公寓</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_1_type0_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_1_type0_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_1_type0',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_1_type0',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div>          
-              <label>中层住宅（18层及以下）<input type="checkbox" contype="0" name="pro_1_type"id="pro_1_type1" value="中层住宅（18层及以下）" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>公寓</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_1_type1_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_1_type1_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_1_type1',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_1_type1',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div>          
-              <label>高层住宅<input type="checkbox" contype="0" name="pro_1_type"id="pro_1_type2" value="高层住宅" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>公寓</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_1_type2_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_1_type2_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_1_type2',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_1_type2',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div>  
-          </div>
-          <div ><b id="14">别墅：</b>
-              <label>独栋别墅<input type="checkbox" name="pro_2_type" contype="0"id="pro_2_type0" value="独栋别墅" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>别墅</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_2_type0_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_2_type0_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_2_type0',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_2_type0',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div> 
-             <label>双拼/联排/叠拼<input type="checkbox" name="pro_2_type" contype="0" id="pro_2_type1" value="双拼/联排/叠拼" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>别墅</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_2_type1_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_2_type1_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_2_type1',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_2_type1',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div> 
-          </div>
-          <div ><b id="15">办公建筑：</b>
-              <label>四级办公楼<input type="checkbox" name="pro_3_type" contype="0" id="pro_3_type0" value="四级办公楼" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>办公建筑</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_3_type0_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_3_type0_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_3_type0',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_3_type0',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div>  
-              <label>自用办公楼<input type="checkbox" name="pro_3_type" contype="0" id="pro_3_type1" value="自用办公楼" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>办公建筑</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_3_type1_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_3_type1_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_3_type1',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','pro_3_type1',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div>  
-              <label>派出所/消防站<input type="checkbox" name="pro_3_type" contype="0" id="pro_3_type2" value="派出所/消防站" onclick="setSelected(this,'checkbox')"/></label>
-              <div class="modal-dialog-box">
-                 <div class="modal-dialog">
-                        <h3>项目类型：<span>办公建筑</span></h3>
-                        <div class="dd8 marA">
-                             <table>
-                                <tr>
-                                   <td align="right">单体数量：</td>
-                                   <td><input type="text"  name="pro_3_type2_qty" value="1"/></td>
-                                </tr>
-                                <tr>
-                                   <td align="right">地上总建筑面积：</td>
-                                   <td><input type="number" name="pro_3_type2_area"/>平米</td>
-                                </tr>
-                                <tr><td colspan="2" align="left">说明：</td></tr>
-                                <tr><td colspan="2" align="left">1、确认后，可继续选择其他项目类型 2、如有地下部分（车库、地下室等），请单独添加地下部分项目类型。注意：基础层不需要单独输入。</td></tr>
-                                <tr>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','',1)" class="greyButton pdLR ">关闭</a></td>
-                                    <td align="center"><a href="javascript:void(0)" onclick="showBox('modal-dialog-box','',1)" class="orangeButton pdLR">确认</a></td>
-                                </tr>
-                             </table>
-                        </div>
-                   </div>    
-                  </div>  
-          </div> -->
-      </div>
+      <div id="projectType"></div>
   </div> 
    <div class="floorZone bdB proType" id="major"> 
       <h3>4、项目专业<span>(可多选)</span></h3>
@@ -440,7 +110,6 @@
           <label for="major_3_type1">精装（做到面层）<input type="checkbox" name="major_3_type" id="major_3_type1" value="精装（做到面层）" onclick="setSelected(this,'checkbox')"/></label>
       </div>
       <div><p><b>钢筋：</b>
-          <!-- <label for="major_4_type0">预算钢筋:<input type="checkbox" name="major_4_type" id="major_4_type0" value="预算钢筋" onclick="setSelected(this,'checkbox')"/></label> -->
           预算钢筋:
           <label for="major_4_type0_0" class="c"><input type="checkbox" name="major_4_type" id="major_4_type0_0" value="预算钢筋#主体结构钢筋" onclick="setSelected(this,'checkbox')"/>主体结构钢筋</label>
           <label for="major_4_type0_1"  class="c"><input type="checkbox" name="major_4_type" id="major_4_type0_1" value="预算钢筋#砌体钢筋" onclick="setSelected(this,'checkbox')"/>砌体钢筋</label></p>
@@ -552,8 +221,16 @@
       </div>
    </div> 
    <div class="floorZone pdTB bdB proType">
-        <div><b class="pdetail l">10、详细描述：</b><textarea rows="20" cols="50" placeholder="" name="intro" ></textarea></div>
-         <div><b>&nbsp;</b><a href="javascript:void(0)">计量需求模板</a><a href="javascript:void(0)">计量列项需求模板</a><a href="javascript:void(0)">计量计价需求模板</a></div>
+         <div>
+           <b class="pdetail l">10、详细描述：（*）</b>
+           <textarea rows="20" cols="50" placeholder="" name="intro" id="intro"></textarea>
+         </div>
+         <div>
+            <b>&nbsp;</b>
+            <a href="javascript:void(0)">计量需求模板</a>
+            <a href="javascript:void(0)">计量列项需求模板</a>
+            <a href="javascript:void(0)">计量计价需求模板</a>
+         </div>
    </div>  <!--end floorZone-->
     <div class="floorZone pdTB bdB proType">
        <div><b class="l">11、上传图纸资料：</b>
@@ -573,7 +250,7 @@
  </div>
            <div class="modal-dialog-box loginBox">
          	 <div class="modal-dialog">
-					<h3>登录</h3>
+					<!-- <h3>登录</h3>
                     <div class="dd8 marA">
                          <table>
                             <tr>
@@ -590,7 +267,7 @@
                             	<td align="center"><a href="register.html" class="greyButton pdLR">注册</a></td>
                             </tr>
                          </table>
-                    </div>
+                    </div> -->
                </div>    
               </div>  <!--end modal-dialog-box--> 
 

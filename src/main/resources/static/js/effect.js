@@ -236,7 +236,12 @@ function selectedBidding(bidId,orderId,state){//定标
 		function bidRes(action,conditions,rs){
 			if(rs!=null&& rs.code == 200){
 				//todo 更新project_order表的state为2
-				updateProjOrder(orderId,2);
+				if(state == 0){//多人中标后，又取消呢？ 2020-01-05
+					updateProjOrder(orderId,1);
+				}
+				if(state == 2){
+					updateProjOrder(orderId,2);
+				}
 				//alert('定标操作完成！');
 			}else{
 				alert('定标操作异常！异常信息：执行更新异常。');
@@ -266,14 +271,14 @@ function updateProjOrder(orderId,state){//
 		loadData('projectOrder/update',updateParam,bidRes,null,false);
 		function bidRes(action,conditions,rs){
 			if(rs!=null&& rs.code == 200){
-				alert('定标操作完成！');
+				alert('操作完成！');
 				window.location.href=basePath+'pinfo.html?id='+orderId;
 			}else{
-				alert('定标操作异常！异常信息：执行更新异常。');
+				alert('操作异常！异常信息：执行更新异常。');
 			}
 		}
     }else{
-		alert('定标操作异常！异常信息：获取不到投标记录。');
+		alert('操作异常！异常信息：获取不到投标记录。');
 	}
 }
 function acceptPro(id,choice){//服务商应邀项目
@@ -382,9 +387,10 @@ $(document).ready(function() {
   }
   let current = getParamValue('current');
 
-    //设置菜单权限
+	//设置菜单权限
+	let _menuLink = '';
 	if($.cookie('roleId') != null){
-		let _menuLink = '';
+		
 		switch($.cookie('roleId')){
 			//1:管理员 2：雇主 3：服务商
 			case '1':
@@ -406,8 +412,11 @@ $(document).ready(function() {
 				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>找项目</a>';
 				break;
 		}
-		$('#menuLink').empty().append(_menuLink);
+		
+	}else{
+		_menuLink ='<a href="index.html" class="active">首页</a>';
 	}
+	$('#menuLink').empty().append(_menuLink);
 
   if(page=="mCenter"||page=="mInfo"||page=="mCrop"||page=="modifyPwd"||
   page=="mOrder"||page=="mCollect"||page=="mTeam"||page=="mTransaction"
@@ -425,26 +434,15 @@ $(document).ready(function() {
   }
 	if(page=='login'||page=='pRegister'||page=='cRegister')
 		checkLogin();
-  switch(page) {
+    switch(page) {
      	case "home"://首页
 			 break;
 		case "mpInfo"://会员个人首页
-			//todo
 			let  _str="";
 			_str ='<p><a href="javascript:void(0)">'+$.cookie('userName')+'</a></p>'
 				 +'<p>工号：'+$.cookie('userId')+'</p>'
 				 +'<p><a href="javascript:void(0)" id="beserver">角色：'+$.cookie('roleName')+'</a> </p>';
 			$('#userMessage').empty().append(_str);
-			
-			// if(conditions != null&&conditions!="unknow"&&conditions!="undefined"){
-			// 	orderQuery.current=conditions.current;
-			// 	orderQuery.size = conditions.size;
-			// 	orderQuery.userId = $.cookie('userId');
-			// }else
-			// if(current!=null&&current!="unknow"&&current!="undefined"){
-			// 	orderQuery.current = current;
-			// }
-			//loadData('projectOrder/getPageListByUserIdAndOrderId',orderQuery, getProdListByUserId, null, false);
 	         break;
 		case "addProject"://发布项目
 			showNeedType(loadCategory(0,0));
@@ -605,7 +603,12 @@ $(document).ready(function() {
 						maxlength:18
 					},
 					licensePicUpload: "required",
-					companyname: "required"
+					companyname: "required",
+					intro:{
+						required: true,
+						minlength: 10,
+						maxlength:200
+					}
 				},
 				messages: {
                     username: {
@@ -616,7 +619,7 @@ $(document).ready(function() {
                     password: {
 						required: "请输入密码",
 						minlength: "密码最小长度为6个字符",
-						maxlength:"密码名最大长度为16个字符"
+						maxlength: "密码最大长度为16个字符"
 					},
 					confirm_password: {
 						required: "请再次输入确认密码",
@@ -632,11 +635,16 @@ $(document).ready(function() {
 					licenseId: {
 						required:"请输入企业营业执照注册号(统一社会信用代码)",
 						minlength:"机构代码最小长度为15位字符",
-						maxlength:"机构代码最小长度为最大长度为18位字符"
+						maxlength:"机构代码最大长度为18位字符"
 						},
 					companyname:"请输入企业名称",
 					licensePicUpload:"请上传营业执照扫描件",
-					agree: "同意注册协议才可注册"
+					agree: "同意注册协议才可注册",
+					intro: {
+						required:"请填写技能描述",
+						minlength:"技能描述最小长度为10个字符",
+						maxlength:"技能描述最大长度为200个字符"
+					}
 				},
 				errorElement: "em",
 				errorPlacement: function ( error, element ) {
@@ -769,7 +777,12 @@ $(document).ready(function() {
                     },
 					idFrontUploadPath: "required",
 					idBackUploadPath: "required",
-					agree: "required"
+					agree: "required",
+					intro: {
+						required: true,
+						minlength:10,
+						maxlength:200,
+					}
                 },
                 messages: {
 					username: {
@@ -800,7 +813,12 @@ $(document).ready(function() {
                     },
 					idFrontUploadPath:"请上传身份证正面",
 					idBackUploadPath:"请上传身份证背面",
-                    agree: "同意注册协议才可注册"
+					agree: "同意注册协议才可注册",
+					intro: {
+						required:"请填写技能描述",
+						minlength:"技能描述最小长度为10个字符",
+						maxlength:"技能描述最大长度为200个字符"
+					}
                 },
                 errorElement: "em",
                 errorPlacement: function ( error, element ) {
@@ -929,7 +947,7 @@ $(document).ready(function() {
 				orderQuery.type = 'POST';
 				orderQuery.state = null;
 				orderQuery.userId = $.cookie('userId');
-				orderQuery.orderStates = "1,2,3,4";
+				orderQuery.orderStates = "0-0";//排除state=0
 				loadData('orderBidding/getPageListByUserIdAndOrderId',orderQuery, getMyOrderList, null, false);
 			}
 		    break;		  		
