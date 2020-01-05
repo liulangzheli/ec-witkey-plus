@@ -260,18 +260,18 @@ function getProInfo(action,conditions,rs){//获取项目信息
 		_proStatus +='<div class="ok"><span><b>1</b>'
 			+ '<label>发布需求</label>'
 			+'<label>'+rs.data.createTime+'</label>'
-			+'</span><span '+(rs.data.state<4?'class="line ok"':'class="line"')+'></span></div>'
-			+'<div class="active"><span><b>2</b>'
+			+'</span><span '+(rs.data.state<=4?'class="line ok"':'class="line"')+'></span></div>'
+			+'<div '+(rs.data.state<=4?'class="ok"':'')+'><span><b>2</b>'
 			+'<label>托管佣金</label>'
-			+'</span><span '+(rs.data.state<3?'class="line doing"':'class="line ok"')+'><b></b></span><p>投标中</p></div>'
-			+'<div><span><b>3</b>'
-			+'<label>选择服务商并签约</label>'
-			+'</span><span '+(rs.data.state>=3?'class="line doing"':'class="line"')+'></span></div>'
-			+'<div><span><b>4</b>'
+			+'</span><span '+(rs.data.state<=4?'class="line ok"':'class="line"')+'></span><p>'+(rs.data.state<3?'投标中':'')+'</p></div>'
+			+'<div '+(rs.data.state>=3?'class="ok"':'')+'><span><b>3</b>'
+			+'<label>选择服务商<br\>并签约</label>'
+			+'</span><span '+(rs.data.state>=3?'class="line ok"':'class="line"')+'></span><p>'+(rs.data.state<3?'':'定标中')+'</p></div>'
+			+'<div '+(rs.data.state>=3?'class="ok"':'')+'><span><b>4</b>'
 			+'<label>成果交付</label>'
 			+'<label>预计'+_endtime+'</label>'
-			+'</span><span '+(rs.data.state>=3?'class="line doing"':'class="line"')+'></span></div>'
-			+'<div><span><b>5</b>'
+			+'</span><span '+(rs.data.state>=3?'class="line ok"':'class="line"')+'></span><p>'+(rs.data.state<4?'':'结算中')+'</p></div>'
+			+'<div '+(rs.data.state>=3?'class="ok"':'')+'><span><b>5</b>'
 			+'<label>解冻佣金</label>'
 			+'<label class="price">￥'+rs.data.amount+'</label>'
 			+'</span></div></div>';
@@ -528,11 +528,11 @@ function getMyOrderList(action,conditions,rs){//获取我的项目列表
 			let _strId = '',endTime = '-',title = '-',amount = '-',ownerName= '',state ='';
 			if(conditions.isFromProjOrderTable){
 				_strId = item.id;
-				title = item.projTypeName+"|"+item.cateName+((item.softName!=null&&item.softName!="")?"|"+item.softName:"");	
-			}else
+				//title = item.projTypeName+"|"+item.cateName+((item.softName!=null&&item.softName!="")?"|"+item.softName:"");	
+			}else{
 			    _strId = item.orderId;
-				title = item.projTypeName+"|"+item.cateName+((item.soft_name!=null&&item.soft_name!="")?"|"+item.soft_name:"");
-			
+			}
+			title = item.projTypeName+"|"+item.cateName+((item.softName!=null&&item.softName!="")?"|"+item.softName:"");
 		    if(item.amount!=null){
 			   amount = "¥" + item.amount;
 			}

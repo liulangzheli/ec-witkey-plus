@@ -374,7 +374,7 @@ $(document).ready(function() {
 	        $('.search .searchSbt').attr('onclick','transToSearchUrl(1)');
   });
   
-  var id=getParamValue('id')||'',params=getParamValue('searchProjText')||'',searchkey=getParamValue('key')||'',page=$('body').attr('data-page');
+  var id=getParamValue('id')||'',params=$("#searchProjText").val()||'',searchkey=getParamValue('key')||'',page=$('body').attr('data-page');
   var conditions = getParamValue('conditions');
   var skey = '';
   let orderQuery={
@@ -470,6 +470,7 @@ $(document).ready(function() {
 				$(this).siblings().removeClass('active');
 				$(this).addClass('active');
 				skey=$(this).text();//搜索项目
+				orderQuery.major = skey;
 				loadData('projectOrder/getPageList',orderQuery, getProdList, null, false);
 			});	
 			
@@ -1101,7 +1102,13 @@ function loadCategory(categoryType,cateParentId=null){
 			}
 		},
 		error:function(rs){
-			alert("类别管理查询异常！错误代码：" + rs.status + " " + rs.statusText);
+			if(rs.status === 401){
+				alert("登陆信息已失效，请重新登陆！");
+				window.location.href=basePath+'login.html';
+			}else{	
+				alert("类别管理查询异常！错误代码：" + rs.status + " " + rs.statusText);
+			}
+			
 		}
 	});
 	return records;
@@ -1478,5 +1485,14 @@ function getBiddingCount(orderId){
 		}
 	});
 	return records;
+}
+
+function transToSearchUrl(i) {
+	let searchProjText = $("#searchProjText").val();
+	var searchValue = encodeURIComponent($("#searchText").val());
+	if(i==0)
+		window.location.href = basePath + "findProd.html?key=" + searchValue;
+	//else	
+		//window.location.href = basePath + "findCompany.html?key=" + searchValue;
 }
 

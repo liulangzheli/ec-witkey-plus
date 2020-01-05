@@ -60,11 +60,19 @@ public class OrderBiddingInfoQueryVo implements Serializable {
     private String cateName;
 
     @ApiModelProperty(value = "软件提供商")
-    private String soft_supplier;
+    private String softSupplier;
 
     @ApiModelProperty(value = "软件名称")
-    private String soft_name;
+    private String softName;
 
+    @ApiModelProperty(value = "预算费用")
+    private Float amount;
+
+    @ApiModelProperty(value = "交付周期 单位天")
+    private Integer period;
+
+    @ApiModelProperty(value = "截止报名时间")
+    private Date endTime;
 
     @ApiModelProperty(value = "昵称")
     private String nickname;

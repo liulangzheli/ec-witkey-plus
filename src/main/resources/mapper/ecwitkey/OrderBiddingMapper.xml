@@ -22,7 +22,7 @@
 
     <select id="getOrderBiddingListByUserIdAndOrderId" resultType="com.liulangzheli.ecwitkeyplus.ecwitkey.vo.OrderBiddingInfoQueryVo">
         select
-        ob.id, ob.order_id, ob.user_id, ob.create_time, ob.state, ob.message, ob.remark,po.user_id owner_id,(select username from sys_user where id=po.user_id) ownerName,po.state orderState,(select cate_name from category where id =po.use_type) projTypeName,(select cate_name from category where id =po.category_id) cateName,po.soft_supplier,po.soft_name,su.nickname,su.username,su.city,su.intro,su.head,su.state userState
+        ob.id, ob.order_id, ob.user_id, ob.create_time, ob.state, ob.message, ob.remark,po.user_id owner_id,(select username from sys_user where id=po.user_id) ownerName,po.state orderState,(select cate_name from category where id =po.use_type) projTypeName,(select cate_name from category where id =po.category_id) cateName,po.amount,po.period,po.end_time endTime,po.soft_supplier softSupplier,po.soft_name softName,su.nickname,su.username,su.city,su.intro,su.head,su.state userState
         from order_bidding ob,sys_user su,project_order po
         where ob.user_id=su.id and ob.order_id=po.id
         <if test="param.orderId!=null">

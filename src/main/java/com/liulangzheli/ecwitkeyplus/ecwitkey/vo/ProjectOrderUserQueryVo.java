@@ -70,6 +70,9 @@ public class ProjectOrderUserQueryVo implements Serializable {
     @ApiModelProperty(value = "交付周期 单位天")
     private Integer period;
 
+    @ApiModelProperty(value = "预算费用")
+    private Float amount;
+
     @ApiModelProperty(value = "软件供应商")
     private String softSupplier;
 
