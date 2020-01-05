@@ -17,7 +17,7 @@ ec-witkey-plus:
       response-log-format: false
 
 server:
-  port: 8888
+  port: 80
   servlet:
     context-path: /
 spring:
