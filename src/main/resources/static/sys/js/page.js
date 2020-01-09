@@ -197,12 +197,25 @@ function getProjectUserByUserId(userId){
 			var code = rs.code;
 			if (code === 200) {
 				records = rs.data;
-			}else{
-				alert("项目订单查询异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+			else
+			if(code === 401){
+				alert("登陆信息已失效，请重新登陆！");
+				window.location.href=basePath+'sys/login.html';
+			}
+			else{
+				alert("用户查询异常！错误代码：" + rs.code + " " + rs.msg);
+
 			}
 		},
 		error:function(rs){
-			alert("项目订单查询异常！错误代码：" + rs.status + " " + rs.statusText);
+			if(rs.status === 401){
+				alert("登陆信息已失效，请重新登陆！");
+				window.location.href=basePath+'sys/login.html';
+			}
+			else{
+				alert("用户查询异常！错误代码：" + rs.status + " " + rs.statusText);
+			}
 		}
 	});
 	return records;
@@ -477,7 +490,11 @@ function confirmProject(tag,state,orderId){
 
 			 var teamName = "未填";
 			 if(data[i].teamName!=null&&data[i].teamName!=undefined)
-			 	teamName = data[i].teamName;
+				 teamName = data[i].teamName;
+			
+			var companyName = "未填";
+			if(data[i].companyName!=null&&data[i].companyName!=undefined)
+				companyName = data[i].companyName;
  
 			 switch(data[i].userType){
 				 case 0:
@@ -485,14 +502,14 @@ function confirmProject(tag,state,orderId){
 					sourceName = "<a href=\""+data[i].idFront+"\"><img alt=\"身份证正面\" height=\"40\" width=\"40\" src=\""+data[i].idFront+"\" target='_blank' /></a>"
 			        + "&nbsp;&nbsp;<a href=\""+data[i].idBack+"\"><img alt=\"身份证反面\" height=\"40\" width=\"40\" src=\""+data[i].idBack+"\" target='_blank' /></a>";
 					userInfo = "<p>联系电话：<span class=\"marR\">"+data[i].phone+"</span>&nbsp;所在地：<span>"+data[i].province+data[i].city+data[i].zone+"</span></p>"
-					+ "<p>公司/团队名称：<span>"+teamName+"</span></p>"
+					+ "<p>团队名称：<span>"+teamName+"</span></p>"
 					+ "<p>身份证：<span>"+data[i].idNum+"</span></p>";
 					break;
 				 case 1:
 					user_type = "企业";
 					sourceName = "<a href=\""+data[i].licensePic+"\"><img alt=\"营业执照\" height=\"40\" width=\"40\" src=\""+data[i].licensePic+"\" target='_blank' /></a>";
 					userInfo = "<p>联系电话：<span class=\"marR\">"+data[i].phone+"</span>&nbsp;所在地：<span>"+data[i].province+data[i].city+data[i].zone+"</span></p>"
-					+ "<p>公司/团队名称：<span>"+teamName+"</span></p>"
+					+ "<p>公司名称：<span>"+companyName+"</span></p>"
 					+ "<p>企业机构代码：<span>"+data[i].licenseId+"</span></p>";
 					break;
 				 default:
