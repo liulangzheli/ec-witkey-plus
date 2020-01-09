@@ -374,8 +374,9 @@ $(document).ready(function() {
 	        $('.search .searchSbt').attr('onclick','transToSearchUrl(1)');
   });
   
-  var id=getParamValue('id')||'',params=$("#searchProjText").val()||'',searchkey=getParamValue('key')||'',page=$('body').attr('data-page');
+  var id=getParamValue('id')||'',params=getParamValue('searchProjText')||'',searchkey=getParamValue('key')||'',page=$('body').attr('data-page');
   var conditions = getParamValue('conditions');
+  var major=decodeURIComponent(getParamValue('major'))||'';
   var skey = '';
   let orderQuery={
 	'current':'1',
@@ -403,7 +404,7 @@ $(document).ready(function() {
 			case '2':
 				_menuLink ='<a href="myInfo.html" '+((page=='mpInfo' || page == 'mOrder')?'class="active"':'')+'>首页</a>'
 				+'<a href="newProd.html" '+(page=='addProject'?'class="active"':'')+'>发布项目</a>'
-				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>找项目</a>'
+				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>我的项目</a>'
 				+'<a href="findCompany.html" '+(page=='findCompany'?'class="active"':'')+'>找企业/团队</a>'
 				+'<a href="findPerson.html" '+(page=='findPerson'?'class="active"':'')+'>找个人</a>';
 				break;
@@ -462,18 +463,35 @@ $(document).ready(function() {
 				orderQuery.current = current;
 			}
 			if($.cookie('roleId') == 2){//雇主
-				orderQuery.state = -1;	
+				orderQuery.state = -1;
+				orderQuery.userId= $.cookie('userId');	
 			}
-			loadData('category/getPageList',{type:'POST','current':'1','size':"50",'categoryType':"3",'cateParentId':"0"}, getMajorList, null, false);
+			let majorQuery={
+				'type':'POST',
+				'current':'1',
+				'size':"50",
+				'categoryType':"3",
+				'cateParentId':"0",
+				'major': major
+			}
+			loadData('category/getPageList',majorQuery, getMajorList, null, false);
 			$('.filter a').click(function(){
 				$(this).removeClass('active');
 				$(this).siblings().removeClass('active');
 				$(this).addClass('active');
 				skey=$(this).text();//搜索项目
+				if(skey != null && skey == "不限"){
+					skey = '';
+				}
 				orderQuery.major = skey;
+				$('#major').val(skey);
+				//orderQuery.ownerId= $.cookie('userId');	
 				loadData('projectOrder/getPageList',orderQuery, getProdList, null, false);
 			});	
-			
+			if(major == null ||major == "null"|| major == "不限"){
+				major = '';
+			}
+			orderQuery.major = major;
 			loadData('projectOrder/getPageList',orderQuery, getProdList, null, false);
 			// loadData('sysUser/getPageList',{'pageid':'LIST','type':"topcompany"}, getRankList, null, false);
 			// loadData('sysUser/getPageList',{'pageid':'LIST','type':"topPerson"}, getRankList, null, false);
@@ -949,6 +967,8 @@ $(document).ready(function() {
 				orderQuery.state = null;
 				orderQuery.userId = $.cookie('userId');
 				orderQuery.orderStates = "0-0";//排除state=0
+				//var idList = new Array(); idList.push("1"); idList.push("2");idList.push("3");idList.push("4");
+				//orderQuery.orderStatesList = idList;
 				loadData('orderBidding/getPageListByUserIdAndOrderId',orderQuery, getMyOrderList, null, false);
 			}
 		    break;		  		
@@ -992,6 +1012,50 @@ function checkFloor1(){
 	if(!hasChildType){
 		alert("请至少选择一个需求分类！");
 	}
+}
+
+function checkFloor2(){
+	var amount = $('#amount').val().trim();
+	var canSave = false;
+    if(amount != null && amount.length >0 && amount.length < 8 && amount.indexOf("-") < 0) {
+		if(checknumber(amount)){
+			canSave = true;
+		}else{
+			alert("项目佣金数额必须纯数字！");
+			$('#amount').focus();
+			return;
+		}
+	}else{
+		alert("项目佣金数额必须在0~9999999之间！");
+		$('#amount').focus();
+		return;
+	}
+
+	var endTime = $('#endTime').val().trim();
+	if(endTime == null|| endTime == ''){
+		canSave = false;
+		alert("请选择交付日期！");
+		$('#endTime').focus();
+		return;
+	}
+	var intro = $('#intro').val().trim();
+	if(intro == null|| intro == '' || intro.length == 0 || intro.length > 1000){
+		canSave = false;
+		alert("请填写详细描述！");
+		$('#intro').focus();
+		return;
+	}
+	
+    if(canSave)
+		doAddProject();
+}
+//校验是否纯数字
+function checknumber (String) {
+	var reg = /^[0-9]+.?[0-9]*$/
+	if (reg.test(String)) {
+	  return true;
+	}else
+		return false;
 }
 
 function doAddCategory(){
@@ -1245,72 +1309,75 @@ function doAddProjectRequirement(orderId){
 function doAddSource(orderId){
 	var res = false;
 	//start 单个文件上传
-	var sourceFormData = new FormData();
-	sourceFormData.append('img', $('#sourceUploadPath')[0].files[0]); 
-	$.ajax({
-		url:basePathAPI +'upload/',														//后台接收数据地址
-		//headers:{'Content-Type':'multipart/form-data'},//加上这个报错
-		data:sourceFormData,
-		type: "POST",
-		dataType: "json",
-		cache: false,			//上传文件无需缓存
-		async: false,
-		processData: false,		//用于对data参数进行序列化处理 这里必须false
-		contentType: false,
-		success:function(rs) {
-			var code = rs.code;
-			if (code === 200) {
-				//文件上传成功后
-				$('source').val(rs.data.toString());
-				var formData = $('form').serializeObject();
-				//获取文件相关属性 start
-				var filePath = rs.data.toString();
-				var originalName = $('#sourceUploadPath')[0].files[0].name;
-				var format = originalName.substr(originalName.lastIndexOf(".")).toLowerCase();
-				var size = $('#sourceUploadPath')[0].files[0].size;
-				// end
-				var sourceData = new FormData();
-				sourceData.append('originalName', originalName);
-				sourceData.append('sourceName',filePath);
-				sourceData.append('format',format);
-				sourceData.append('size',size);
-				sourceData.append('orderId',orderId);
-				sourceData.append('remark','');
-				
-				var jsonData = {};
-				sourceData.forEach((value, key) => jsonData[key] = value);
-				
-				$.ajax({
-					type: "POST",
-					url: basePathAPI +'projectSource/add',
-					beforeSend: function(XMLHttpRequest) {
-						XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
-					},
-					async: false,
-					data:JSON.stringify(jsonData), //必须用JSON.stringify()方法转。
-					contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
-					cache: false,
-					success:function(rs) {
-						var code = rs.code;
-						if (code === 200) {
-							res = true;
-							//alert("项目资料保存成功！");
-						}else{
-							alert("项目资料保存异常！错误代码：" + rs.code + " " + rs.msg);
+	let img = $('#sourceUploadPath')[0].files[0];
+	if(img != null && img != undefined){
+		var sourceFormData = new FormData();
+		sourceFormData.append('img', $('#sourceUploadPath')[0].files[0]); 
+		$.ajax({
+			url:basePathAPI +'upload/',														//后台接收数据地址
+			//headers:{'Content-Type':'multipart/form-data'},//加上这个报错
+			data:sourceFormData,
+			type: "POST",
+			dataType: "json",
+			cache: false,			//上传文件无需缓存
+			async: false,
+			processData: false,		//用于对data参数进行序列化处理 这里必须false
+			contentType: false,
+			success:function(rs) {
+				var code = rs.code;
+				if (code === 200) {
+					//文件上传成功后
+					$('source').val(rs.data.toString());
+					var formData = $('form').serializeObject();
+					//获取文件相关属性 start
+					var filePath = rs.data.toString();
+					var originalName = $('#sourceUploadPath')[0].files[0].name;
+					var format = originalName.substr(originalName.lastIndexOf(".")).toLowerCase();
+					var size = $('#sourceUploadPath')[0].files[0].size;
+					// end
+					var sourceData = new FormData();
+					sourceData.append('originalName', originalName);
+					sourceData.append('sourceName',filePath);
+					sourceData.append('format',format);
+					sourceData.append('size',size);
+					sourceData.append('orderId',orderId);
+					sourceData.append('remark','');
+					
+					var jsonData = {};
+					sourceData.forEach((value, key) => jsonData[key] = value);
+					
+					$.ajax({
+						type: "POST",
+						url: basePathAPI +'projectSource/add',
+						beforeSend: function(XMLHttpRequest) {
+							XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+						},
+						async: false,
+						data:JSON.stringify(jsonData), //必须用JSON.stringify()方法转。
+						contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+						cache: false,
+						success:function(rs) {
+							var code = rs.code;
+							if (code === 200) {
+								res = true;
+								//alert("项目资料保存成功！");
+							}else{
+								alert("项目资料保存异常！错误代码：" + rs.code + " " + rs.msg);
+							}
+						},
+						error:function(rs){
+							alert("项目资料保存异常！错误代码：" + rs.status + " " + rs.statusText);
 						}
-					},
-					error:function(rs){
-						alert("项目资料保存异常！错误代码：" + rs.status + " " + rs.statusText);
-					}
-				});
-			}else{
-				alert("文件上传失败！错误代码：" + rs.code + " " + rs.msg);
+					});
+				}else{
+					alert("文件上传失败！错误代码：" + rs.code + " " + rs.msg);
+				}
+			},
+			error:function(rs){
+				alert("文件上传失败！错误代码：" + rs.status + " " + rs.statusText);
 			}
-		},
-		error:function(rs){
-			alert("文件上传失败！错误代码：" + rs.status + " " + rs.statusText);
-		}
-	});
+		});
+	}
 	return res;
 	//end
 }
@@ -1409,16 +1476,35 @@ function doAddProject(){
 				res = rs.data.toString();//返回orderId
 				var dPJRRes = doAddProjectRequirement(res);
 				var ASRes = doAddSource(res);
-				if(ASRes && dPJRRes)
+				if(ASRes && dPJRRes){
 					alert("项目发布保存成功，请等待后台审核后，再对外发布！");
-				else
-					alert("项目发布保存成功。但，附件上传失败！");
+					window.location.href=basePath+'newProd.html';
+				}else
+				if(!ASRes){
+					alert("项目发布保存成功。但，没有上传附件！");
+					window.location.href=basePath+'newProd.html';
+				}else
+				if(!dPJRRes){
+					alert("项目发布保存成功。但，项目要求保存失败！");
+					window.location.href=basePath+'newProd.html';
+				}else{
+					alert("项目发布保存成功。但，附件和项目要求保存失败！");
+					window.location.href=basePath+'newProd.html';
+				}
 			}else{
-				alert("项目发布保存异常！错误代码：" + rs.code + " " + rs.msg);
+				if(rs.status === 401){
+					alert("登陆信息已失效，请重新登陆！");
+					window.location.href=basePath+'login.html';
+				}else
+					alert("项目发布保存异常！错误代码：" + rs.status + " " + rs.statusText);
 			}
 		},
 		error:function(rs){
-			alert("项目发布保存异常！错误代码：" + rs.status + " " + rs.statusText);
+			if(rs.status === 401){
+				alert("登陆信息已失效，请重新登陆！");
+				window.location.href=basePath+'login.html';
+			}else
+				alert("项目发布保存异常！错误代码：" + rs.status + " " + rs.statusText);
 		}
 	});
 }
@@ -1488,10 +1574,11 @@ function getBiddingCount(orderId){
 }
 
 function transToSearchUrl(i) {
-	let searchProjText = $("#searchProjText").val();
+	let searchProjText = encodeURIComponent($("#searchProjText").val());
+	let major = encodeURIComponent($("#major").val());
 	var searchValue = encodeURIComponent($("#searchText").val());
 	if(i==0)
-		window.location.href = basePath + "findProd.html?key=" + searchValue;
+		window.location.href = basePath + "findProd.html?key=" + searchValue+"&searchProjText="+searchProjText + "&major=" +major;
 	//else	
 		//window.location.href = basePath + "findCompany.html?key=" + searchValue;
 }

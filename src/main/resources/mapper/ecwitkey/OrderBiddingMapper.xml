@@ -38,10 +38,15 @@
             and po.state = #{param.orderState}
         </if>
         <if test="param.orderStates!=null">
-
             and po.state <![CDATA[<>]]> #{param.orderStates}
-
         </if>
+        <if test="param.orderStatesList!=null">
+            and po.state in
+            <foreach item="item" index="index" collection="param.orderStatesList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
         ORDER by ob.create_time DESC
     </select>
 

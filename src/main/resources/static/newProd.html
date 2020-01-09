@@ -77,9 +77,9 @@
   </div>
 
   <div class="floorZone bdB proType">
-      <h3>1、项目用途<span>(只可选一个)</span></h3>
+      <h3>1、项目用途<span>(只可选一个)</span><span style="color:red">*</span></h3>
       <div id="needType"></div>
-      <h3>2、需求分类<span>(只可选一个)</span></h3>
+      <h3>2、需求分类<span>(只可选一个)</span><span style="color:red">*</span></h3>
       <div class="childBox childBox0" id="childBox"></div>
   </div>
   <div class="floorZone bdB proType"> 
@@ -200,8 +200,8 @@
          </div>
    </div>  <!--end floorZone--> 
    <div class="floorZone pdTB bdB proType">
-    <div><b class="l">6、预算费用：</b>
-    	<input type="number" name="amount" value="0"/> 元
+    <div><b class="l">6、项目佣金：</b><span style="color:red">*</span>
+    	<input type="number" name="amount" id="amount" value="0"/> 元
          </div>
    </div> 
    
@@ -211,18 +211,21 @@
    </div>
    </div> 
    <div class="floorZone pdTB bdB proType">
-      <div><b class="l">8、交付日期：</b>
+      <div><b class="l">8、交付日期：</b><span style="color:red">*</span>
          <input type="date" id="endTime" name="endTime" placeholder=""/>    
      </div>
    </div> 
    <div class="floorZone pdTB bdB proType">
       <div><b class="l">9、软件：</b>
-    	   <select name="softSupplier"><option>软件供应商</option></select>&nbsp;&nbsp;<input type="text" name="softName"placeholder="软件名称"/>
+    	   <select name="softSupplier">
+           <option>软件供应商</option>
+         </select>&nbsp;&nbsp;
+         <input type="text" name="softName"placeholder="软件名称"/>
       </div>
    </div> 
    <div class="floorZone pdTB bdB proType">
          <div>
-           <b class="pdetail l">10、详细描述：（*）</b>
+          <b class="pdetail l">10、详细描述：&nbsp;&nbsp;&nbsp;<span style="color:red">*</span></b>
            <textarea rows="20" cols="50" placeholder="" name="intro" id="intro"></textarea>
          </div>
          <div>
@@ -246,7 +249,7 @@
  <div class="floorZone pdTB txAC">
      <!--<button class="orangeButton dd25 marA10" onclick="validateLogin()">提交并付款</button>-->
      <button tpye="button" class="orangeButton dd25 marA10" onclick="showBox('floor1','state');">上一步</button>
-     <button type="button" class="orangeButton dd25 marA10" onclick="doAddProject();" >提交并付款</button>
+     <button type="button" class="orangeButton dd25 marA10" onclick="checkFloor2();" >提交并付款</button>
  </div>
            <div class="modal-dialog-box loginBox">
          	 <div class="modal-dialog">

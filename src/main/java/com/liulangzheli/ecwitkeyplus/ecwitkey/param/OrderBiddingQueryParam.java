@@ -8,6 +8,8 @@ import lombok.experimental.Accessors;
 
 import com.liulangzheli.ecwitkeyplus.common.param.OrderQueryParam;
 
+import java.util.List;
+
 /**
  * <pre>
  * 订单竞标信息 查询参数对象
@@ -39,6 +41,6 @@ import com.liulangzheli.ecwitkeyplus.common.param.OrderQueryParam;
         private String orderStates;
 
         @ApiModelProperty(value = "项目状态List")
-        private String[] orderStatesList;
+        private List<String> orderStatesList;
 
 }

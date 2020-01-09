@@ -8,6 +8,8 @@ import lombok.experimental.Accessors;
 
 import com.liulangzheli.ecwitkeyplus.common.param.OrderQueryParam;
 
+import java.util.List;
+
 /**
  * <pre>
  * 项目订单 查询参数对象
@@ -33,7 +35,7 @@ import com.liulangzheli.ecwitkeyplus.common.param.OrderQueryParam;
         private String states;
 
         @ApiModelProperty(value = "状态List")
-        private String[] stateList;
+        private List<String> stateList;
 
         @ApiModelProperty(value = "项目专业")
         private String major;

@@ -77,11 +77,12 @@ function getProType(data){//发布需求-项目类别
 function getMajorList(action,conditions,rs){//获取项目专业类别
     if(rs!=null&&rs!=undefined&& rs.data!=null && rs.data != undefined){
 		var _str='';
-		_str+='<a href="javascript:void(0);" class="active">不限</a>';
+		_str+='<a href="javascript:void(0);" '+(conditions.major == ""?"class=\'active\'":"")+'>不限</a>';
 		$.each(rs.data.records,function(key,item){
-			_str += '<a href="javascript:void(0);" >'+item.cateName+'</a>';
-	  	});
-	    $('#marjorList').empty().append(_str);  
+			_str += '<a href="javascript:void(0);" '+(conditions.major == item.cateName?"class=\'active\'":"")+'>'+item.cateName+'</a>';
+		});
+		_str +='<input id="major" type="hidden" />';
+	    $('#majorList').empty().append(_str);  
 	}
 }
 function getProdList(action,conditions,rs){//获取项目列表
@@ -103,7 +104,7 @@ function getProdList(action,conditions,rs){//获取项目列表
 	     _str+='<div class="li pdTB  clear ofHide ">'
 			 +'	<div class="dd9 fl">'
 			 //+'  <p><a href="pinfo.html?id='+item.id+'&conditions='+conditions+'\">'+getCategory(item.useType).cateName+"|"+getCategory(item.categoryId).cateName+"|"+item.softName+'</a>'
-			 +'  <p><a href="pinfo.html?id='+item.id+'&current='+conditions.current+'\">'+getCategory(item.useType).cateName+"|"+getCategory(item.categoryId).cateName+"|"+item.softName+'</a>'
+			 +'  <p><a href="pinfo.html?id='+item.id+'&current='+conditions.current+'\">'+item.id+"|"+getCategory(item.useType).cateName+"|"+getCategory(item.categoryId).cateName+"|"+item.softName+'</a>'
 			 +'		<label class="pdLR fc9">'+item.city+'</label>'
 			 +'  </p>'
 			 +'	  <p class="lifo"><span class="price">￥'+item.amount+_time+'</p>'
@@ -116,6 +117,7 @@ function getProdList(action,conditions,rs){//获取项目列表
 	 });
 	 _str += '<div id="pagination" class="pagination"></div>';
 	 $('#proList').empty().append(_str);
+	 $("#searchProjText").val(conditions.keyword);
 	 loadPage(action,conditions,rs.data.total,getProdList);	
   }
 }
@@ -279,6 +281,19 @@ function getProInfo(action,conditions,rs){//获取项目信息
 		$('#proStatus').empty().append(_proStatus);
 		$('#pIntro').empty().append(_str);
 		$('#proDetail').empty().append(_detail);
+
+		let _proFile = '无附件。';
+		let proFileQueryParam={
+			'id':rs.data.id
+		}
+        loadData('projectSource/infoByOrderId/'+rs.data.id,proFileQueryParam,getproFile,null,false);
+		function getproFile(action,conditions,res){//获取项目附件
+			if(res!=null&&res!=undefined&& res.data!=null && res.data != undefined){
+				_proFile = '<a href="'+res.data.sourceName+'" download="'+res.data.originalName+'">'+res.data.originalName+'</a>';
+				
+			}
+		};
+		$('#proFile').empty().append(_proFile);
 		
 		//竞标  后续要根据userId，获取用户类别
 		let _bidding = '';
@@ -510,10 +525,11 @@ function getMyOrderList(action,conditions,rs){//获取我的项目列表
 	    _str +='<dl class="dt">'
                 +'<dt class="dd15 txAC">订单编号</dt>'
                 +'<dt class="dd35 txAC">需求标题</dt>'
-                +'<dt class="dd1 txAC">报价</dt>'
-                +'<dt class="dd2 txAC">雇主</dt>'
-                +'<dt class="dd1 txAC">截止时间</dt>'
-				+'<dt class="dd1 txAC">订单状态</dt>'                                   
+                +'<dt class="dd1 txAC">项目佣金</dt>'
+                +'<dt class="dd1 txAC">雇主</dt>'
+				+'<dt class="dd1 txAC">截止时间</dt>'
+				+'<dt class="dd1 txAC">订单状态</dt>'  
+				+'<dt class="dd1 txAC">是否中标</dt>'                                 
 				+'</dl>';
 		let records = null;
 		
@@ -578,13 +594,37 @@ function getMyOrderList(action,conditions,rs){//获取我的项目列表
 						state = '关闭';
 						break;
 			}
+
+			//是否中标 中标状态，0：等待选标 1：超时 2：选中 3、未中标
+			let bidStateStr = "未中标";
+			if(item.state != null){
+				switch(item.state){
+					case 0:
+						//todo
+						bidStateStr = '等待选标';
+						break;
+					case 1:
+						//todo
+						bidStateStr = '超时';
+						break;
+					case 2:
+						//todo
+						bidStateStr = '选中';
+						break;
+					case 3:
+						//todo
+						bidStateStr = '未中标';
+						break;
+				}
+			}
 		       
 		   _str+='<dl><dd class="dd15 txAC">'+_strId+'</dd>'
 		   		+'<dd class="dd35 txAL">'+title+'</dd>'
                 +'<dd class="dd1 txAR">'+amount+'</dd>'
-                +'<dd class="dd2 txAC">'+ownerName+'</dd>'
+                +'<dd class="dd1 txAC">'+ownerName+'</dd>'
                 +'<dd class="dd1 txAC">'+endTime+'</dd>'
-                +'<dd class="dd1 txAC">'+state+'</dd>'                                   
+				+'<dd class="dd1 txAC">'+state+'</dd>'  
+				+'<dd class="dd1 txAC">'+bidStateStr+'</dd>'                                 
                 +'</dl>'; 
 	   });
 	   _str += '</div><div id="pagination" class="pagination txAC"></div>';

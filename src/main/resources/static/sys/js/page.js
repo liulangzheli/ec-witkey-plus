@@ -249,7 +249,7 @@ function showData(data,states){
 				+ '<dt class="dd101" txAC>选择</dt>' //1  5%
 				+ '<dt class="dd15 txAC">项目编号</dt>'//2  15%
 				+ '<dt class="dd35 txAC">项目名称</dt>'//3  35%
-		 		+ '<dt class="dd1 txAC">项目金额</dt>'//4  10%
+		 		+ '<dt class="dd1 txAC">项目佣金</dt>'//4  10%
 				+ '<dt class="dd1 txAC">付款时间</dt>'//5   10%
 				+ '<dt class="dd1 txAC">付款状态</dt>'//6  10%
 		        + '<dt class="dd15 txAC">操作</dt>'//7 15%
@@ -453,10 +453,10 @@ function confirmProject(tag,state,orderId){
 		 var _str='';
 		 if(state == 0){
 			 _str += '<div class="dataList dd9 marA10 bdA">'
-			 + '<dl> <h2 class="pdL">待审核服务商</h2></dl>';
-		 }else if(state == -1){
+			 + '<dl> <h2 class="pdL">待审核会员</h2></dl>';
+		 }else if(state == 1){
 			 _str += '<div class="dataList dd9 marA10 bdA">'
-			 + '<dl><h2 class="pdL">所有会员</h2></dl>';
+			 + '<dl><h2 class="pdL">已审核会员</h2></dl>';
 		 }else{
 			 _str += '<div class="dataList dd9 marA10 bdA">'
 			 + '<dl><h2 class="pdL">未知</h2></dl>';
@@ -477,20 +477,20 @@ function confirmProject(tag,state,orderId){
 
 			 var teamName = "未填";
 			 if(data[i].teamName!=null&&data[i].teamName!=undefined)
-			 	teamName = data[i].teamname;
+			 	teamName = data[i].teamName;
  
 			 switch(data[i].userType){
 				 case 0:
 					user_type = "个人/团队";
-					sourceName = "<a href=\""+data[i].idFront+"\"><img alt=\"身份证正面\" height=\"40\" width=\"40\" src=\""+data[i].idFront+"\"/></a>"
-			        + "&nbsp;&nbsp;<a href=\""+data[i].idBack+"\"><img alt=\"身份证反面\" height=\"40\" width=\"40\" src=\""+data[i].idBack+"\"/></a>";
+					sourceName = "<a href=\""+data[i].idFront+"\"><img alt=\"身份证正面\" height=\"40\" width=\"40\" src=\""+data[i].idFront+"\" target='_blank' /></a>"
+			        + "&nbsp;&nbsp;<a href=\""+data[i].idBack+"\"><img alt=\"身份证反面\" height=\"40\" width=\"40\" src=\""+data[i].idBack+"\" target='_blank' /></a>";
 					userInfo = "<p>联系电话：<span class=\"marR\">"+data[i].phone+"</span>&nbsp;所在地：<span>"+data[i].province+data[i].city+data[i].zone+"</span></p>"
 					+ "<p>公司/团队名称：<span>"+teamName+"</span></p>"
 					+ "<p>身份证：<span>"+data[i].idNum+"</span></p>";
 					break;
 				 case 1:
 					user_type = "企业";
-					sourceName = "<a href=\""+data[i].licensePic+"\"><img alt=\"营业执照\" height=\"40\" width=\"40\" src=\""+data[i].licensePic+"\"/></a>";
+					sourceName = "<a href=\""+data[i].licensePic+"\"><img alt=\"营业执照\" height=\"40\" width=\"40\" src=\""+data[i].licensePic+"\" target='_blank' /></a>";
 					userInfo = "<p>联系电话：<span class=\"marR\">"+data[i].phone+"</span>&nbsp;所在地：<span>"+data[i].province+data[i].city+data[i].zone+"</span></p>"
 					+ "<p>公司/团队名称：<span>"+teamName+"</span></p>"
 					+ "<p>企业机构代码：<span>"+data[i].licenseId+"</span></p>";
@@ -512,13 +512,15 @@ function confirmProject(tag,state,orderId){
              + '<div class="modal-dialog-box m'+i+'">'
              + '<div class="modal-dialog tipdialog">'
              + '<h3>服务商资料审核</h3>'
-             + '<div class="tip dd9 txAC">确认审核通过并允许用户(账号：<span>'+userName+'</span>)接单？</div>'
+             + '<div class="tip dd9 txAC">确认审核通过并允许用户(账号：<span>'+userName+'</span>)接单/发布项目？</div>'
              + '<div class="marA10 txAC"><a href="javascript:void(0)" onclick="showBox(\'m'+i+'\',1)" class="greyButton dd2 pdLR ">关闭</a><a href="javascript:void(0)" onclick="confirmUser(\'m'+i+'\',1,\''+data[i].id+'\')" class="greenButton dd2 pdLR marL ">确认</a></div>'                                                          
              + '</div></div></dl>';
 		 }
-		 _str += '<dl><dd class="dd10"><label><input type="checkbox"/>全选</label>'
-		       + '&nbsp;&nbsp;<a href="javascript:void(0)">删除</a>&nbsp;<a href="javascript:void(0)">审核</a></dd></dl>';
-		 _str += '</div><div id="pagination" class="pagination"></div></div>';
+		//  _str += '<dl><dd class="dd10"><label><input type="checkbox"/>全选</label>'
+		//        + '&nbsp;&nbsp;<a href="javascript:void(0)">删除</a>&nbsp;<a href="javascript:void(0)">审核</a></dd></dl>';
+			// _str += '<dl><dd class="dd10"><label><input type="checkbox"/>全选</label>'
+		    //    + '&nbsp;&nbsp;<a href="javascript:void(0)">删除</a>&nbsp;<a href="javascript:void(0)">审核</a></dd></dl>';
+			_str += '</div><div id="pagination" class="pagination"></div></div>';
 		 $('#rightSide').empty().append(_str);
 	 }
  }
