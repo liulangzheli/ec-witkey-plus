@@ -309,13 +309,19 @@ function getProInfo(action,conditions,rs){//获取项目信息
 			let userQueryParam={
 				'current':'1',
 				'size':"50",//最多50个投标人
-				'orderStates':"0-0",//'orderStates':"1,2,3,4",
+				//'orderStates':"0-0",//'orderStates':"1,2,3,4",
 				'type':"POST",
 				'major': '',
 				'keyword':'',
 				'orderId':rs.data.id,
 				'ownerId':$.cookie('userId') //找属于自己的项目的投标者列表
 			}
+			var statesList = new Array(); 
+				statesList.push("1"); 
+				statesList.push("2");
+				statesList.push("3");
+				statesList.push("4");
+			userQueryParam.orderStatesList = statesList;
 			loadData('/orderBidding/getPageListByUserIdAndOrderId',userQueryParam,getOrderBiddingList,null,false);
 		}else
 		{

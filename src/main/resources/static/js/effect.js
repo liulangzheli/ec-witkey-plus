@@ -236,10 +236,10 @@ function selectedBidding(bidId,orderId,state){//定标
 		function bidRes(action,conditions,rs){
 			if(rs!=null&& rs.code == 200){
 				//todo 更新project_order表的state为2
-				if(state == 0){//多人中标后，又取消呢？ 2020-01-05
+				if(state == 0){//取消更新  //多人中标后，又取消呢？ 2020-01-05  默认只有1个中标的 2020-01-15
 					updateProjOrder(orderId,1);
 				}
-				if(state == 2){
+				if(state == 2){//定标更新
 					updateProjOrder(orderId,2);
 				}
 				//alert('定标操作完成！');
@@ -281,6 +281,7 @@ function updateProjOrder(orderId,state){//
 		alert('操作异常！异常信息：获取不到投标记录。');
 	}
 }
+
 function acceptPro(id,choice){//服务商应邀项目
  	$.ajax({
             type: "POST",
@@ -397,16 +398,16 @@ $(document).ready(function() {
 			case '1':
 				_menuLink ='<a href="myInfo.html" '+((page=='mpInfo' || page == 'mOrder')?'class="active"':'')+'>首页</a>'
 				+'<a href="newProd.html" '+(page=='addProject'?'class="active"':'')+'>发布项目</a>'
-				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>找项目</a>'
-				+'<a href="findCompany.html" '+(page=='findCompany'?'class="active"':'')+'>找企业/团队</a>'
-				+'<a href="findPerson.html" '+(page=='findPerson'?'class="active"':'')+'>找个人</a>';
+				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>找项目</a>';
+				// +'<a href="findCompany.html" '+(page=='findCompany'?'class="active"':'')+'>找企业/团队</a>'
+				// +'<a href="findPerson.html" '+(page=='findPerson'?'class="active"':'')+'>找个人</a>';
 				break;
 			case '2':
 				_menuLink ='<a href="myInfo.html" '+((page=='mpInfo' || page == 'mOrder')?'class="active"':'')+'>首页</a>'
 				+'<a href="newProd.html" '+(page=='addProject'?'class="active"':'')+'>发布项目</a>'
-				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>我的项目</a>'
-				+'<a href="findCompany.html" '+(page=='findCompany'?'class="active"':'')+'>找企业/团队</a>'
-				+'<a href="findPerson.html" '+(page=='findPerson'?'class="active"':'')+'>找个人</a>';
+				+'<a href="findProd.html" '+((page=='findProject' || page=='projectInfo')?'class="active"':'')+'>我的项目</a>';
+				// +'<a href="findCompany.html" '+(page=='findCompany'?'class="active"':'')+'>找企业/团队</a>'
+				// +'<a href="findPerson.html" '+(page=='findPerson'?'class="active"':'')+'>找个人</a>';
 				break;
 			case '3':
 				_menuLink ='<a href="myInfo.html" '+((page=='mpInfo' || page == 'mOrder')?'class="active"':'')+'>首页</a>'
@@ -464,6 +465,7 @@ $(document).ready(function() {
 			}
 			if($.cookie('roleId') == 2){//雇主
 				orderQuery.state = -1;
+				//orderQuery.state = null; //myOrder 那边用这。这里用这个查为空记录，待查原因 20200115
 				orderQuery.userId= $.cookie('userId');	
 			}
 			let majorQuery={
@@ -966,9 +968,13 @@ $(document).ready(function() {
 				orderQuery.type = 'POST';
 				orderQuery.state = null;
 				orderQuery.userId = $.cookie('userId');
-				orderQuery.orderStates = "0-0";//排除state=0
-				//var idList = new Array(); idList.push("1"); idList.push("2");idList.push("3");idList.push("4");
-				//orderQuery.orderStatesList = idList;
+				//orderQuery.orderStates = "0-0";//排除state=0
+				var statesList = new Array(); 
+				statesList.push("1"); 
+				statesList.push("2");
+				statesList.push("3");
+				statesList.push("4");
+				orderQuery.orderStatesList = statesList;
 				loadData('orderBidding/getPageListByUserIdAndOrderId',orderQuery, getMyOrderList, null, false);
 			}
 		    break;		  		
