@@ -3,6 +3,7 @@ package com.liulangzheli.ecwitkeyplus.system.service;
 import com.liulangzheli.ecwitkeyplus.common.service.BaseService;
 import com.liulangzheli.ecwitkeyplus.common.vo.Paging;
 import com.liulangzheli.ecwitkeyplus.system.entity.SysUser;
+import com.liulangzheli.ecwitkeyplus.system.param.ResetPasswordParam;
 import com.liulangzheli.ecwitkeyplus.system.param.SysUserQueryParam;
 import com.liulangzheli.ecwitkeyplus.system.param.UpdatePasswordParam;
 import com.liulangzheli.ecwitkeyplus.system.vo.SysUserQueryVo;
@@ -99,6 +100,15 @@ public interface SysUserService extends BaseService<SysUser> {
      * @throws Exception
      */
     boolean updatePassword(UpdatePasswordParam updatePasswordParam) throws Exception;
+
+    /**
+     * 重置密码
+     *
+     * @param resetPasswordParam
+     * @return
+     * @throws Exception
+     */
+    boolean resetPassword(ResetPasswordParam resetPasswordParam) throws Exception;
 
     /**
      * 修改系统用户头像

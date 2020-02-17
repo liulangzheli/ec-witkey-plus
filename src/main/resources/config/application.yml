@@ -98,7 +98,7 @@ ec-witkey-plus:
   # 资源访问路径匹配：/resource/**
   resource-access-patterns: ${ec-witkey-plus.resource-access-path}**
   # 资源访问全路径前缀：http://localhost:8888/resource/
-  resource-access-url: http://localhost:${server.port}${server.servlet.context-path}${ec-witkey-plus.resource-access-path}
+  resource-access-url: ${server.hostname}:${server.port}${server.servlet.context-path}${ec-witkey-plus.resource-access-path}
   # 全局允许上传的类型
   allow-upload-file-extensions: jpg,png,docx,xlsx,pptx,pdf,zip,rar
   allow-download-file-extensions: jpg,png,docx,xlsx,pptx,pdf,zip,rar

@@ -17,6 +17,7 @@ ec-witkey-plus:
       response-log-format: false
 
 server:
+  hostname: 47.105.162.125
   port: 80
   servlet:
     context-path: /

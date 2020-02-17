@@ -6,6 +6,7 @@ import com.liulangzheli.ecwitkeyplus.enums.StateEnum;
 import com.liulangzheli.ecwitkeyplus.shiro.util.SaltUtil;
 import com.liulangzheli.ecwitkeyplus.system.entity.SysUser;
 import com.liulangzheli.ecwitkeyplus.system.mapper.SysUserMapper;
+import com.liulangzheli.ecwitkeyplus.system.param.ResetPasswordParam;
 import com.liulangzheli.ecwitkeyplus.system.param.UpdatePasswordParam;
 import com.liulangzheli.ecwitkeyplus.system.service.SysDepartmentService;
 import com.liulangzheli.ecwitkeyplus.system.service.SysRoleService;
@@ -167,6 +168,25 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, SysUser> 
         if (!sysUser.getPassword().equals(encryptOldPassword)) {
             throw new BusinessException("原密码错误");
         }
+        // 新密码加密
+        String encryptNewPassword = PasswordUtil.encrypt(newPassword, salt);
+
+        // 修改密码
+        sysUser.setPassword(encryptNewPassword)
+                .setUpdateTime(new Date());
+        return updateById(sysUser);
+    }
+
+    @Override
+    public boolean resetPassword(ResetPasswordParam resetPasswordParam) throws Exception {
+        String newPassword = resetPasswordParam.getNewPassword();
+        // 判断用户是否存在
+        SysUser sysUser = getById(resetPasswordParam.getUserId());
+        if (sysUser == null) {
+            throw new BusinessException("用户不存在");
+        }
+        // 密码加密处理
+        String salt = sysUser.getSalt();
         // 新密码加密
         String encryptNewPassword = PasswordUtil.encrypt(newPassword, salt);
 

@@ -499,15 +499,24 @@ function confirmProject(tag,state,orderId){
 			 switch(data[i].userType){
 				 case 0:
 					user_type = "个人/团队";
-					sourceName = "<a href=\""+data[i].idFront+"\"><img alt=\"身份证正面\" height=\"40\" width=\"40\" src=\""+data[i].idFront+"\" target='_blank' /></a>"
-			        + "&nbsp;&nbsp;<a href=\""+data[i].idBack+"\"><img alt=\"身份证反面\" height=\"40\" width=\"40\" src=\""+data[i].idBack+"\" target='_blank' /></a>";
+					// sourceName = "<a href=\""+data[i].idFront+"\"><img alt=\"身份证正面\" height=\"40\" width=\"40\" src=\""+data[i].idFront+"\" target='_blank' /></a>"
+					// + "&nbsp;&nbsp;<a href=\""+data[i].idBack+"\"><img alt=\"身份证反面\" height=\"40\" width=\"40\" src=\""+data[i].idBack+"\" target='_blank' /></a>";
+					//弹出查看方式
+					sourceName = "<a href=\"javascript:void(0)\" onclick=\"showBox('idFront"+i+"',0)\"><img alt=\"身份证正面\" height=\"40\" width=\"40\" src=\""+data[i].idFront+"\" target='_blank' /></a>"
+					+ "&nbsp;&nbsp;<a href=\"javascript:void(0)\" onclick=\"showBox('idBack"+i+"',0)\"><img alt=\"身份证反面\" height=\"40\" width=\"40\" src=\""+data[i].idBack+"\" target='_blank' /></a>";
+					
+
 					userInfo = "<p>联系电话：<span class=\"marR\">"+data[i].phone+"</span>&nbsp;所在地：<span>"+data[i].province+data[i].city+data[i].zone+"</span></p>"
 					+ "<p>团队名称：<span>"+teamName+"</span></p>"
 					+ "<p>身份证：<span>"+data[i].idNum+"</span></p>";
 					break;
 				 case 1:
 					user_type = "企业";
-					sourceName = "<a href=\""+data[i].licensePic+"\"><img alt=\"营业执照\" height=\"40\" width=\"40\" src=\""+data[i].licensePic+"\" target='_blank' /></a>";
+					// sourceName = "<a href=\""+data[i].licensePic+"\"><img alt=\"营业执照\" height=\"40\" width=\"40\" src=\""+data[i].licensePic+"\" target='_blank' /></a>";
+					
+					sourceName = "<a href=\"javascript:void(0)\" onclick=\"showBox('licensePic"+i+"',0)\"><img alt=\"营业执照\" height=\"40\" width=\"40\" src=\""+data[i].licensePic+"\" target='_blank' /></a>";
+					
+					
 					userInfo = "<p>联系电话：<span class=\"marR\">"+data[i].phone+"</span>&nbsp;所在地：<span>"+data[i].province+data[i].city+data[i].zone+"</span></p>"
 					+ "<p>公司名称：<span>"+companyName+"</span></p>"
 					+ "<p>企业机构代码：<span>"+data[i].licenseId+"</span></p>";
@@ -516,8 +525,11 @@ function confirmProject(tag,state,orderId){
 				 	user_type = "未知";
 			 }
 			var pState = "";
-			if(data[i].state != null&&data[i].state==0)
+			if(data[i].state != null&&data[i].state==0){
 				pState = '<a href="javascript:void(0)" onclick="showBox(\'m'+i+'\',0)" class="greenButton pdLR">审核</a>';
+			}else{
+				pState = '<a href="javascript:void(0)" onclick="resetPassword(\''+data[i].id+'\')" class="greenButton pdLR">重置密码</a>';
+			}
 			
 			_str += '<dl><dd class="dd101 txAC"><input type="checkbox"/></dd>'//1
 			//  + '<dd class="dd15">'+ data[i].id +'</dd>'//2
@@ -526,6 +538,23 @@ function confirmProject(tag,state,orderId){
 			 + '<dd class="dd35 txAC">'+userInfo+'</dd>'//4
 			 + '<dd class="dd2">'+sourceName+'</dd>'//5
 			 + '<dd class="dd15 txAC">'+pState+'</dd>'
+			 //start
+			 + '<div class="modal-dialog-box idFront'+i+'">'
+             + '<div class="modal-dialog tipdialog">'
+             + '<div class="marA10 txAC"><img alt="身份证正面" height="350"  src='+data[i].idFront+'/></div>'
+             + '<div class="marA10 txAC"><a href="javascript:void(0)" onclick="showBox(\'idFront'+i+'\',1)" class="greyButton dd2 pdLR ">关闭</a></div>'                                                          
+			 + '</div></div>'
+			 + '<div class="modal-dialog-box idBack'+i+'">'
+             + '<div class="modal-dialog tipdialog">'
+             + '<div class="marA10 txAC"><img alt="身份证反面" height="350" src='+data[i].idBack+'/></div>'
+             + '<div class="marA10 txAC"><a href="javascript:void(0)" onclick="showBox(\'idBack'+i+'\',1)" class="greyButton dd2 pdLR ">关闭</a></div>'                                                          
+			 + '</div></div>'
+			 + '<div class="modal-dialog-box licensePic'+i+'">'
+             + '<div class="modal-dialog tipdialog">'
+             + '<div class="marA10 txAC"><img alt="营业执照" height="350" src='+data[i].licensePic+'/></div>'
+             + '<div class="marA10 txAC"><a href="javascript:void(0)" onclick="showBox(\'licensePic'+i+'\',1)" class="greyButton dd2 pdLR ">关闭</a></div>'                                                          
+             + '</div></div>'
+			 //end
              + '<div class="modal-dialog-box m'+i+'">'
              + '<div class="modal-dialog tipdialog">'
              + '<h3>服务商资料审核</h3>'
@@ -683,6 +712,49 @@ function updateUser(infoData){
 		},
 		error:function(rs){
 			alert("用户信息更新异常！错误代码：" + rs.status + " " + rs.statusText);
+		}
+	});
+	return res;
+}
+
+function resetPassword(userId){
+	var res = false;
+	var queryParam={
+		"newPassword": "123456",
+		"userId": userId
+	  };
+	$.ajax({
+		type: "POST",
+		url: basePathAPI +'sysUser/resetPassword',
+		beforeSend: function(XMLHttpRequest) {
+            XMLHttpRequest.setRequestHeader("token", $.cookie("adminToken"));
+        },
+		async: false,
+		data:JSON.stringify(queryParam), //必须用JSON.stringify()方法转。
+		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				res = true;
+				alert("重置密码成功！");
+			}else
+			if(code === 401){
+					alert("登陆信息已失效，请重新登陆！");
+					window.location.href=basePath+'sys/login.html';
+			}
+			else{
+				alert("重置密码异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			if(rs.status === 401){
+				alert("登陆信息已失效，请重新登陆！");
+				window.location.href=basePath+'sys/login.html';
+			}
+			else{
+				alert("重置密码异常！错误代码：" + rs.status + " " + rs.statusText);
+			}
 		}
 	});
 	return res;

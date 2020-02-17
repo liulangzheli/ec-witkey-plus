@@ -2,6 +2,7 @@ package com.liulangzheli.ecwitkeyplus.system.controller;
 
 import com.liulangzheli.ecwitkeyplus.core.properties.EcWitkeyPlusProperties;
 import com.liulangzheli.ecwitkeyplus.system.entity.SysUser;
+import com.liulangzheli.ecwitkeyplus.system.param.ResetPasswordParam;
 import com.liulangzheli.ecwitkeyplus.system.param.UpdatePasswordParam;
 import com.liulangzheli.ecwitkeyplus.system.service.SysUserService;
 import com.liulangzheli.ecwitkeyplus.system.param.SysUserQueryParam;
@@ -150,6 +151,17 @@ public class SysUserController extends BaseController {
     @ApiOperation(value = "修改密码", notes = "修改密码", response = ApiResult.class)
     public ApiResult<Boolean> updatePassword(@Valid @RequestBody UpdatePasswordParam updatePasswordParam) throws Exception {
         boolean flag = sysUserService.updatePassword(updatePasswordParam);
+        return ApiResult.result(flag);
+    }
+
+    /**
+     * 重置密码
+     */
+    @PostMapping("/resetPassword")
+    @RequiresPermissions("sys:user:update:resetPassword")
+    @ApiOperation(value = "修改密码", notes = "修改密码", response = ApiResult.class)
+    public ApiResult<Boolean> resetPassword(@Valid @RequestBody ResetPasswordParam resetPasswordParam) throws Exception {
+        boolean flag = sysUserService.resetPassword(resetPasswordParam);
         return ApiResult.result(flag);
     }
 

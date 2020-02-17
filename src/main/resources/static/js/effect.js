@@ -1055,6 +1055,102 @@ function checkFloor2(){
     if(canSave)
 		doAddProject();
 }
+//
+function checkUpdatePassword(){
+	var oldPassword = $('#oldPassword').val().trim();
+	var newPassword = $('#newPassword').val().trim();
+	var newPassword2 = $('#newPassword2').val().trim();
+	var canSave = false;
+
+	if(oldPassword == null|| oldPassword == ''){
+		canSave = false;
+		alert("请输入旧密码！");
+		$('#oldPassword').focus();
+		return;
+	}
+
+    if(newPassword != null && newPassword.length >= 6 && newPassword.length <= 16) {
+		if(checknumber(newPassword)){
+			alert("新密码不能纯数字！");
+			$('#newPassword').focus();
+			return;
+		}else{
+			var regex = new RegExp('(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,16}');
+			//console.log(regex.test('a123456-'));
+			if(regex.test(newPassword)){
+				canSave = true;
+			}else{
+				alert("新密码必须由数字、符号或英文字母组成！");
+				$('#newPassword').focus();
+				return;
+			}
+			
+		}
+	}else{
+		alert("新密码必须在6-16位之间！");
+		$('#newPassword').focus();
+		return;
+	}	
+
+	if(newPassword != newPassword2){
+		canSave = false;
+		alert("确认密码与新密码不一致，请重新输入确认密码！");
+		$('#newPassword2').focus();
+		return;
+	}
+
+    if(canSave)
+		doUpdatePassword();
+}
+
+function doUpdatePassword(){
+	var res = false;
+	var oldPassword = $('#oldPassword').val().trim();
+	var newPassword = $('#newPassword').val().trim();
+	var newPassword2 = $('#newPassword2').val().trim();
+	var queryParam={
+		"confirmPassword": newPassword2,
+		"newPassword": newPassword,
+		"oldPassword": oldPassword,
+		"userId": $.cookie("userId")
+	  };
+	$.ajax({
+		type: "POST",
+		url: basePathAPI +'sysUser/updatePassword',
+		beforeSend: function(XMLHttpRequest) {
+            XMLHttpRequest.setRequestHeader("token", $.cookie("token"));
+        },
+		async: false,
+		data:JSON.stringify(queryParam), //必须用JSON.stringify()方法转。
+		contentType:"application/json",  //缺失会出现URL编码，无法转成json对象
+		cache: false,
+		success:function(rs) {
+			var code = rs.code;
+			if (code === 200) {
+				res = true;
+				alert("修改密码成功！");
+			}else
+			if(code === 401){
+					alert("登陆信息已失效，请重新登陆！");
+					window.location.href=basePath+'login.html';
+			}
+			else{
+				alert("修改密码异常！错误代码：" + rs.code + " " + rs.msg);
+			}
+		},
+		error:function(rs){
+			if(rs.status === 401){
+				alert("登陆信息已失效，请重新登陆！");
+				window.location.href=basePath+'login.html';
+			}
+			else{
+				alert("修改密码异常！错误代码：" + rs.status + " " + rs.statusText);
+			}
+		}
+	});
+	return res;
+}
+
 //校验是否纯数字
 function checknumber (String) {
 	var reg = /^[0-9]+.?[0-9]*$/
