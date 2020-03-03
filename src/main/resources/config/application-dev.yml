@@ -3,7 +3,7 @@ ec-witkey-plus:
   enable-ansi: true
 
 server:
-  hostname: 127.0.0.1
+  hostname: http://127.0.0.1
   port: 8888
   servlet:
     context-path: /
